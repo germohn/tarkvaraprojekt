@@ -20,6 +20,7 @@
   "rules": {
     "max-len": ["error", 120],
     "require-jsdoc": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "linebreak-style": 0
   }
 }
