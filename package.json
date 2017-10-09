@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "ramda": "^0.24.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.31.3",
@@ -43,4 +44,3 @@
   "author": "",
   "license": "MIT"
 }
-

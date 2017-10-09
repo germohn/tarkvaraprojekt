@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const data = [
   {
     'slug': 'hashtago',
@@ -17303,3 +17305,5 @@ const data = [
 ];
 
 export default data;
+
+/* eslint-enable */

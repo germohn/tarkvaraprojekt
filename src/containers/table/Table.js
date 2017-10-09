@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
 import Table from 'react-bootstrap/lib/Table';
 
 const changeOrder = (array, sortBy, order) => {
-    const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array)
+    const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
     // console.log(newOrder);
     if (order === 'desc') {
         return newOrder;
     }
-    return R.reverse(newOrder)
-}
+    return R.reverse(newOrder);
+};
 
 class TableView extends React.Component {
 
@@ -23,7 +24,7 @@ class TableView extends React.Component {
         };
         // console.log(this.state.companies)
 
-        this.handleNameClick = this.handleNameClick.bind(this)
+        this.handleNameClick = this.handleNameClick.bind(this);
     }
 
     handleNameClick(e) {
@@ -33,7 +34,7 @@ class TableView extends React.Component {
         } else {
             newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
         }
-        this.setState({companies: newState.companies, sortBy: 'name', order: newState.order });
+        this.setState({companies: newState.companies, sortBy: 'name', order: newState.order});
     }
 
     render() {
@@ -46,15 +47,15 @@ class TableView extends React.Component {
                 <Table responsive bordered>
                     <thead>
                     <tr>
-                        <th onClick={e => this.handleNameClick(e)}>Company</th>
+                        <th onClick={(e) => this.handleNameClick(e)}>Company</th>
                         <th>Funding</th>
                         <th>Employees</th>
                         <th>Tags</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.companies.map(comp => {
-                        return (<CompanyRow key={comp.slug} company={comp}/>)
+                    {this.state.companies.map((comp) => {
+                        return (<CompanyRow key={comp.slug} company={comp}/>);
                     })}
                     </tbody>
 
@@ -65,8 +66,8 @@ class TableView extends React.Component {
     }
 }
 
-// Table.propTypes = {
-//     data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-// }
+TableView.propTypes = {
+    data: PropTypes.arrayOf(React.PropTypes.object).isRequired
+};
 
 export default TableView;
