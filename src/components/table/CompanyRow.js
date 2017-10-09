@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class CompanyRow extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         // console.log(props.company)
     }
 
@@ -19,5 +20,7 @@ class CompanyRow extends React.Component {
 
 }
 
-
+CompanyRow.propTypes = {
+    company: PropTypes.object.isRequired
+};
 export default CompanyRow;

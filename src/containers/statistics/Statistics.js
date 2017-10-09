@@ -5,7 +5,7 @@ const Statisitcs = () => {
     <div>
       <h3>Aggregated statistics</h3>
     </div>
-  )
+  );
 };
 
 export default Statisitcs;

@@ -5,7 +5,7 @@ const Card = () => {
     <div>
       <h3>Card view</h3>
     </div>
-  )
+  );
 };
 
 export default Card;
