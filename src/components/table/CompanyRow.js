@@ -14,6 +14,8 @@ class CompanyRow extends React.Component {
                 <td>{this.props.company.funding ? this.props.company.funding + ' $' : '-'}</td>
                 <td>{this.props.company.employees}</td>
                 <td>{this.props.company.tags}</td>
+                <td>{this.props.company.stageName}</td>
+                <td>{this.props.company.foundedOn.substring(0, 4)}</td>
             </tr>
         );
     }
