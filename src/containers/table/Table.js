@@ -13,6 +13,23 @@ const changeOrder = (array, sortBy, order) => {
     return R.reverse(newOrder);
 };
 
+const changeNumOrder = (array, sortBy, order) => {
+    const undefinedArray = [];
+    const definedArray = [];
+    for (let i = 0; i<array.length; i++) {
+        if (array[i][sortBy] == null) {
+            undefinedArray.push(array[i]);
+        } else{
+            definedArray.push(array[i]);
+        }
+    }
+    const newOrder = R.sortBy(R.prop(sortBy))(definedArray);
+    if (order === 'desc') {
+        return newOrder.concat(undefinedArray);
+    }
+    return R.reverse(undefinedArray.concat(newOrder));
+};
+
 class TableView extends React.Component {
 
     constructor(props) {
@@ -37,6 +54,43 @@ class TableView extends React.Component {
         this.setState({companies: newState.companies, sortBy: 'name', order: newState.order});
     }
 
+    handleFundingClick(e) {
+        let newState = R.merge(this.state);
+        if (this.state.order === 'desc' || this.state.order === null ) {
+            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
+                'funding', 'asc'), order: 'asc'});
+        } else {
+            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
+                'funding', 'desc'), order: 'desc'});
+        }
+        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+    }
+
+    handleEmployeesClick(e) {
+        let newState = R.merge(this.state);
+        if (this.state.order === 'desc' || this.state.order === null ) {
+            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
+                'employees', 'asc'), order: 'asc'});
+        } else {
+            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
+                'employees', 'desc'), order: 'desc'});
+        }
+        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+    }
+
+    handleFoundedClick(e) {
+        let newState = R.merge(this.state);
+        if (this.state.order === 'desc' || this.state.order === null ) {
+            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
+                'foundedOn', 'asc'), order: 'asc'});
+        } else {
+            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
+                'foundedOn', 'desc'), order: 'desc'});
+        }
+        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+    }
+
+
     render() {
         // const sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
         // console.log(this.state.companies['name'])
@@ -48,9 +102,11 @@ class TableView extends React.Component {
                     <thead>
                     <tr>
                         <th onClick={(e) => this.handleNameClick(e)}>Company</th>
-                        <th>Funding</th>
-                        <th>Employees</th>
+                        <th onClick={(e) => this.handleFundingClick(e)}>Funding</th>
+                        <th onClick={(e) => this.handleEmployeesClick(e)}>Employees</th>
                         <th>Tags</th>
+                        <th>Stage</th>
+                        <th onClick={(e) => this.handleFoundedClick(e)}>Founded </th>
                     </tr>
                     </thead>
                     <tbody>
