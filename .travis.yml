@@ -6,3 +6,11 @@ sudo: false
 cache:
   directories:
     - "node_modules"
+
+script:
+  # run tests
+  - npm run test
+  # run build
+  - npm run build
+  # deploy with travis
+  # - bash ./.travis-deploy.sh
