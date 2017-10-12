@@ -14,8 +14,9 @@ const App = () => {
     const allTags = R.flatten(mockData.map((comp) => {
         return comp.tags;
     }));
-    // console.log(allTags);
-    // const temp = R.countBy(R.uniq)(allTags)
+
+    //just want to see if CI works properly !!!
+
     console.log('All unique Tags in the dataSet: ', R.uniq(allTags));
 
     /* eslint-enable */
