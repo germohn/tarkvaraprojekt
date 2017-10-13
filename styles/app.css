@@ -19,3 +19,76 @@ h3 {
     justify-content: center;
     align-items: center;
 }
+
+
+table {
+    margin-left: 10em;
+    margin-right: 10em;
+    border-style: hidden;
+}
+
+
+th {
+    border-top: 2px solid #A9A9A9;
+    background-color: #092140;
+    /*background-color: #494E6B;*/
+    /*background-color: #6B7A8F;*/
+    text-align: center;
+    padding: 0.7em;
+    font-family: Helvetica;
+    font-size: 1.7em;
+    color: white;
+}
+
+
+td {
+    border-top: 1.5px solid #F7F7F9;
+    border-bottom: 1.5px solid #F7F7F9;
+    text-align: center;
+    padding: 1em 0.5em 1em 0.5em;
+    font-family: Helvetica;
+    font-size: 1em;
+}
+
+tr:hover {
+    background-color: #F7F7F9;
+}
+
+.borderless{
+    border: hidden;
+    text-align: center;
+}
+
+.companyName {
+    font-weight: bolder;
+    font-size: 1.4em;
+    color: #494E6B;
+}
+
+.logo{
+    width: 4.5em;
+}
+
+table{
+    position: relative;
+}
+
+div{
+    text-align:center;
+}
+
+.showAll {
+    background-color: white;
+    background: linear-gradient(#7E8D85, #092140);
+    border: 0.1em solid #494E6B;
+    border-radius: 1em;
+    color: white;
+    padding: 0.7em 2em;
+    text-align: center;
+    font-size: 1.3em;
+    position:relative;
+}
+
+.showAll:hover{
+    box-shadow: 0.1em 0.1em 0.5em #888888;
+}
