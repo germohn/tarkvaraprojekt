@@ -34,7 +34,7 @@
     "webpack-dev-server": "^2.4.0"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js && cp index.html dist/index.html",
     "start": "webpack-dev-server --open --config webpack.config.js",
     "lint": "eslint src/ test/",
     "test": "mocha",
