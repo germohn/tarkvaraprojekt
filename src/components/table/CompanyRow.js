@@ -7,11 +7,22 @@ class CompanyRow extends React.Component {
         // console.log(props.company)
     }
 
+
     render() {
         return (
             <tr>
-                <td>{this.props.company.name}</td>
-                <td>{this.props.company.funding ? this.props.company.funding + ' $' : '-'}</td>
+                <td>
+                    <tr>
+                        <td className='borderless'>
+                            <img className = 'logo' src = {this.props.company.logo100x100} alt = "logo"/>
+                        </td>
+                        <td className='borderless'>
+                            <p className = 'companyName'>{this.props.company.name}</p>
+                        </td>
+                    </tr>
+                </td>
+                <td>{this.props.company.description}</td>
+                <td>{this.props.company.funding ? this.props.company.funding.toLocaleString('en-US') + ' $' : '-'}</td>
                 <td>{this.props.company.employees}</td>
                 <td>{this.props.company.tags}</td>
                 <td>{this.props.company.stageName}</td>

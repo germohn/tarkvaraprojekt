@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
-import Table from 'react-bootstrap/lib/Table';
 
 const changeOrder = (array, sortBy, order) => {
     const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
@@ -98,25 +97,25 @@ class TableView extends React.Component {
         return (
             <div>
                 <h3>Table view</h3>
-                <Table responsive bordered>
+                <table>
                     <thead>
-                    <tr>
-                        <th onClick={(e) => this.handleNameClick(e)}>Company</th>
-                        <th onClick={(e) => this.handleFundingClick(e)}>Funding</th>
-                        <th onClick={(e) => this.handleEmployeesClick(e)}>Employees</th>
-                        <th>Tags</th>
-                        <th>Stage</th>
-                        <th onClick={(e) => this.handleFoundedClick(e)}>Founded </th>
-                    </tr>
+                        <tr>
+                            <th onClick={(e) => this.handleNameClick(e)}>Company</th>
+                            <th>Description</th>
+                            <th onClick={(e) => this.handleFundingClick(e)}>Funding</th>
+                            <th onClick={(e) => this.handleEmployeesClick(e)}>Employees</th>
+                            <th>Tags</th>
+                            <th>Stage</th>
+                            <th onClick={(e) => this.handleFoundedClick(e)}>Founded</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {this.state.companies.map((comp) => {
                         return (<CompanyRow key={comp.slug} company={comp}/>);
                     })}
                     </tbody>
-
-                </Table>
-
+                </table>
+                <button className = 'showAll' type="button">Show all</button>
             </div>
         );
     }
