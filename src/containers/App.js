@@ -14,8 +14,17 @@ const App = () => {
     const allTags = R.flatten(mockData.map((comp) => {
         return comp.tags;
     }));
+
+    const allStages = R.flatten(mockData.map((comp) => {
+        return comp.stage;
+    }));
+
     // console.log(allTags);
     // const temp = R.countBy(R.uniq)(allTags)
+
+   // const temp2 = R.countBy(R.uniq)(allStages)
+    console.log(R.uniq(allStages))
+
     console.log('All unique Tags in the dataSet: ', R.uniq(allTags));
 
     /* eslint-enable */
@@ -26,7 +35,7 @@ const App = () => {
             </div>
             <h2>Here comes 3 views for representing data</h2>
             <p>somehow implemented in tabs or smth...</p>
-            <Table data={sample}/>
+            <Table data={sample} tags={allTags}/>
             <Card/>
             <Statistics/>
         </div>
