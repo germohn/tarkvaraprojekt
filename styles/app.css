@@ -22,8 +22,8 @@ h3 {
 
 
 table {
-    margin-left: 10em;
-    margin-right: 10em;
+    /*margin-left: 10em;*/
+    /*margin-right: 10em;*/
     border-style: hidden;
 }
 
@@ -91,4 +91,22 @@ div{
 
 .showAll:hover{
     box-shadow: 0.1em 0.1em 0.5em #888888;
+}
+
+
+.chip {
+    display: inline-block;
+    padding: 0 15px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+}
+
+.tagsContainer {
+    height: 350px;
+    width: 250px;
+    padding: 50px;
+
 }
