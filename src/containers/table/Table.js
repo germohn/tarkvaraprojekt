@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
 
+
 const changeOrder = (array, sortBy, order) => {
     const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
     // console.log(newOrder);
@@ -36,12 +37,19 @@ class TableView extends React.Component {
         this.state = {
             companies: props.data,
             sortBy: 'name',
-            order: null
+            order: null,
+            showCount: 20
         };
         // console.log(this.state.companies)
 
         this.handleNameClick = this.handleNameClick.bind(this);
     }
+
+    showMore(e) {
+        let newLimit = this.state.showCount+20;
+        this.setState({showCount: newLimit});
+    }
+
 
     handleNameClick(e) {
         let newState = R.merge(this.state);
@@ -74,7 +82,7 @@ class TableView extends React.Component {
             newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
                 'employees', 'desc'), order: 'desc'});
         }
-        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+        this.setState({companies: newState.companies, sortBy: 'employees', order: newState.order});
     }
 
     handleFoundedClick(e) {
@@ -95,27 +103,31 @@ class TableView extends React.Component {
         // console.log(this.state.companies['name'])
         // console.log(sortByNameCaseInsensitive(this.state.companies))
         return (
-            <div>
+            <div className="table-responsive">
                 <h3>Table view</h3>
-                <table>
+                <table className="table">
                     <thead>
                         <tr>
-                            <th onClick={(e) => this.handleNameClick(e)}>Company</th>
-                            <th>Description</th>
-                            <th onClick={(e) => this.handleFundingClick(e)}>Funding</th>
-                            <th onClick={(e) => this.handleEmployeesClick(e)}>Employees</th>
-                            <th>Tags</th>
-                            <th>Stage</th>
-                            <th onClick={(e) => this.handleFoundedClick(e)}>Founded</th>
+                            <th id='companyCol' onClick={(e) => this.handleNameClick(e)}>Company
+                                <i className="fa fa-fw fa-sort"/></th>
+                            <th id='descriptionCol' >Description</th>
+                            <th id='fundingCol' onClick={(e) => this.handleFundingClick(e)}>Funding
+                                <i className="fa fa-fw fa-sort"/></th>
+                            <th id='employeesCol' onClick={(e) => this.handleEmployeesClick(e)}>Employees
+                                <i className="fa fa-fw fa-sort"/></th>
+                            <th id='tagsCol'>Tags</th>
+                            <th id='stageCol'>Stage</th>
+                            <th id='foundedCol' onClick={(e) => this.handleFoundedClick(e)}>Founded
+                                <i className="fa fa-fw fa-sort"/></th>
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.companies.map((comp) => {
-                        return (<CompanyRow key={comp.slug} company={comp}/>);
+                    {this.state.companies.map((comp, i) => {
+                        if (i <= this.state.showCount) return (<CompanyRow key={comp.slug} company={comp}/>);
                     })}
                     </tbody>
                 </table>
-                <button className = 'showAll' type="button">Show all</button>
+                <button className = 'showAll' type="button" onClick = {(e) => this.showMore(e)}>Show more</button>
             </div>
         );
     }

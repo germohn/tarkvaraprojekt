@@ -27,7 +27,7 @@ const App = () => {
             </div>
             <h2>Here comes 3 views for representing data</h2>
             <p>somehow implemented in tabs or smth...</p>
-            <Table data={sample}/>
+            <Table data={mockData}/>
             <Card/>
             <Statistics/>
         </div>

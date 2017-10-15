@@ -22,22 +22,46 @@ h3 {
 
 
 table {
-    margin-left: 10em;
-    margin-right: 10em;
     border-style: hidden;
+    width: 100%;
 }
 
 
 th {
     border-top: 2px solid #A9A9A9;
     background-color: #092140;
-    /*background-color: #494E6B;*/
-    /*background-color: #6B7A8F;*/
     text-align: center;
-    padding: 0.7em;
     font-family: Helvetica;
     font-size: 1.7em;
     color: white;
+}
+
+#companyCol{
+    width: 15%;
+}
+
+#descriptionCol{
+    width: 14%;
+}
+
+#fundingCol{
+    width: 14%;
+}
+
+#employeesCol{
+    width: 17%;
+}
+
+#tagsCol{
+    width: 15%;
+}
+
+#stageCol{
+    width: 10%;
+}
+
+#foundedCol{
+    width: 15%;
 }
 
 
@@ -54,6 +78,7 @@ tr:hover {
     background-color: #F7F7F9;
 }
 
+
 .borderless{
     border: hidden;
     text-align: center;
@@ -69,11 +94,10 @@ tr:hover {
     width: 4.5em;
 }
 
-table{
-    position: relative;
-}
 
 div{
+    padding-left: 3em;
+    padding-right: 3em;
     text-align:center;
 }
 
