@@ -4,7 +4,40 @@ import Table from './table/Table';
 import Card from './card/Card';
 import Statistics from './statistics/Statistics';
 import mockData from '../mockData';
+// import {Carousel} from 'react-bootstrap'
 
+// const CarouselInstance = (first, second) => {
+//     return (
+//         <Carousel>
+//             <Carousel.Item>
+//                 <div className="container tagsContainer">
+//                     <div className="row " style={{margin: '50px 100px'}}>
+//                         {first.map((tag, i) => {
+//                             return (<div className="chip" key={i}>{tag}</div>);
+//                         })}
+//                     </div>
+//                 </div>
+//                 <Carousel.Caption>
+//                     <h3>First slide label</h3>
+//                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+//                 </Carousel.Caption>
+//             </Carousel.Item>
+//             <Carousel.Item>
+//                 <div className="container tagsContainer">
+//                     <div className="row " style={{margin: '50px 100px'}}>
+//                         {second.map((tag, i) => {
+//                             return (<div className="chip" key={i}>{tag}</div>);
+//                         })}
+//                     </div>
+//                 </div>
+//                 <Carousel.Caption>
+//                     <h3>Second slide label</h3>
+//                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+//                 </Carousel.Caption>
+//             </Carousel.Item>
+//         </Carousel>
+//     )
+// };
 
 const App = () => {
     /* eslint-disable */
@@ -12,12 +45,26 @@ const App = () => {
     const sample = mockData.slice(0, 20);
 
     const allTags = R.flatten(mockData.map((comp) => {
-        return comp.tags;
+        if (comp.tags !== undefined) {
+            return comp.tags;
+        }
     }));
 
-    //just want to see if CI works properly !!!
+    const allStages = R.flatten(mockData.map((comp) => {
+        if(comp.stage !== undefined) {
+            return comp.stage
+        }
+    }));
 
-    console.log('All unique Tags in the dataSet: ', R.uniq(allTags));
+
+
+
+    const uniqueTags = R.uniq(allTags).filter(Boolean);
+    const uniqueStages = R.uniq(allStages).filter(Boolean);
+
+
+    console.log('All unique Tags in the dataSet: ', uniqueTags);
+    console.log('and stages: ', uniqueStages);
 
     /* eslint-enable */
     return (
@@ -25,9 +72,10 @@ const App = () => {
             <div className="app-header">
                 <h1>Funderbeam data</h1>
             </div>
-            <h2>Here comes 3 views for representing data</h2>
-            <p>somehow implemented in tabs or smth...</p>
-            <Table data={sample}/>
+            <div className="container">
+                <Table data={sample} tags={uniqueTags} stages={uniqueStages}/>
+            </div>
+
             <Card/>
             <Statistics/>
         </div>
