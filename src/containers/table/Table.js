@@ -205,7 +205,8 @@ class TableView extends React.Component {
                     {
                         this.state.unSelectedStages.map((stage, i) => {
                             return (
-                                <div className="chip" key={i} onClick={(e) => this.handleStageSelect(stage)}>{stage}</div>);
+                                <div className="chip" key={i} onClick={(e) =>
+                                    this.handleStageSelect(stage)}>{stage}</div>);
                         })
                     }
                 </div>
@@ -214,7 +215,8 @@ class TableView extends React.Component {
                     {
                         this.state.selectedStages.map((stage, i) => {
                             return (
-                                <div className="chip" key={i} onClick={(e) => this.handleStageDeselect(stage)}>{stage}</div>);
+                                <div className="chip" key={i} onClick={(e) =>
+                                    this.handleStageDeselect(stage)}>{stage}</div>);
                         })
                     }
                 </div>
