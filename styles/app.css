@@ -22,6 +22,8 @@ h3 {
 
 
 table {
+    /*margin-left: 10em;*/
+    /*margin-right: 10em;*/
     border-style: hidden;
     width: 100%;
 }
@@ -30,7 +32,10 @@ table {
 th {
     border-top: 2px solid #A9A9A9;
     background-color: #092140;
+    /*background-color: #494E6B;*/
+    /*background-color: #6B7A8F;*/
     text-align: center;
+    padding: 0.7em;
     font-family: Helvetica;
     font-size: 1.7em;
     color: white;
@@ -78,7 +83,6 @@ tr:hover {
     background-color: #F7F7F9;
 }
 
-
 .borderless{
     border: hidden;
     text-align: center;
@@ -96,8 +100,6 @@ tr:hover {
 
 
 div{
-    padding-left: 3em;
-    padding-right: 3em;
     text-align:center;
 }
 
@@ -115,4 +117,22 @@ div{
 
 .showAll:hover{
     box-shadow: 0.1em 0.1em 0.5em #888888;
+}
+
+
+.chip {
+    display: inline-block;
+    padding: 0 15px;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+}
+
+.tagsContainer {
+    height: 350px;
+    width: 250px;
+    padding: 50px;
+
 }
