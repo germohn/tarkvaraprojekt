@@ -1,5 +1,6 @@
 # go to the directory which contains build artifacts and create a *new* Git repo
 # directory may be different based on your particular build process
+
 cd dist
 git init
 

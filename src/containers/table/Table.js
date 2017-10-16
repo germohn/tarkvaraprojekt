@@ -2,17 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
-import Table from 'react-bootstrap/lib/Table';
-import Chips from 'react-chips';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'react-bootstrap-carousel/dist/react-bootstrap-carousel.css';
-import {React_Bootstrap_Carousel as ReactBootstrapCarousel} from 'react-bootstrap-carousel';
-
-// import MultiThemeProvider from "material-ui/styles/MultiThemeProvider"
 
 const changeOrder = (array, sortBy, order) => {
     const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
-    // console.log(newOrder);
     if (order === 'desc') {
         return newOrder;
     }
@@ -22,10 +14,10 @@ const changeOrder = (array, sortBy, order) => {
 const changeNumOrder = (array, sortBy, order) => {
     const undefinedArray = [];
     const definedArray = [];
-    for (let i = 0; i<array.length; i++) {
+    for (let i = 0; i < array.length; i++) {
         if (array[i][sortBy] == null) {
             undefinedArray.push(array[i]);
-        } else{
+        } else {
             definedArray.push(array[i]);
         }
     }
@@ -36,35 +28,48 @@ const changeNumOrder = (array, sortBy, order) => {
     return R.reverse(undefinedArray.concat(newOrder));
 };
 
+const filterCompaniesWithTags = (companies, tags) => {
+    if (tags.length <= 0) {
+        return companies;
+    } else {
+        let comps = [];
+        tags.forEach((tag) => {
+            companies.forEach((comp) => {
+                if (comp.tags && comp.tags.includes(tag)) {
+                    comps.push(comp);
+                }
+            });
+        });
+        return R.uniq(comps);
+    }
+};
+
 class TableView extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            companies: props.data,
             sortBy: 'name',
             order: null,
-           chipData: [
-                'Discovery', 'Validation', 'Efficiency', 'Scale', 'Mature growth', 'Unknown']
+            showCount: 20,
+            unSelectedTags: props.tags,
+            selectedTags: [],
+            companies: props.data
         };
-        this.styles = {
-            chip: {
-                margin: 4,
-            },
-            wrapper: {
-                display: 'flex',
-                flexWrap: 'wrap',
-            },
-        };
-
-    // console.log(this.state.companies)
+        // console.log(this.state.companies)
 
         this.handleNameClick = this.handleNameClick.bind(this);
+        this.handleTagSelect = this.handleTagSelect.bind(this);
+    }
+
+    showMore(e) {
+        let newLimit = this.state.showCount + 20;
+        this.setState({showCount: newLimit});
     }
 
 
     handleNameClick(e) {
-        let newState = R.merge(this.state);
+        let newState = R.clone(this.state);
         if (this.state.order === 'asc' || this.state.order === null) {
             newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'desc'), order: 'desc'});
         } else {
@@ -74,107 +79,137 @@ class TableView extends React.Component {
     }
 
     handleFundingClick(e) {
-        let newState = R.merge(this.state);
-        if (this.state.order === 'desc' || this.state.order === null ) {
-            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
-                'funding', 'asc'), order: 'asc'});
+        let newState = R.clone(this.state);
+        if (this.state.order === 'desc' || this.state.order === null) {
+            newState = R.merge(newState, {
+                companies: changeNumOrder(this.state.companies,
+                    'funding', 'asc'), order: 'asc'
+            });
         } else {
-            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
-                'funding', 'desc'), order: 'desc'});
+            newState = R.merge(newState, {
+                companies: changeNumOrder(this.state.companies,
+                    'funding', 'desc'), order: 'desc'
+            });
         }
         this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
     }
 
     handleEmployeesClick(e) {
-        let newState = R.merge(this.state);
-        if (this.state.order === 'desc' || this.state.order === null ) {
-            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
-                'employees', 'asc'), order: 'asc'});
+        let newState = R.clone(this.state);
+        if (this.state.order === 'desc' || this.state.order === null) {
+            newState = R.merge(newState, {
+                companies: changeNumOrder(this.state.companies,
+                    'employees', 'asc'), order: 'asc'
+            });
         } else {
-            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
-                'employees', 'desc'), order: 'desc'});
+            newState = R.merge(newState, {
+                companies: changeNumOrder(this.state.companies,
+                    'employees', 'desc'), order: 'desc'
+            });
+        }
+        this.setState({companies: newState.companies, sortBy: 'employees', order: newState.order});
+    }
+
+    handleFoundedClick(e) {
+        let newState = R.clone(this.state);
+        if (this.state.order === 'desc' || this.state.order === null) {
+            newState = R.merge(newState, {
+                companies: changeNumOrder(this.state.companies,
+                    'foundedOn', 'asc'), order: 'asc'
+            });
+        } else {
+            newState = R.merge(newState, {
+                companies: changeNumOrder(this.state.companies,
+                    'foundedOn', 'desc'), order: 'desc'
+            });
         }
         this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
     }
 
-    handleFoundedClick(e) {
-        let newState = R.merge(this.state);
-        if (this.state.order === 'desc' || this.state.order === null ) {
-            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
-                'foundedOn', 'asc'), order: 'asc'});
-        } else {
-            newState = R.merge(newState, {companies: changeNumOrder(this.state.companies,
-                'foundedOn', 'desc'), order: 'desc'});
-        }
-        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+
+    handleTagSelect(tag) {
+        const unSeleceted = this.state.unSelectedTags;
+        const index = unSeleceted.indexOf(tag);
+        unSeleceted.splice(index, 1);
+        const selected = this.state.selectedTags;
+        selected.push(tag);
+        this.setState({
+            unSelectedTags: unSeleceted,
+            selectedTags: selected
+        });
+    }
+
+    handleTagDeselect(tag) {
+        const selected = this.state.selectedTags;
+        const index = selected.indexOf(tag);
+        selected.splice(index, 1);
+        let unSelected = this.state.unSelectedTags;
+        unSelected.push(tag);
+
+        this.setState({
+            unSelectedTags: unSelected,
+            selectedTags: selected
+        });
     }
 
 
     render() {
-        // const sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
-        // console.log(this.state.companies['name'])
-        // console.log(sortByNameCaseInsensitive(this.state.companies))
+        const filteredCompanies = filterCompaniesWithTags(this.state.companies, this.state.selectedTags);
         return (
-                <div>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-12">
-
-                                <ReactBootstrapCarousel
-                                    animation={true}
-                                    slideshowSpeed={7000}
-                                    onSelect={this.onSelect}
-                                    className="carousel-fade"
-                                >
-                                    <div style={{height: 200, width: '100%', backgroundColor: 'lightblue'}}>
-                                        <div className="carousel-center">
-                                        </div>
-                                        <div className="carousel-caption">
-                                            Tags
-                                        </div>
-                                    </div>
-                                    <div style={{height: 200, width: '100%', backgroundColor: 'lightblue'}}>
-                                        <div className="carousel-center">
-                                            <Chips
-                                                value={this.state.chipData}
-                                            />
-                                        </div>
-                                        <div className="carousel-caption">
-                                            Stages
-                                        </div>
-                                    </div>
-                                </ReactBootstrapCarousel>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
+            <div className="container">
+                <div className="row">
+                    {
+                        this.state.unSelectedTags.map((tag, i) => {
+                            return (
+                                <div className="chip" key={i} onClick={(e) => this.handleTagSelect(tag)}>{tag}</div>);
+                        })
+                    }
+                </div>
+                <div className="row">
+                    <h4>selected</h4>
+                    {
+                        this.state.selectedTags.map((tag, i) => {
+                            return (
+                                <div className="chip" key={i} onClick={(e) => this.handleTagDeselect(tag)}>{tag}</div>);
+                        })
+                    }
+                </div>
+                <div className="row">
+                    <div className="table-responsive">
                         <h3>Table view</h3>
-                        <Table responsive bordered>
+                        <table className="table">
                             <thead>
                             <tr>
-                                <th onClick={(e) => this.handleNameClick(e)}>Company</th>
-                                <th onClick={(e) => this.handleFundingClick(e)}>Funding</th>
-                                <th onClick={(e) => this.handleEmployeesClick(e)}>Employees</th>
-                                <th>Tags</th>
-                                <th>Stage</th>
-                                <th onClick={(e) => this.handleFoundedClick(e)}>Founded </th>
+                                <th id='companyCol' onClick={(e) => this.handleNameClick(e)}>Company
+                                    <i className="fa fa-fw fa-sort"/></th>
+                                <th id='descriptionCol'>Description</th>
+                                <th id='fundingCol' onClick={(e) => this.handleFundingClick(e)}>Funding
+                                    <i className="fa fa-fw fa-sort"/></th>
+                                <th id='employeesCol' onClick={(e) => this.handleEmployeesClick(e)}>Employees
+                                    <i className="fa fa-fw fa-sort"/></th>
+                                <th id='tagsCol'>Tags</th>
+                                <th id='stageCol'>Stage</th>
+                                <th id='foundedCol' onClick={(e) => this.handleFoundedClick(e)}>Founded
+                                    <i className="fa fa-fw fa-sort"/></th>
                             </tr>
                             </thead>
                             <tbody>
-                            {this.state.companies.map((comp) => {
-                                return (<CompanyRow key={comp.slug} company={comp}/>);
+                            {filteredCompanies.map((comp, i) => {
+                                if (i <= this.state.showCount) return (<CompanyRow key={comp.slug} company={comp}/>);
                             })}
                             </tbody>
-                        </Table>
+                        </table>
+                        <button className='showAll' type="button" onClick={(e) => this.showMore(e)}>Show more</button>
                     </div>
-                 </div>
-        );
-    }
-}
+                </div>
+            </div>
+                );
+                }
+                }
 
-TableView.propTypes = {
-    data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
-};
+                TableView.propTypes = {
+                data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+                tags: PropTypes.array.isRequired
+            };
 
-
-export default TableView;
+                export default TableView;
