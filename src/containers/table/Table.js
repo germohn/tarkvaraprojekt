@@ -52,7 +52,11 @@ class TableView extends React.Component {
             sortBy: 'name',
             order: 'desc',
             showCount: 20,
-            unSelectedTags: props.tags.sort(),
+            unSelectedTags: props.tags.sort(
+                (a, b) => {
+                    return a.toLowerCase().localeCompare(b.toLowerCase());
+                }
+            ),
             selectedTags: [],
             companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data)
         };
@@ -150,8 +154,12 @@ class TableView extends React.Component {
         selected.splice(index, 1);
         let unSelected = this.state.unSelectedTags;
         unSelected.push(tag);
-        unSelected.sort();
-
+        unSelected.sort(
+            (a, b) => {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        }
+    )
+        ;
         this.setState({
             unSelectedTags: unSelected,
             selectedTags: selected
@@ -210,13 +218,13 @@ class TableView extends React.Component {
                     </div>
                 </div>
             </div>
-                );
-                }
-                }
+        );
+    }
+}
 
-                TableView.propTypes = {
-                data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
-                tags: PropTypes.array.isRequired
-            };
+TableView.propTypes = {
+    data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    tags: PropTypes.array.isRequired
+};
 
-                export default TableView;
+export default TableView;
