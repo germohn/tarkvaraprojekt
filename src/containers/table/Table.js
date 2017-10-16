@@ -28,7 +28,7 @@ const changeNumOrder = (array, sortBy, order) => {
     return R.reverse(undefinedArray.concat(newOrder));
 };
 
-const filterCompaniesWithTags = (companies, tags) => {
+/* const filterCompaniesWithTags = (companies, tags) => {
     if (tags.length <= 0) {
         return companies;
     } else {
@@ -38,6 +38,62 @@ const filterCompaniesWithTags = (companies, tags) => {
                 if (comp.tags && comp.tags.includes(tag)) {
                     comps.push(comp);
                 }
+            });
+        });
+        return R.uniq(comps);
+    }
+};
+
+
+ const filterCompaniesWithStages = (companies, stages) => {
+    if (stages.length <= 0) {
+        return companies;
+    } else {
+        let comps = [];
+        stages.forEach((stage) => {
+            companies.forEach((comp) => {
+                if (stages.includes(comp.stage)) {
+                    comps.push(comp);
+                }
+            });
+        });
+        return R.uniq(comps);
+    }
+};
+*/
+
+const filterCompanies= (companies, stages, tags) => {
+    if (stages.length <= 0 && tags.length <= 0) {
+        return companies;
+    }else if(stages.length <= 0 && !(tags.length <= 0)) {
+        let comps = [];
+        tags.forEach((tag) => {
+            companies.forEach((comp) => {
+                if (comp.tags && comp.tags.includes(tag)) {
+                    comps.push(comp);
+                }
+            });
+        });
+        return R.uniq(comps);
+    }else if(!(stages.length <= 0) && tags.length <= 0) {
+        let comps = [];
+        stages.forEach((stage) => {
+            companies.forEach((comp) => {
+                if (stages.includes(comp.stageName)) {
+                    comps.push(comp);
+                }
+            });
+        });
+        return R.uniq(comps);
+    } else if(!(stages.length <= 0) && !(tags.length <= 0)) {
+        let comps = [];
+        stages.forEach((stage) => {
+            tags.forEach((tag) => {
+                companies.forEach((comp) => {
+                    if (stages.includes(comp.stageName) && comp.tags && comp.tags.includes(tag)) {
+                        comps.push(comp);
+                    }
+                });
             });
         });
         return R.uniq(comps);
@@ -181,10 +237,14 @@ class TableView extends React.Component {
 
 
     render() {
-        const filteredCompanies = filterCompaniesWithTags(this.state.companies, this.state.selectedTags);
+        // const filteredCompanies = filterCompaniesWithTags(this.state.companies, this.state.selectedTags);
+        // by Stage
+       const filteredCompanies= filterCompanies(this.state.companies, this.state.selectedStages,
+           this.state.selectedTags);
         return (
             <div className="container">
                 <div className="row">
+                    <h3>Tags</h3>
                     {
                         this.state.unSelectedTags.map((tag, i) => {
                             return (
@@ -193,7 +253,7 @@ class TableView extends React.Component {
                     }
                 </div>
                 <div className="row">
-                    <h4>selected tags</h4>
+                    <h4>Selected tags</h4>
                     {
                         this.state.selectedTags.map((tag, i) => {
                             return (
@@ -202,6 +262,7 @@ class TableView extends React.Component {
                     }
                 </div>
                 <div className="row">
+                    <h3>Stages</h3>
                     {
                         this.state.unSelectedStages.map((stage, i) => {
                             return (
@@ -211,7 +272,7 @@ class TableView extends React.Component {
                     }
                 </div>
                 <div className="row">
-                    <h4>selected stages</h4>
+                    <h4>Selected stages</h4>
                     {
                         this.state.selectedStages.map((stage, i) => {
                             return (
@@ -241,7 +302,8 @@ class TableView extends React.Component {
                             </thead>
                             <tbody>
                             {filteredCompanies.map((comp, i) => {
-                                if (i <= this.state.showCount) return (<CompanyRow key={comp.slug} company={comp}/>);
+                                if (i <= this.state.showCount)
+                                    return (<CompanyRow key={comp.slug} company={comp}/>);
                             })}
                             </tbody>
                         </table>
