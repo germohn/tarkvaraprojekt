@@ -73,7 +73,7 @@ const App = () => {
                 <h1>Funderbeam data</h1>
             </div>
             <div className="container">
-                <Table data={sample} tags={uniqueTags} stages={uniqueStages}/>
+                <Table data={mockData} tags={uniqueTags} stages={uniqueStages}/>
             </div>
 
             <Card/>

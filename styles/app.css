@@ -25,6 +25,7 @@ table {
     /*margin-left: 10em;*/
     /*margin-right: 10em;*/
     border-style: hidden;
+    width: 100%;
 }
 
 
@@ -38,6 +39,34 @@ th {
     font-family: Helvetica;
     font-size: 1.7em;
     color: white;
+}
+
+#companyCol{
+    width: 15%;
+}
+
+#descriptionCol{
+    width: 14%;
+}
+
+#fundingCol{
+    width: 14%;
+}
+
+#employeesCol{
+    width: 17%;
+}
+
+#tagsCol{
+    width: 15%;
+}
+
+#stageCol{
+    width: 10%;
+}
+
+#foundedCol{
+    width: 15%;
 }
 
 
@@ -69,9 +98,6 @@ tr:hover {
     width: 4.5em;
 }
 
-table{
-    position: relative;
-}
 
 div{
     text-align:center;
