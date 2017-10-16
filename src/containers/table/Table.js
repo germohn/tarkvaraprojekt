@@ -28,39 +28,6 @@ const changeNumOrder = (array, sortBy, order) => {
     return R.reverse(undefinedArray.concat(newOrder));
 };
 
-/* const filterCompaniesWithTags = (companies, tags) => {
-    if (tags.length <= 0) {
-        return companies;
-    } else {
-        let comps = [];
-        tags.forEach((tag) => {
-            companies.forEach((comp) => {
-                if (comp.tags && comp.tags.includes(tag)) {
-                    comps.push(comp);
-                }
-            });
-        });
-        return R.uniq(comps);
-    }
-};
-
-
- const filterCompaniesWithStages = (companies, stages) => {
-    if (stages.length <= 0) {
-        return companies;
-    } else {
-        let comps = [];
-        stages.forEach((stage) => {
-            companies.forEach((comp) => {
-                if (stages.includes(comp.stage)) {
-                    comps.push(comp);
-                }
-            });
-        });
-        return R.uniq(comps);
-    }
-};
-*/
 
 const filterCompanies= (companies, stages, tags) => {
     if (stages.length <= 0 && tags.length <= 0) {
@@ -79,7 +46,7 @@ const filterCompanies= (companies, stages, tags) => {
         let comps = [];
         stages.forEach((stage) => {
             companies.forEach((comp) => {
-                if (stages.includes(comp.stageName)) {
+                if (comp.stage && stages.includes(comp.stageName)) {
                     comps.push(comp);
                 }
             });
@@ -90,7 +57,7 @@ const filterCompanies= (companies, stages, tags) => {
         stages.forEach((stage) => {
             tags.forEach((tag) => {
                 companies.forEach((comp) => {
-                    if (stages.includes(comp.stageName) && comp.tags && comp.tags.includes(tag)) {
+                    if (comp.stage && stages.includes(comp.stageName) && comp.tags && comp.tags.includes(tag)) {
                         comps.push(comp);
                     }
                 });
@@ -237,8 +204,6 @@ class TableView extends React.Component {
 
 
     render() {
-        // const filteredCompanies = filterCompaniesWithTags(this.state.companies, this.state.selectedTags);
-        // by Stage
        const filteredCompanies= filterCompanies(this.state.companies, this.state.selectedStages,
            this.state.selectedTags);
         return (

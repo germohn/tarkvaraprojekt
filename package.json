@@ -3,16 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "dependencies": {
-    "file-loader": "^1.1.5",
     "prop-types": "^15.6.0",
     "ramda": "^0.24.1",
     "react": "^15.4.2",
-    "react-bootstrap": "^0.31.3",
-    "react-bootstrap-carousel": "^2.1.0",
-    "react-chips": "^0.6.4",
-    "react-dom": "^15.4.2",
-    "react-toolbox": "^2.0.0-beta.12",
-    "url-loader": "^0.6.2"
+    "react-bootstrap": "^0.31.3"
   },
   "devDependencies": {
     "babel-core": "6.17.0",

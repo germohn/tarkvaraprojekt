@@ -60,11 +60,7 @@ const App = () => {
     const uniqueTags = R.uniq(allTags).filter(Boolean);
     const uniqueStages = R.uniq(allStages).filter(Boolean);
 
-//  jarjekord: ["Discovery","Validation", "Efficiency","Scale","Mature growth", "Unknown"])
-
-
-
-    // console.log('All unique Tags in the dataSet: ', uniqueTags);
+     console.log('All unique Tags in the dataSet: ', allStages);
     //console.log('and stages: ', uniqueStages);
 
     /* eslint-enable */
