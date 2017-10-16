@@ -54,12 +54,15 @@ class TableView extends React.Component {
             showCount: 20,
             unSelectedTags: props.tags,
             selectedTags: [],
+            unSelectedStages: props.stages,
+            selectedStages: [],
             companies: props.data
         };
         // console.log(this.state.companies)
 
         this.handleNameClick = this.handleNameClick.bind(this);
         this.handleTagSelect = this.handleTagSelect.bind(this);
+        this.handleStageSelect = this.handleStageSelect.bind(this);
     }
 
     showMore(e) {
@@ -152,6 +155,30 @@ class TableView extends React.Component {
         });
     }
 
+    handleStageSelect(stage) {
+        const unSeleceted = this.state.unSelectedStages;
+        const index = unSeleceted.indexOf(stage);
+        unSeleceted.splice(index, 1);
+        const selected = this.state.selectedStages;
+        selected.push(stage);
+        this.setState({
+            unSelectedStages: unSeleceted,
+            selectedStages: selected
+        });
+    }
+    handleStageDeselect(stage) {
+        const selected = this.state.selectedStages;
+        const index = selected.indexOf(stage);
+        selected.splice(index, 1);
+        let unSelected = this.state.unSelectedStages;
+        unSelected.push(stage);
+
+        this.setState({
+            unSelectedStages: unSelected,
+            selectedStages: selected
+        });
+    }
+
 
     render() {
         const filteredCompanies = filterCompaniesWithTags(this.state.companies, this.state.selectedTags);
@@ -166,11 +193,28 @@ class TableView extends React.Component {
                     }
                 </div>
                 <div className="row">
-                    <h4>selected</h4>
+                    <h4>selected tags</h4>
                     {
                         this.state.selectedTags.map((tag, i) => {
                             return (
                                 <div className="chip" key={i} onClick={(e) => this.handleTagDeselect(tag)}>{tag}</div>);
+                        })
+                    }
+                </div>
+                <div className="row">
+                    {
+                        this.state.unSelectedStages.map((stage, i) => {
+                            return (
+                                <div className="chip" key={i} onClick={(e) => this.handleStageSelect(stage)}>{stage}</div>);
+                        })
+                    }
+                </div>
+                <div className="row">
+                    <h4>selected stages</h4>
+                    {
+                        this.state.selectedStages.map((stage, i) => {
+                            return (
+                                <div className="chip" key={i} onClick={(e) => this.handleStageDeselect(stage)}>{stage}</div>);
                         })
                     }
                 </div>
@@ -209,7 +253,8 @@ class TableView extends React.Component {
 
                 TableView.propTypes = {
                 data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
-                tags: PropTypes.array.isRequired
+                tags: PropTypes.array.isRequired,
+                stages: PropTypes.array.isRequired
             };
 
                 export default TableView;
