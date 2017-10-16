@@ -73,13 +73,18 @@ class TableView extends React.Component {
         super(props);
         this.state = {
             sortBy: 'name',
-            order: null,
+            order: 'desc',
             showCount: 20,
-            unSelectedTags: props.tags,
+            unSelectedTags: props.tags.sort(
+                (a, b) => {
+                    return a.toLowerCase().localeCompare(b.toLowerCase());
+                }
+            ),
             selectedTags: [],
             unSelectedStages: props.stages,
             selectedStages: [],
-            companies: props.data
+            companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data)
+
         };
         // console.log(this.state.companies)
 
@@ -88,11 +93,16 @@ class TableView extends React.Component {
         this.handleStageSelect = this.handleStageSelect.bind(this);
     }
 
+
     showMore(e) {
         let newLimit = this.state.showCount + 20;
         this.setState({showCount: newLimit});
     }
 
+    showAll(e) {
+        let newLimit = this.state.companies.length;
+        this.setState({showCount: newLimit});
+    }
 
     handleNameClick(e) {
         let newState = R.clone(this.state);
@@ -171,7 +181,12 @@ class TableView extends React.Component {
         selected.splice(index, 1);
         let unSelected = this.state.unSelectedTags;
         unSelected.push(tag);
-
+        unSelected.sort(
+            (a, b) => {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        }
+    )
+        ;
         this.setState({
             unSelectedTags: unSelected,
             selectedTags: selected
@@ -273,17 +288,18 @@ class TableView extends React.Component {
                             </tbody>
                         </table>
                         <button className='showAll' type="button" onClick={(e) => this.showMore(e)}>Show more</button>
+                        <button className='showAll' type="button" onClick={(e) => this.showAll(e)}>Show all</button>
                     </div>
                 </div>
             </div>
-                );
-                }
-                }
+        );
+    }
+}
 
-                TableView.propTypes = {
-                data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
-                tags: PropTypes.array.isRequired,
-                stages: PropTypes.array.isRequired
-            };
+TableView.propTypes = {
+  data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  tags: PropTypes.array.isRequired,
+  stages: PropTypes.array.isRequired
+};
 
-                export default TableView;
+export default TableView;
