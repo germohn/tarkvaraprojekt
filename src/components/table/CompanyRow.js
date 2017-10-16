@@ -15,9 +15,13 @@ class CompanyRow extends React.Component {
         // console.log(props.company)
     }
 
+    rowClick(link) {
+        window.open(link);
+    }
+
     render() {
         return (
-            <tr>
+            <tr onClick={(e) => this.rowClick(this.props.company.url)}>
                 <td>
                     <table>
                         <tbody>
