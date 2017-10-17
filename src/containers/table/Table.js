@@ -194,6 +194,9 @@ class TableView extends React.Component {
     let unSelected = this.state.unSelectedTags;
     for (let i = 0; i < selected.length; i++) {
       unSelected.push(selected[i]);
+    unSelected.sort((a, b) => {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });  
     }
     unSelected.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
