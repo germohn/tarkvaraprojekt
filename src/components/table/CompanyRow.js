@@ -12,7 +12,6 @@ const showYear = (dateString) => {
 class CompanyRow extends React.Component {
     constructor(props) {
         super(props);
-        // console.log(props.company)
     }
 
     rowClick(link) {
