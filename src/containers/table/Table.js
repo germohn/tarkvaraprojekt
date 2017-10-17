@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
-
+import Buttons from '../../components/table/Buttons';
 
 const changeOrder = (array, sortBy, order) => {
   const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
@@ -91,9 +91,12 @@ class TableView extends React.Component {
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleStageSelect = this.handleStageSelect.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
+    this.showMore = this.showMore.bind(this);
+    this.showAll = this.showAll.bind(this);
   }
 
   showMore(e) {
+    e.preventDefault();
     let newLimit = this.state.showCount + 20;
     this.setState({showCount: newLimit});
   }
@@ -101,16 +104,6 @@ class TableView extends React.Component {
   showAll(e) {
     let newLimit = this.state.companies.length;
     this.setState({showCount: newLimit});
-  }
-
-  showButton(limit, lenght) {
-    if (limit < lenght) {
-      return (
-        <div>
-          <button className='showAll' type="button" onClick={(e) => this.showMore(e)}>Show more</button>
-          <button className='showAll' type="button" onClick={(e) => this.showAll(e)}>Show all</button>
-        </div>);
-    }
   }
 
   handleNameClick(e) {
@@ -200,9 +193,6 @@ class TableView extends React.Component {
 
   handleStageSelect(stage) {
     const unSeleceted = this.state.unSelectedStages;
-    /* eslint-disable no-console */
-    console.log(unSeleceted);
-    /* eslint-enable no-console */
     const index = unSeleceted.indexOf(stage);
     unSeleceted.splice(index, 1);
     const selected = this.state.selectedStages;
@@ -308,7 +298,8 @@ class TableView extends React.Component {
               })}
               </tbody>
             </table>
-            {this.showButton(this.state.showCount, searchResults.length)}
+            <Buttons showMore = {this.showMore} showAll = {this.showAll}
+                     limit={this.state.showCount} length={searchResults.length} />
           </div>
         </div>
       </div>
