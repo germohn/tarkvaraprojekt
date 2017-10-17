@@ -75,11 +75,9 @@ class TableView extends React.Component {
       sortBy: 'name',
       order: 'desc',
       showCount: 20,
-      unSelectedTags: props.tags.sort(
-        (a, b) => {
-          return a.toLowerCase().localeCompare(b.toLowerCase());
-        }
-      ),
+      unSelectedTags: props.tags.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      }),
       selectedTags: [],
       unSelectedStages: props.stages,
       selectedStages: [],
@@ -180,12 +178,9 @@ class TableView extends React.Component {
     selected.splice(index, 1);
     let unSelected = this.state.unSelectedTags;
     unSelected.push(tag);
-    unSelected.sort(
-      (a, b) => {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-      }
-    )
-    ;
+    unSelected.sort((a, b) => {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
     this.setState({
       unSelectedTags: unSelected,
       selectedTags: selected
@@ -272,7 +267,7 @@ class TableView extends React.Component {
         <div className="row">
           <div className="table-responsive">
             <h3>Table view</h3>
-            <div className="row" >
+            <div className="row">
               <input className="text" type="text" placeholder="Search" value={this.state.search}
                      onChange={(event) => this.updateSearch(event)}/>
             </div>
