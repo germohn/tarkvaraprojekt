@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Card = () => {
   return (
     <div>
@@ -7,5 +8,6 @@ const Card = () => {
     </div>
   );
 };
+
 
 export default Card;

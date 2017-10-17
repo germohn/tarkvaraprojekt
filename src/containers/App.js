@@ -52,19 +52,16 @@ const App = () => {
 
     const allStages = R.flatten(mockData.map((comp) => {
         if(comp.stage !== undefined) {
-            return comp.stage
+            return comp.stageName
         }
     }));
-
-
 
 
     const uniqueTags = R.uniq(allTags).filter(Boolean);
     const uniqueStages = R.uniq(allStages).filter(Boolean);
 
-
-    console.log('All unique Tags in the dataSet: ', uniqueTags);
-    console.log('and stages: ', uniqueStages);
+     console.log('All unique Tags in the dataSet: ', allStages);
+    //console.log('and stages: ', uniqueStages);
 
     /* eslint-enable */
     return (
