@@ -79,7 +79,9 @@ class TableView extends React.Component {
         return a.toLowerCase().localeCompare(b.toLowerCase());
       }),
       selectedTags: [],
-      unSelectedStages: props.stages,
+      unSelectedStages: props.stages.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      }),
       selectedStages: [],
       companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data),
       search: ''
@@ -192,6 +194,9 @@ class TableView extends React.Component {
     let unSelected = this.state.unSelectedTags;
     for (let i = 0; i < selected.length; i++) {
       unSelected.push(selected[i]);
+    unSelected.sort((a, b) => {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });  
     }
     this.setState({
       unSelectedTags: unSelected,
@@ -205,6 +210,9 @@ class TableView extends React.Component {
     for (let i = 0; i < selected.length; i++) {
       unSelected.push(selected[i]);
     }
+    unSelected.sort((a, b) => {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
     this.setState({
       unSelectedStages: unSelected,
       selectedStages: []
@@ -229,6 +237,9 @@ class TableView extends React.Component {
     selected.splice(index, 1);
     let unSelected = this.state.unSelectedStages;
     unSelected.push(stage);
+    unSelected.sort((a, b) => {
+      return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
     this.setState({
       unSelectedStages: unSelected,
       selectedStages: selected
