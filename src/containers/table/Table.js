@@ -187,6 +187,30 @@ class TableView extends React.Component {
     });
   }
 
+  clearTags() {
+    const selected = this.state.selectedTags;
+    let unSelected = this.state.unSelectedTags;
+    for (let i = 0; i < selected.length; i++) {
+      unSelected.push(selected[i]);
+    }
+    this.setState({
+      unSelectedTags: unSelected,
+      selectedTags: []
+    });
+  }
+
+  clearStages() {
+    const selected = this.state.selectedStages;
+    let unSelected = this.state.unSelectedStages;
+    for (let i = 0; i < selected.length; i++) {
+      unSelected.push(selected[i]);
+    }
+    this.setState({
+      unSelectedStages: unSelected,
+      selectedStages: []
+    });
+  }
+
   handleStageSelect(stage) {
     const unSeleceted = this.state.unSelectedStages;
     const index = unSeleceted.indexOf(stage);
@@ -205,7 +229,6 @@ class TableView extends React.Component {
     selected.splice(index, 1);
     let unSelected = this.state.unSelectedStages;
     unSelected.push(stage);
-
     this.setState({
       unSelectedStages: unSelected,
       selectedStages: selected
@@ -243,6 +266,8 @@ class TableView extends React.Component {
                 <div className="chip" key={i} onClick={(e) => this.handleTagDeselect(tag)}>{tag}</div>);
             })
           }
+          <button className='showAll' type="button" onClick={(e) => this.clearTags()}>Clear tags
+          </button>
         </div>
         <div className="row">
           <h3>Stages</h3>
@@ -263,6 +288,8 @@ class TableView extends React.Component {
                   this.handleStageDeselect(stage)}>{stage}</div>);
             })
           }
+          <button className='showAll' type="button" onClick={(e) => this.clearStages()}>Clear stages
+          </button>
         </div>
         <div className="row">
           <div className="table-responsive">
