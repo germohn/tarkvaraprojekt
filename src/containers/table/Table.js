@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
 
+
 const changeOrder = (array, sortBy, order) => {
   const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
   if (order === 'desc') {
@@ -74,7 +75,7 @@ class TableView extends React.Component {
     this.state = {
       sortBy: 'name',
       order: 'desc',
-      showCount: 20,
+      showCount: 10,
       unSelectedTags: props.tags.sort((a, b) => {
         return a.toLowerCase().localeCompare(b.toLowerCase());
       }),
@@ -100,6 +101,16 @@ class TableView extends React.Component {
   showAll(e) {
     let newLimit = this.state.companies.length;
     this.setState({showCount: newLimit});
+  }
+
+  showButton(limit, lenght) {
+    if (limit < lenght) {
+      return (
+        <div>
+          <button className='showAll' type="button" onClick={(e) => this.showMore(e)}>Show more</button>
+          <button className='showAll' type="button" onClick={(e) => this.showAll(e)}>Show all</button>
+        </div>);
+    }
   }
 
   handleNameClick(e) {
@@ -189,6 +200,9 @@ class TableView extends React.Component {
 
   handleStageSelect(stage) {
     const unSeleceted = this.state.unSelectedStages;
+    /* eslint-disable no-console */
+    console.log(unSeleceted);
+    /* eslint-enable no-console */
     const index = unSeleceted.indexOf(stage);
     unSeleceted.splice(index, 1);
     const selected = this.state.selectedStages;
@@ -294,8 +308,7 @@ class TableView extends React.Component {
               })}
               </tbody>
             </table>
-            <button className='showAll' type="button" onClick={(e) => this.showMore(e)}>Show more</button>
-            <button className='showAll' type="button" onClick={(e) => this.showAll(e)}>Show all</button>
+            {this.showButton(this.state.showCount, searchResults.length)}
           </div>
         </div>
       </div>
