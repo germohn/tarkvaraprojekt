@@ -4,28 +4,28 @@ import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
 
 const changeOrder = (array, sortBy, order) => {
-    const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
-    if (order === 'desc') {
-        return newOrder;
-    }
-    return R.reverse(newOrder);
+  const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
+  if (order === 'desc') {
+    return newOrder;
+  }
+  return R.reverse(newOrder);
 };
 
 const changeNumOrder = (array, sortBy, order) => {
-    const undefinedArray = [];
-    const definedArray = [];
-    for (let i = 0; i < array.length; i++) {
-        if (array[i][sortBy] == null) {
-            undefinedArray.push(array[i]);
-        } else {
-            definedArray.push(array[i]);
-        }
+  const undefinedArray = [];
+  const definedArray = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i][sortBy] == null) {
+      undefinedArray.push(array[i]);
+    } else {
+      definedArray.push(array[i]);
     }
-    const newOrder = R.sortBy(R.prop(sortBy))(definedArray);
-    if (order === 'desc') {
-        return newOrder.concat(undefinedArray);
-    }
-    return R.reverse(undefinedArray.concat(newOrder));
+  }
+  const newOrder = R.sortBy(R.prop(sortBy))(definedArray);
+  if (order === 'desc') {
+    return newOrder.concat(undefinedArray);
+  }
+  return R.reverse(undefinedArray.concat(newOrder));
 };
 
 
@@ -83,7 +83,8 @@ class TableView extends React.Component {
             selectedTags: [],
             unSelectedStages: props.stages,
             selectedStages: [],
-            companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data)
+            companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data),
+            search: ''
 
         };
         // console.log(this.state.companies)
@@ -91,107 +92,106 @@ class TableView extends React.Component {
         this.handleNameClick = this.handleNameClick.bind(this);
         this.handleTagSelect = this.handleTagSelect.bind(this);
         this.handleStageSelect = this.handleStageSelect.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
+  }
+
+  showMore(e) {
+    let newLimit = this.state.showCount + 20;
+    this.setState({showCount: newLimit});
+  }
+
+  showAll(e) {
+    let newLimit = this.state.companies.length;
+    this.setState({showCount: newLimit});
+  }
+
+  handleNameClick(e) {
+    let newState = R.clone(this.state);
+    if (this.state.order === 'asc' || this.state.order === null) {
+      newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'desc'), order: 'desc'});
+    } else {
+      newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
     }
+    this.setState({companies: newState.companies, sortBy: 'name', order: newState.order});
+  }
 
-
-    showMore(e) {
-        let newLimit = this.state.showCount + 20;
-        this.setState({showCount: newLimit});
+  handleFundingClick(e) {
+    let newState = R.clone(this.state);
+    if (this.state.order === 'desc' || this.state.order === null) {
+      newState = R.merge(newState, {
+        companies: changeNumOrder(this.state.companies,
+          'funding', 'asc'), order: 'asc'
+      });
+    } else {
+      newState = R.merge(newState, {
+        companies: changeNumOrder(this.state.companies,
+          'funding', 'desc'), order: 'desc'
+      });
     }
+    this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+  }
 
-    showAll(e) {
-        let newLimit = this.state.companies.length;
-        this.setState({showCount: newLimit});
+  handleEmployeesClick(e) {
+    let newState = R.clone(this.state);
+    if (this.state.order === 'desc' || this.state.order === null) {
+      newState = R.merge(newState, {
+        companies: changeNumOrder(this.state.companies,
+          'employees', 'asc'), order: 'asc'
+      });
+    } else {
+      newState = R.merge(newState, {
+        companies: changeNumOrder(this.state.companies,
+          'employees', 'desc'), order: 'desc'
+      });
     }
+    this.setState({companies: newState.companies, sortBy: 'employees', order: newState.order});
+  }
 
-    handleNameClick(e) {
-        let newState = R.clone(this.state);
-        if (this.state.order === 'asc' || this.state.order === null) {
-            newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'desc'), order: 'desc'});
-        } else {
-            newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
-        }
-        this.setState({companies: newState.companies, sortBy: 'name', order: newState.order});
+  handleFoundedClick(e) {
+    let newState = R.clone(this.state);
+    if (this.state.order === 'desc' || this.state.order === null) {
+      newState = R.merge(newState, {
+        companies: changeNumOrder(this.state.companies,
+          'foundedOn', 'asc'), order: 'asc'
+      });
+    } else {
+      newState = R.merge(newState, {
+        companies: changeNumOrder(this.state.companies,
+          'foundedOn', 'desc'), order: 'desc'
+      });
     }
+    this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+  }
 
-    handleFundingClick(e) {
-        let newState = R.clone(this.state);
-        if (this.state.order === 'desc' || this.state.order === null) {
-            newState = R.merge(newState, {
-                companies: changeNumOrder(this.state.companies,
-                    'funding', 'asc'), order: 'asc'
-            });
-        } else {
-            newState = R.merge(newState, {
-                companies: changeNumOrder(this.state.companies,
-                    'funding', 'desc'), order: 'desc'
-            });
-        }
-        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
-    }
+  handleTagSelect(tag) {
+    const unSeleceted = this.state.unSelectedTags;
+    const index = unSeleceted.indexOf(tag);
+    unSeleceted.splice(index, 1);
+    const selected = this.state.selectedTags;
+    selected.push(tag);
+    this.setState({
+      unSelectedTags: unSeleceted,
+      selectedTags: selected
+    });
+  }
 
-    handleEmployeesClick(e) {
-        let newState = R.clone(this.state);
-        if (this.state.order === 'desc' || this.state.order === null) {
-            newState = R.merge(newState, {
-                companies: changeNumOrder(this.state.companies,
-                    'employees', 'asc'), order: 'asc'
-            });
-        } else {
-            newState = R.merge(newState, {
-                companies: changeNumOrder(this.state.companies,
-                    'employees', 'desc'), order: 'desc'
-            });
-        }
-        this.setState({companies: newState.companies, sortBy: 'employees', order: newState.order});
-    }
-
-    handleFoundedClick(e) {
-        let newState = R.clone(this.state);
-        if (this.state.order === 'desc' || this.state.order === null) {
-            newState = R.merge(newState, {
-                companies: changeNumOrder(this.state.companies,
-                    'foundedOn', 'asc'), order: 'asc'
-            });
-        } else {
-            newState = R.merge(newState, {
-                companies: changeNumOrder(this.state.companies,
-                    'foundedOn', 'desc'), order: 'desc'
-            });
-        }
-        this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
-    }
-
-
-    handleTagSelect(tag) {
-        const unSeleceted = this.state.unSelectedTags;
-        const index = unSeleceted.indexOf(tag);
-        unSeleceted.splice(index, 1);
-        const selected = this.state.selectedTags;
-        selected.push(tag);
-        this.setState({
-            unSelectedTags: unSeleceted,
-            selectedTags: selected
-        });
-    }
-
-    handleTagDeselect(tag) {
-        const selected = this.state.selectedTags;
-        const index = selected.indexOf(tag);
-        selected.splice(index, 1);
-        let unSelected = this.state.unSelectedTags;
-        unSelected.push(tag);
-        unSelected.sort(
-            (a, b) => {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
-        }
+  handleTagDeselect(tag) {
+    const selected = this.state.selectedTags;
+    const index = selected.indexOf(tag);
+    selected.splice(index, 1);
+    let unSelected = this.state.unSelectedTags;
+    unSelected.push(tag);
+    unSelected.sort(
+      (a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      }
     )
-        ;
-        this.setState({
-            unSelectedTags: unSelected,
-            selectedTags: selected
-        });
-    }
+    ;
+    this.setState({
+      unSelectedTags: unSelected,
+      selectedTags: selected
+    });
+  }
 
     handleStageSelect(stage) {
         const unSeleceted = this.state.unSelectedStages;
@@ -217,10 +217,18 @@ class TableView extends React.Component {
         });
     }
 
+  updateSearch(event) {
+    this.setState({
+      search: event.target.value.substr(0, 10)
+    });
+  }
 
     render() {
-       const filteredCompanies= filterCompanies(this.state.companies, this.state.selectedStages,
-           this.state.selectedTags);
+        const filteredCompanies= filterCompanies(this.state.companies, this.state.selectedStages,
+            this.state.selectedTags);
+        let searchResults = filteredCompanies.filter((comp) => {
+            return comp.name.toLowerCase().includes(this.state.search.toLowerCase());
+        });
         return (
             <div className="container">
                 <div className="row">
@@ -261,6 +269,10 @@ class TableView extends React.Component {
                         })
                     }
                 </div>
+                <div className="row" >
+                    <input className="text" type="text" placeholder="Search" value={this.state.search}
+                           onChange={(event) => this.updateSearch(event)} />
+                </div >
                 <div className="row">
                     <div className="table-responsive">
                         <h3>Table view</h3>
@@ -281,7 +293,7 @@ class TableView extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                            {filteredCompanies.map((comp, i) => {
+                            {searchResults.map((comp, i) => {
                                 if (i <= this.state.showCount)
                                     return (<CompanyRow key={comp.slug} company={comp}/>);
                             })}
