@@ -65,6 +65,11 @@ const App = () => {
       uniqueStages[comp.stageOrder] = comp.stageName;
     });
 
+    const uniqueStages = [];
+
+    mockData.forEach((comp) => {
+      uniqueStages[comp.stageOrder] = comp.stageName;
+    });
 
 
     /* eslint-enable */

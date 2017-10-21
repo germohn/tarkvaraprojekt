@@ -86,6 +86,7 @@ class TableView extends React.Component {
       search: '',
       allStages: props.allstages
 
+
     };
 
     this.handleNameClick = this.handleNameClick.bind(this);
@@ -312,6 +313,7 @@ TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tags: PropTypes.array.isRequired,
   stages: PropTypes.array.isRequired
+
 };
 
 export default TableView;
