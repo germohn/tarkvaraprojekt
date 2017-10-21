@@ -7,9 +7,9 @@ import Buttons from '../../components/table/Buttons';
 const changeOrder = (array, sortBy, order) => {
   const newOrder = R.sortBy(R.compose(R.toLower, R.prop(sortBy)))(array);
   if (order === 'desc') {
-    return newOrder;
+    return R.reverse(newOrder);
   }
-  return R.reverse(newOrder);
+  return newOrder;
 };
 
 const changeNumOrder = (array, sortBy, order) => {
@@ -22,11 +22,22 @@ const changeNumOrder = (array, sortBy, order) => {
       definedArray.push(array[i]);
     }
   }
-  const newOrder = R.sortBy(R.prop(sortBy))(definedArray);
+  // const newOrder = R.sortBy(R.prop(sortBy))(definedArray);
   if (order === 'desc') {
+    const sortFun = R.sortWith([
+      R.descend(R.prop(sortBy)),
+      R.ascend(R.compose(R.toLower(), R.prop('name')))
+    ]);
+    const newOrder = sortFun(definedArray);
     return newOrder.concat(undefinedArray);
+  } else {
+    const sortFun = R.sortWith([
+      R.descend(R.prop(sortBy)),
+      R.descend(R.compose(R.toLower(), R.prop('name')))
+    ]);
+    const newOrder = sortFun(definedArray);
+    return R.reverse(undefinedArray.concat(newOrder));
   }
-  return R.reverse(undefinedArray.concat(newOrder));
 };
 
 
@@ -74,7 +85,7 @@ class TableView extends React.Component {
     super(props);
     this.state = {
       sortBy: 'name',
-      order: 'desc',
+      order: 'asc',
       showCount: 10,
       unSelectedTags: props.tags.sort((a, b) => {
         return a.toLowerCase().localeCompare(b.toLowerCase());
@@ -108,61 +119,84 @@ class TableView extends React.Component {
 
   handleNameClick(e) {
     let newState = R.clone(this.state);
-    if (this.state.order === 'asc' || this.state.order === null) {
-      newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'desc'), order: 'desc'});
-    } else {
+    if (this.state.sortBy != 'name') {
       newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
+    } else {
+      if (this.state.order === 'asc' || this.state.order === null) {
+        newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'desc'), order: 'desc'});
+      } else {
+        newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
+      }
     }
     this.setState({companies: newState.companies, sortBy: 'name', order: newState.order});
   }
 
   handleFundingClick(e) {
     let newState = R.clone(this.state);
-    if (this.state.order === 'desc' || this.state.order === null) {
-      newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies,
-          'funding', 'asc'), order: 'asc'
-      });
+    if (this.state.sortBy != 'funding') {
+      newState = R.merge(newState, {companies: changeNumOrder(this.state.companies, 'funding', 'desc'), order: 'desc'});
     } else {
-      newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies,
-          'funding', 'desc'), order: 'desc'
-      });
+      if (this.state.order === 'desc' || this.state.order === null) {
+        newState = R.merge(newState, {
+          companies: changeNumOrder(this.state.companies,
+            'funding', 'asc'), order: 'asc'
+        });
+      } else {
+        newState = R.merge(newState, {
+          companies: changeNumOrder(this.state.companies,
+            'funding', 'desc'), order: 'desc'
+        });
+      }
     }
     this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
   }
 
   handleEmployeesClick(e) {
     let newState = R.clone(this.state);
-    if (this.state.order === 'desc' || this.state.order === null) {
+    if (this.state.sortBy != 'employees') {
       newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies,
-          'employees', 'asc'), order: 'asc'
+        companies: changeNumOrder(this.state.companies, 'employees', 'desc'),
+        order: 'desc'
       });
     } else {
-      newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies,
-          'employees', 'desc'), order: 'desc'
-      });
+      if (this.state.order === 'desc' || this.state.order === null) {
+        newState = R.merge(newState, {
+          companies: changeNumOrder(this.state.companies,
+            'employees', 'asc'), order: 'asc'
+        });
+      } else {
+        newState = R.merge(newState, {
+          companies: changeNumOrder(this.state.companies,
+            'employees', 'desc'), order: 'desc'
+        });
+      }
     }
     this.setState({companies: newState.companies, sortBy: 'employees', order: newState.order});
   }
 
   handleFoundedClick(e) {
     let newState = R.clone(this.state);
-    if (this.state.order === 'desc' || this.state.order === null) {
+    if (this.state.sortBy != 'foundedOn') {
       newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies,
-          'foundedOn', 'asc'), order: 'asc'
+        companies: changeNumOrder(this.state.companies, 'foundedOn', 'desc'),
+        order: 'desc'
       });
     } else {
-      newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies,
-          'foundedOn', 'desc'), order: 'desc'
-      });
+      if (this.state.order === 'desc' || this.state.order === null) {
+        newState = R.merge(newState, {
+          companies: changeNumOrder(this.state.companies,
+            'foundedOn', 'asc'), order: 'asc'
+        });
+      } else {
+        newState = R.merge(newState, {
+          companies: changeNumOrder(this.state.companies,
+            'foundedOn', 'desc'), order: 'desc'
+        });
+      }
     }
-    this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
+    this.setState({companies: newState.companies, sortBy: 'foundedOn', order: newState.order});
   }
+
 
   handleTagSelect(tag) {
     const unSeleceted = this.state.unSelectedTags;
@@ -222,12 +256,21 @@ class TableView extends React.Component {
     });
   }
 
+  sortResult(result) {
+    if (this.state.sortBy == 'name') {
+      return changeOrder(result, this.state.sortBy, this.state.order);
+    } else {
+      return changeNumOrder(result, this.state.sortBy, this.state.order);
+    }
+  }
+
   render() {
     const filteredCompanies = filterCompanies(this.state.companies, this.state.selectedStages,
       this.state.selectedTags);
-    let searchResults = filteredCompanies.filter((comp) => {
+    let searchResultsUnSorted = filteredCompanies.filter((comp) => {
       return comp.name.toLowerCase().includes(this.state.search.toLowerCase());
     });
+    let searchResults = this.sortResult(searchResultsUnSorted);
     return (
       <div className="container">
         <div className="row">
@@ -298,8 +341,8 @@ class TableView extends React.Component {
               })}
               </tbody>
             </table>
-            <Buttons showMore = {this.showMore} showAll = {this.showAll}
-                     limit={this.state.showCount} length={searchResults.length} />
+            <Buttons showMore={this.showMore} showAll={this.showAll}
+                     limit={this.state.showCount} length={searchResults.length}/>
           </div>
         </div>
       </div>
