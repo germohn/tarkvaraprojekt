@@ -55,7 +55,7 @@ const App = () => {
     const stageMap = new Map();
     R.flatten(mockData.map((comp) => {
       if(comp.stage !== undefined){
-        return stageMap.set(comp.stageName, comp.stageOrder)
+        return stageMap.set(comp.stageOrder, comp.stageName)
       }
     }));
 
@@ -65,13 +65,16 @@ const App = () => {
       uniqueStages[comp.stageOrder] = comp.stageName;
     });
 
-    const uniqueStages = [];
+    const lst = stageMap.keys()
+    const lst2 = Array.from(lst).sort();
+    console.log("number", lst2);
 
-    mockData.forEach((comp) => {
-      uniqueStages[comp.stageOrder] = comp.stageName;
-    });
+    const stagemapsorted = new Map();
+    for(let a = 0; a < lst2.length; a++){
+      stagemapsorted.set(lst2[a], stageMap.get(a+1))
+    }
 
-
+    console.log("sorted stages map: ", stagemapsorted);
     /* eslint-enable */
     return (
         <div className="app">
@@ -79,7 +82,7 @@ const App = () => {
                 <h1>Funderbeam data</h1>
             </div>
             <div className="container">
-                <Table data={mockData} tags={uniqueTags} stages={uniqueStages} allstages={stageMap} />
+                <Table data={mockData} tags={uniqueTags} stages={stagemapsorted}/>
             </div>
 
             <Card/>
