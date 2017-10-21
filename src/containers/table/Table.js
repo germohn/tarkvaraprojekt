@@ -22,7 +22,6 @@ const changeNumOrder = (array, sortBy, order) => {
       definedArray.push(array[i]);
     }
   }
-  // const newOrder = R.sortBy(R.prop(sortBy))(definedArray);
   if (order === 'desc') {
     const sortFun = R.sortWith([
       R.descend(R.prop(sortBy)),
@@ -107,7 +106,6 @@ class TableView extends React.Component {
   }
 
   showMore(e) {
-    e.preventDefault();
     let newLimit = this.state.showCount + 20;
     this.setState({showCount: newLimit});
   }
@@ -196,7 +194,6 @@ class TableView extends React.Component {
     }
     this.setState({companies: newState.companies, sortBy: 'foundedOn', order: newState.order});
   }
-
 
   handleTagSelect(tag) {
     const unSeleceted = this.state.unSelectedTags;
