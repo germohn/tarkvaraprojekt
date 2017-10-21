@@ -50,18 +50,22 @@ const App = () => {
         }
     }));
 
-    const allStages = R.flatten(mockData.map((comp) => {
-        if(comp.stage !== undefined) {
-            return comp.stageName
-        }
+    const uniqueTags = R.uniq(allTags).filter(Boolean);
+
+    const stageMap = new Map();
+    R.flatten(mockData.map((comp) => {
+      if(comp.stage !== undefined){
+        return stageMap.set(comp.stageName, comp.stageOrder)
+      }
     }));
 
+    const uniqueStages = [];
 
-    const uniqueTags = R.uniq(allTags).filter(Boolean);
-    const uniqueStages = R.uniq(allStages).filter(Boolean);
+    mockData.forEach((comp) => {
+      uniqueStages[comp.stageOrder] = comp.stageName;
+    });
 
-     console.log('All unique Tags in the dataSet: ', allStages);
-    //console.log('and stages: ', uniqueStages);
+
 
     /* eslint-enable */
     return (
@@ -70,7 +74,7 @@ const App = () => {
                 <h1>Funderbeam data</h1>
             </div>
             <div className="container">
-                <Table data={mockData} tags={uniqueTags} stages={uniqueStages}/>
+                <Table data={mockData} tags={uniqueTags} stages={uniqueStages} allstages={stageMap} />
             </div>
 
             <Card/>
