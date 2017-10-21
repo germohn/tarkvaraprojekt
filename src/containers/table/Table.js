@@ -82,7 +82,9 @@ class TableView extends React.Component {
       unSelectedStages: props.stages,
       selectedStages: [],
       companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data),
-      search: ''
+      search: '',
+      allStages: props.allstages
+
 
     };
 
@@ -187,7 +189,7 @@ class TableView extends React.Component {
     });
   }
 
-  handleStageSelect(stage) {
+  handleStageSelect(stage, allStages) {
     const unSeleceted = this.state.unSelectedStages;
     const index = unSeleceted.indexOf(stage);
     unSeleceted.splice(index, 1);
@@ -199,12 +201,13 @@ class TableView extends React.Component {
     });
   }
 
-  handleStageDeselect(stage) {
+  handleStageDeselect(stage, allStages) {
     const selected = this.state.selectedStages;
     const index = selected.indexOf(stage);
     selected.splice(index, 1);
+
     let unSelected = this.state.unSelectedStages;
-    unSelected.push(stage);
+    unSelected.splice(allStages.get(stage), 0, stage);
 
     this.setState({
       unSelectedStages: unSelected,
@@ -250,7 +253,7 @@ class TableView extends React.Component {
             this.state.unSelectedStages.map((stage, i) => {
               return (
                 <div className="chip" key={i} onClick={(e) =>
-                  this.handleStageSelect(stage)}>{stage}</div>);
+                  this.handleStageSelect(stage, this.state.allStages)}>{stage}</div>);
             })
           }
         </div>
@@ -260,7 +263,7 @@ class TableView extends React.Component {
             this.state.selectedStages.map((stage, i) => {
               return (
                 <div className="chip" key={i} onClick={(e) =>
-                  this.handleStageDeselect(stage)}>{stage}</div>);
+                  this.handleStageDeselect(stage, this.state.allStages)}>{stage}</div>);
             })
           }
         </div>
@@ -307,6 +310,7 @@ TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tags: PropTypes.array.isRequired,
   stages: PropTypes.array.isRequired
+
 };
 
 export default TableView;
