@@ -23,19 +23,19 @@ const changeNumOrder = (array, sortBy, order) => {
     }
   }
   if (order === 'desc') {
-    const sortFun = R.sortWith([
+    const sortByDesc = R.sortWith([
       R.descend(R.prop(sortBy)),
       R.ascend(R.compose(R.toLower(), R.prop('name')))
     ]);
-    const newOrder = sortFun(definedArray);
+    const newOrder = sortByDesc(definedArray);
     return newOrder.concat(undefinedArray);
   } else {
-    const sortFun = R.sortWith([
-      R.descend(R.prop(sortBy)),
-      R.descend(R.compose(R.toLower(), R.prop('name')))
+    const sortByAsc = R.sortWith([
+      R.ascend(R.prop(sortBy)),
+      R.ascend(R.compose(R.toLower(), R.prop('name')))
     ]);
-    const newOrder = sortFun(definedArray);
-    return R.reverse(undefinedArray.concat(newOrder));
+    const newOrder = sortByAsc(definedArray);
+    return undefinedArray.concat(newOrder);
   }
 };
 
