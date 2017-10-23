@@ -90,11 +90,11 @@ class TableView extends React.Component {
         return a.toLowerCase().localeCompare(b.toLowerCase());
       }),
       selectedTags: [],
-      unSelectedStages: props.stages,
+      unSelectedStages: Array.from((props.stages).values()),
       selectedStages: [],
       companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data),
-      search: ''
-
+      search: '',
+      allstages: Array.from((props.stages).values())
     };
 
     this.handleNameClick = this.handleNameClick.bind(this);
@@ -238,8 +238,10 @@ class TableView extends React.Component {
     const selected = this.state.selectedStages;
     const index = selected.indexOf(stage);
     selected.splice(index, 1);
-    let unSelected = this.state.unSelectedStages;
-    unSelected.push(stage);
+    const unSelected = this.state.unSelectedStages;
+
+    const inx = this.state.allstages.indexOf(stage);
+    unSelected.splice(inx, 0, stage);
 
     this.setState({
       unSelectedStages: unSelected,
@@ -350,7 +352,8 @@ class TableView extends React.Component {
 TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tags: PropTypes.array.isRequired,
-  stages: PropTypes.array.isRequired
+  stages: PropTypes.object.isRequired,
+
 };
 
 export default TableView;

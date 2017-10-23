@@ -45,7 +45,7 @@ class CardView extends React.Component {
 CardView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tags: PropTypes.array.isRequired,
-  stages: PropTypes.array.isRequired
+  stages: PropTypes.object.isRequired
 };
 
 export default CardView;
