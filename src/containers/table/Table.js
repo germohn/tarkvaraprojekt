@@ -85,9 +85,6 @@ class TableView extends React.Component {
       companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data),
       search: '',
       allstages: Array.from((props.stages).values())
-     //  allStages: props.allstages
-
-
     };
 
     this.handleNameClick = this.handleNameClick.bind(this);
@@ -316,7 +313,6 @@ TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tags: PropTypes.array.isRequired,
   stages: PropTypes.array.isRequired,
-  allstages: PropTypes.array.isRequired
 
 };
 
