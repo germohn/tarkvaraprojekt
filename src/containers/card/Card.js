@@ -28,18 +28,20 @@ class CardView extends React.Component {
     return (
       <div className="wrapper">
         <h3> Cardview</h3>
-      <section className = "cardView">
-      {this.state.companies.map((comp, i) => {
-        if (i <= this.state.showCount) {
-            return (<CompanyCard key={comp.slug} company={comp}/>);
-        }
-      })
-  }
-      </section>
+        <section className="row">
+          {this.state.companies.map((comp, i) => {
+            if (i <= this.state.showCount) {
+              return (
+                <div className="col-xs-12 col-md-6 col-lg-3">
+                  <CompanyCard key={comp.slug} company={comp}/>
+                </div>);
+            }
+          })}
+        </section>
       </div>
-  )
-    ;
+    );
   }
+
 }
 
 CardView.propTypes = {

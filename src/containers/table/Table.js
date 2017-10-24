@@ -97,12 +97,22 @@ class TableView extends React.Component {
       allstages: Array.from((props.stages).values())
     };
 
+    const temp = props.tags;
+    this.temp = temp;
+    console.log(temp)
     this.handleNameClick = this.handleNameClick.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleStageSelect = this.handleStageSelect.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.showMore = this.showMore.bind(this);
     this.showAll = this.showAll.bind(this);
+  }
+
+  onClearState(e) {
+    this.setState({
+      unSelectedTags: this.temp,
+      selectedTags: []
+    })
   }
 
   showMore(e) {
@@ -196,10 +206,10 @@ class TableView extends React.Component {
   }
 
   handleTagSelect(tag) {
-    const unSeleceted = this.state.unSelectedTags;
+    const unSeleceted = R.clone(this.state.unSelectedTags);
     const index = unSeleceted.indexOf(tag);
     unSeleceted.splice(index, 1);
-    const selected = this.state.selectedTags;
+    const selected = R.clone(this.state.selectedTags);
     selected.push(tag);
     this.setState({
       unSelectedTags: unSeleceted,
@@ -208,10 +218,10 @@ class TableView extends React.Component {
   }
 
   handleTagDeselect(tag) {
-    const selected = this.state.selectedTags;
+    const selected = R.clone(this.state.selectedTags);
     const index = selected.indexOf(tag);
     selected.splice(index, 1);
-    let unSelected = this.state.unSelectedTags;
+    let unSelected = R.clone(this.state.unSelectedTags);
     unSelected.push(tag);
     unSelected.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase());
@@ -223,10 +233,10 @@ class TableView extends React.Component {
   }
 
   handleStageSelect(stage) {
-    const unSeleceted = this.state.unSelectedStages;
+    const unSeleceted = R.clone(this.state.unSelectedStages);
     const index = unSeleceted.indexOf(stage);
     unSeleceted.splice(index, 1);
-    const selected = this.state.selectedStages;
+    const selected = R.clone(this.state.selectedStages);
     selected.push(stage);
     this.setState({
       unSelectedStages: unSeleceted,
@@ -235,10 +245,10 @@ class TableView extends React.Component {
   }
 
   handleStageDeselect(stage) {
-    const selected = this.state.selectedStages;
+    const selected = R.clone(this.state.selectedStages);
     const index = selected.indexOf(stage);
     selected.splice(index, 1);
-    const unSelected = this.state.unSelectedStages;
+    const unSelected = R.clone(this.state.unSelectedStages);
 
     const inx = this.state.allstages.indexOf(stage);
     unSelected.splice(inx, 0, stage);
@@ -289,6 +299,9 @@ class TableView extends React.Component {
                 <div className="chip" key={i} onClick={(e) => this.handleTagDeselect(tag)}>{tag}</div>);
             })
           }
+        </div>
+        <div className="row">
+          <button onClick={(e) => this.onClearState(e)}>CLEAR</button>
         </div>
         <div className="row">
           <h3>Stages</h3>
