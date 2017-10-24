@@ -352,7 +352,7 @@ class TableView extends React.Component {
 TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   tags: PropTypes.array.isRequired,
-  stages: PropTypes.array.isRequired,
+  stages: PropTypes.object.isRequired,
 
 };
 
