@@ -42,7 +42,7 @@ import mockData from '../mockData';
 const App = () => {
     /* eslint-disable */
     console.log('The whole dataSet: ', mockData);
-    const sample = mockData.slice(0, 20);
+    const sample = mockData.slice(0, 10);
 
     const allTags = R.flatten(mockData.map((comp) => {
         if (comp.tags !== undefined) {
@@ -75,8 +75,9 @@ const App = () => {
             <div className="container">
                 <Table data={mockData} tags={uniqueTags} stages={stageMapSorted}/>
             </div>
-
-            <Card/>
+          <div className="container">
+            <Card data={sample} tags={uniqueTags} stages={stageMapSorted}/>
+          </div>
             <Statistics/>
         </div>
     );
