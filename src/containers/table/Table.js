@@ -238,11 +238,7 @@ class TableView extends React.Component {
     const selected = this.state.selectedStages;
     const index = selected.indexOf(stage);
     selected.splice(index, 1);
-
-    const unSelected = this.state.allstages.filter(function(val) {
-      return selected.indexOf(val) < 0;
-    });
-
+    const unSelected = this.state.allstages.filter((val) => selected.indexOf(val) < 0);
     this.setState({
       unSelectedStages: unSelected,
       selectedStages: selected
