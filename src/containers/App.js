@@ -78,7 +78,7 @@ const App = () => {
           <div className="container">
             <Card data={sample} tags={uniqueTags} stages={stageMapSorted}/>
           </div>
-            <Statistics/>
+            <Statistics data ={mockData}/>
         </div>
     );
 };
