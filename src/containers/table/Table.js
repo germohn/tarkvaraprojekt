@@ -262,14 +262,6 @@ class TableView extends React.Component {
     });
   }
 
-  clearTags() {
-    let allTags = this.state.alltags;
-    this.setState({
-      unSelectedTags: allTags,
-      selectedTags: []
-    });
-  }
-
   clearStages() {
     let allStages = this.state.allstages;
     this.setState({
@@ -318,10 +310,9 @@ class TableView extends React.Component {
                 <div className="chip" key={i} onClick={(e) => this.handleTagDeselect(tag)}>{tag}</div>);
             })
           }
-          <button className='showAll' type="button" onClick={(e) => this.clearTags()}>Clear tags</button>
         </div>
         <div className="row">
-          <button onClick={(e) => this.onClearState(e)}>CLEAR</button>
+          <button className='showAll' type="button" onClick={(e) => this.onClearState(e)}>Clear tags</button>
         </div>
         <div className="row">
           <h3>Stages</h3>
@@ -342,6 +333,8 @@ class TableView extends React.Component {
                   this.handleStageDeselect(stage)}>{stage}</div>);
             })
           }
+        </div>
+        <div className="row">
           <button className='showAll' type="button" onClick={(e) => this.clearStages()}>Clear stages</button>
         </div>
         <div className="row">
