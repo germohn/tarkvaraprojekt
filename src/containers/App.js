@@ -40,9 +40,9 @@ import mockData from '../mockData';
 // };
 
 const App = () => {
-  /* eslint-disable */
-  console.log('The whole dataSet: ', mockData);
-  const sample = mockData.slice(0, 20);
+    /* eslint-disable */
+    console.log('The whole dataSet: ', mockData);
+    const sample = mockData.slice(0, 10);
 
   const allTags = R.flatten(mockData.map((comp) => {
     if (comp.tags !== undefined) {
@@ -50,36 +50,38 @@ const App = () => {
     }
   }));
 
-  const uniqueTags = R.uniq(allTags).filter(Boolean);
 
-  const stageMap = new Map();
-  R.flatten(mockData.map((comp) => {
-    if(comp.stage !== undefined){
-      return stageMap.set(comp.stageOrder, comp.stageName)
+    const uniqueTags = R.uniq(allTags).filter(Boolean);
+
+    const stageMap = new Map();
+    R.flatten(mockData.map((comp) => {
+      if(comp.stage !== undefined){
+        return stageMap.set(comp.stageOrder, comp.stageName)
+      }
+    }));
+
+    const sortedStageKeys = Array.from(stageMap.keys()).sort();
+    const stageMapSorted = new Map();
+
+    for(let i = 0; i < sortedStageKeys.length; i++){
+      stageMapSorted.set(sortedStageKeys[i], stageMap.get(i+1))
     }
-  }));
 
-  const sortedStageKeys = Array.from(stageMap.keys()).sort();
-  const stageMapSorted = new Map();
-
-  for(let i = 0; i < sortedStageKeys.length; i++){
-    stageMapSorted.set(sortedStageKeys[i], stageMap.get(i+1))
-  }
-
-  /* eslint-enable */
-  return (
-    <div className="app">
-      <div className="app-header">
-        <h1>Funderbeam data</h1>
-      </div>
-      <div className="container">
-        <Table data={mockData} tags={uniqueTags} stages={stageMapSorted}/>
-      </div>
-
-      <Card/>
-      <Statistics/>
-    </div>
-  );
+    /* eslint-enable */
+    return (
+        <div className="app">
+            <div className="app-header">
+                <h1>Funderbeam data</h1>
+            </div>
+            <div className="container">
+                <Table data={mockData} tags={uniqueTags} stages={stageMapSorted}/>
+            </div>
+          <div className="container">
+            <Card data={sample} tags={uniqueTags} stages={stageMapSorted}/>
+          </div>
+            <Statistics/>
+        </div>
+    );
 };
 
 export default App;

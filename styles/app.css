@@ -138,3 +138,69 @@ div{
     width: 100%;
     padding: 3em;
 }
+
+
+.companyCard{
+    margin: 1em;
+    border: 0.1em solid #A9A9A9;
+    border-radius: 0.5em;
+    width: calc(20% - 2em);
+    padding:0.5em;
+}
+
+@media only screen and (max-width: 1180px) {
+    .companyCard {
+        width: calc(25% - 2em);
+    }
+}
+@media only screen and (max-width: 960px) {
+    .companyCard{
+        width: calc(33.33% - 2em);
+    }
+}
+@media only screen and (max-width: 680px) {
+    .companyCard {
+        width: calc(50% - 2em);
+    }
+}
+@media only screen and (max-width: 460px) {
+    .companyCard {
+        width: 100%;
+    }
+}
+
+.cardView{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+article{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.description{
+    color: #888888;
+    text-align: justify;
+}
+
+.funding{
+    background-color: #f4f4f4;
+    width: 106%;
+    padding: 0.3em;
+    font-size: larger;
+}
+
+a{
+    color: darkorange;
+}
+
+.wrapper{
+    display: block;
+}
+
+.logoContainer{
+    height: 5em;
+    width: 100%;
+}
