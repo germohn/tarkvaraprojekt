@@ -9,11 +9,19 @@ const yearByYear = (data) => {
     const date = data[i].foundedOn;
     if (date !== undefined) {
       obj[date.substring(0, 4)] = (obj[date.substring(0, 4)] || 0) + 1;
-    } else{
+    } else {
       obj['NaN'] = (obj['NaN'] || 0) + 1;
     }
   }
-  return obj;
+  const entries = Object.entries(obj);
+  const res = [];
+  for (let j = 0; j < entries.length; j++) {
+    const key = entries[j][0];
+    const val = entries[j][1];
+    const newObj = {[key]: val};
+    res.push(newObj);
+  }
+  return res;
 };
 
 const popularTags = (data) => {
@@ -23,17 +31,24 @@ const popularTags = (data) => {
     }
   }));
   let obj = {};
-  for (let i = 0; i<allTags.length; i++) {
+  for (let i = 0; i < allTags.length; i++) {
     if (allTags[i] !== undefined) {
       obj[allTags[i]] = (obj[allTags[i]] || 0) + 1;
     }
   }
-  const sorted = Object.keys(obj).map(function(key) {
-    return [key, this[key]];
-  }, obj).sort(function(a, b) {
-    return b[1] - a[1];
+  const entries = Object.entries(obj);
+  const sorted = entries.sort((a, b) => {
+    return a[1] - b[1];
   });
-  return sorted.slice(0, 10);
+  const top10 = sorted.reverse().slice(0, 10);
+  const res = [];
+  for (let j = 0; j < top10.length; j++) {
+    const key = top10[j][0];
+    const val = top10[j][1];
+    const newObj = {[key]: val};
+    res.push(newObj);
+  }
+  return res;
 };
 
 class Statistics extends React.Component {
@@ -43,9 +58,9 @@ class Statistics extends React.Component {
 
   render() {
     return (
-    <div>
-      <p>statistics</p>
-    </div>
+      <div>
+        <p>statistics</p>
+      </div>
     );
   }
 }
