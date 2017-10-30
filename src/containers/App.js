@@ -53,11 +53,11 @@ const App = () => {
     const uniqueTags = R.uniq(allTags).filter(Boolean);
 
     const stageMap = new Map();
-    R.flatten(mockData.map((comp) => {
+    mockData.forEach((comp) => {
       if(comp.stage !== undefined){
         return stageMap.set(comp.stageOrder, comp.stageName)
       }
-    }));
+    });
 
     const sortedStageKeys = Array.from(stageMap.keys()).sort();
     const stageMapSorted = new Map();
