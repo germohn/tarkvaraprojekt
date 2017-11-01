@@ -54,7 +54,7 @@ const App = () => {
 
     const stageMap = new Map();
     mockData.forEach((comp) => {
-      if(comp.stage !== undefined){
+      if(comp.stageName !== undefined){
         return stageMap.set(comp.stageOrder, comp.stageName)
       }
     });
