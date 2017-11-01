@@ -96,6 +96,7 @@ class TableView extends React.Component {
       search: '',
       allstages: Array.from((props.stages).values())
     };
+
     this.handleNameClick = this.handleNameClick.bind(this);
     this.handleSortingClick = this.handleSortingClick.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
@@ -261,16 +262,16 @@ class TableView extends React.Component {
         <div className="row">
           <div className="table-responsive">
             <h3>Table view</h3>
-            <div className="row">
-              <input className="text" type="text" placeholder="Search" value={this.state.search}
+            <div id="leftAlignedContainer" className="row">
+              <input id="searchBox" type="text" placeholder="Search by name..." value={this.state.search}
                      onChange={(event) => this.updateSearch(event)}/>
+              <i className="glyphicon glyphicon-search"></i>
             </div>
             <table className="table">
               <thead>
               <tr>
                 <th id='companyCol' onClick={(e) => this.handleNameClick(e)}>Company
                   <i className="fa fa-fw fa-sort"/></th>
-                <th id='descriptionCol'>Description</th>
                 <th id='fundingCol' onClick={(e) => this.handleSortingClick(e, 'funding')}>Funding
                   <i className="fa fa-fw fa-sort"/></th>
                 <th id='employeesCol' onClick={(e) => this.handleSortingClick(e, 'employees')}>Employees
