@@ -5,54 +5,30 @@ import PropTypes from 'prop-types';
 /* eslint-disable no-unused-vars */
 
 
-const employees = (data) => {
-  let employeesData = {};
-  const allEmployees = [];
-  const undefinedEmployees = [];
+const calculate = (data, fieldType) => {
+  let calculatedData = {};
+  const allDataArray = [];
 
   data.map((comp) => {
-    if (comp.employees !== undefined) {
-      return allEmployees.push(comp.employees);
-    }else {
-      undefinedEmployees.push(comp.employees);
+    if (comp[fieldType] !== undefined) {
+      return allDataArray.push(comp[fieldType]);
     }
   });
 
-  const totalSum = total(allEmployees);
-  const averageOfData = average(totalSum, allEmployees);
-  employeesData['Total'] = totalSum;
-  employeesData['Average'] = averageOfData;
-  employeesData['Undefined'] = undefinedEmployees.length;
+  const undefinedData = data.length - allDataArray.length;
+  const definedData = allDataArray.length;
+  const totalSum = total(allDataArray);
+  const averageOfData = average(totalSum, definedData);
 
-  return employeesData;
+  calculatedData['Total'] = totalSum;
+  calculatedData['Average'] = averageOfData;
+  calculatedData['Undefined'] = undefinedData;
+
+  return calculatedData;
 };
 
-const fundings = (data) => {
-  let fundingsData = {};
-  const allFundings = [];
-  const undefinedFundings = [];
-
-  data.map((comp) => {
-    if (comp.funding !== undefined) {
-      return allFundings.push(comp.funding);
-    }else {
-      undefinedFundings.push(comp.funding);
-    }
-  });
-
-  const totalSum = total(allFundings);
-  const averageOfData = average(totalSum, allFundings);
-  fundingsData['Total'] = totalSum;
-  fundingsData['Average'] = averageOfData;
-  fundingsData['Undefined'] = undefinedFundings.length;
-
-  return fundingsData;
-};
-
-
-const average = (sum, dataArray) => {
-  const compCounter = dataArray.length;
-  return Math.round(sum / compCounter);
+const average = (sum, definedData) => {
+  return Math.round(sum / definedData);
 };
 
 const total = (dataArray) => {
