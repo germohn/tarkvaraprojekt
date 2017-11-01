@@ -1,47 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 /* eslint-disable no-unused-vars */
-const allEmployees = (data) => {
+
+
+const employees = (data) => {
+  let employeesData = {};
   const allEmployees = [];
-  data.forEach((comp) => {
+  const undefinedEmployees = [];
+
+  data.map((comp) => {
     if (comp.employees !== undefined) {
       return allEmployees.push(comp.employees);
+    }else {
+      undefinedEmployees.push(comp.employees);
     }
   });
-  return allEmployees;
+
+  const totalSum = total(allEmployees);
+  const averageOfData = average(totalSum, allEmployees);
+  employeesData['Total'] = totalSum;
+  employeesData['Average'] = averageOfData;
+  employeesData['Undefined'] = undefinedEmployees.length;
+
+  return employeesData;
 };
 
-const employeesTotal = (allEmployees) => {
-  allEmployees.reduce(function(accumulator, currentValue) {
-    return accumulator + currentValue;
-  });
-};
-
-const averageEmployees = (employeesSum, allemployees) => {
-  const compEmployeesCounter = allemployees.length;
-  return Math.round(employeesSum / compEmployeesCounter);
-};
-
-const allFundings = (data) => {
+const fundings = (data) => {
+  let fundingsData = {};
   const allFundings = [];
-  data.forEach((comp) => {
-    if(comp.funding !== undefined) {
+  const undefinedFundings = [];
+
+  data.map((comp) => {
+    if (comp.funding !== undefined) {
       return allFundings.push(comp.funding);
+    }else {
+      undefinedFundings.push(comp.funding);
     }
   });
-  return allFundings;
+
+  const totalSum = total(allFundings);
+  const averageOfData = average(totalSum, allFundings);
+  fundingsData['Total'] = totalSum;
+  fundingsData['Average'] = averageOfData;
+  fundingsData['Undefined'] = undefinedFundings.length;
+
+  return fundingsData;
 };
 
-const fundingsTotal = (allFundings) => {
-  allFundings.reduce(function(accumulator, currentValue) {
-    return accumulator + currentValue;
-  });
+
+const average = (sum, dataArray) => {
+  const compCounter = dataArray.length;
+  return Math.round(sum / compCounter);
 };
 
-const averageFunding = (fundingsSum, allFundings) => {
-  const compFundingsCounter = allFundings.length;
-  return Math.round(fundingsSum /compFundingsCounter);
+const total = (dataArray) => {
+  const sum = dataArray.reduce((accumulator, currentValue) =>
+    accumulator + currentValue);
+  return sum;
 };
 
 
@@ -51,16 +68,6 @@ class Statistics extends React.Component {
   }
 
   render() {
-    const allemployees = allEmployees(this.props.data);
-    const totalemployees = employeesTotal(allemployees);
-    // console.log('Total employees', totalemployees);
-    // console.log('Average employees', averageEmployees(totalemployees, allemployees));
-
-    const allfundings = allFundings(this.props.data);
-    const totalfunding = fundingsTotal(allfundings);
-    // console.log('Total funding', totalfunding);
-    // console.log('Average funding', averageFunding(totalfunding, allfundings));
-
     return (
       <div>
         <p>statistics</p>
