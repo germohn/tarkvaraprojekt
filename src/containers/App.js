@@ -44,7 +44,7 @@ const App = () => {
     console.log('The whole dataSet: ', mockData);
     const sample = mockData.slice(0, 10);
 
-  const allTags = R.flatten(mockData.map((comp) => {
+    const allTags = R.flatten(mockData.map((comp) => {
         if (comp.tags !== undefined) {
             return comp.tags;
         }
