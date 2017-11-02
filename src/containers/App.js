@@ -53,11 +53,11 @@ const App = () => {
     const uniqueTags = R.uniq(allTags).filter(Boolean);
 
     const stageMap = new Map();
-    R.flatten(mockData.map((comp) => {
-      if(comp.stage !== undefined){
+    mockData.forEach((comp) => {
+      if(comp.stageName !== undefined){
         return stageMap.set(comp.stageOrder, comp.stageName)
       }
-    }));
+    });
 
     const sortedStageKeys = Array.from(stageMap.keys()).sort();
     const stageMapSorted = new Map();
@@ -78,7 +78,7 @@ const App = () => {
           <div className="container">
             <Card data={sample} tags={uniqueTags} stages={stageMapSorted}/>
           </div>
-            <Statistics data ={mockData}/>
+            <Statistics data={mockData}/>
         </div>
     );
 };
