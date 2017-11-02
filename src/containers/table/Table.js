@@ -109,7 +109,7 @@ class TableView extends React.Component {
     this.showAll = this.showAll.bind(this);
   }
 
-  onClearState(e) {
+  onClearTags(e) {
     this.setState({
       unSelectedTags: this.temp,
       selectedTags: []
@@ -249,13 +249,9 @@ class TableView extends React.Component {
     const selected = R.clone(this.state.selectedStages);
     const index = selected.indexOf(stage);
     selected.splice(index, 1);
-
     const unSelected = R.clone(this.state.unSelectedStages);
-
-
     const inx = this.state.allstages.indexOf(stage);
     unSelected.splice(inx, 0, stage);
-
     this.setState({
       unSelectedStages: unSelected,
       selectedStages: selected
@@ -263,9 +259,8 @@ class TableView extends React.Component {
   }
 
   clearStages() {
-    let allStages = this.state.allstages;
     this.setState({
-      unSelectedStages: allStages,
+      unSelectedStages: this.state.allstages,
       selectedStages: []
     });
   }
@@ -312,7 +307,7 @@ class TableView extends React.Component {
           }
         </div>
         <div className="row">
-          <button className='showAll' type="button" onClick={(e) => this.onClearState(e)}>Clear tags</button>
+          <button className='showAll' type="button" onClick={(e) => this.onClearTags(e)}>Clear tags</button>
         </div>
         <div className="row">
           <h3>Stages</h3>
