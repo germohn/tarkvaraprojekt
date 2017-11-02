@@ -26,6 +26,7 @@ table {
     /*margin-right: 10em;*/
     border-style: hidden;
     width: 100%;
+    table-layout: fixed;
 }
 
 
@@ -39,22 +40,27 @@ th {
     font-family: Helvetica;
     font-size: 1.7em;
     color: white;
+    height: 3em;
+}
+
+.table>thead>tr>th {
+    vertical-align: middle;
+}
+
+.table>tbody>tr>td{
+    vertical-align: middle;
 }
 
 #companyCol{
-    width: 15%;
-}
-
-#descriptionCol{
-    width: 14%;
+    width: 25%;
 }
 
 #fundingCol{
-    width: 14%;
+    width: 15%;
 }
 
 #employeesCol{
-    width: 17%;
+    width: 15%;
 }
 
 #tagsCol{
@@ -62,21 +68,23 @@ th {
 }
 
 #stageCol{
-    width: 10%;
+    width: 15%;
 }
 
 #foundedCol{
     width: 15%;
 }
 
-
 td {
-    border-top: 1.5px solid #F7F7F9;
-    border-bottom: 1.5px solid #F7F7F9;
     text-align: center;
-    padding: 1em 0.5em 1em 0.5em;
+    padding: 0.2em 0.3em 0.2em 0.3em;
     font-family: Helvetica;
     font-size: 1em;
+}
+
+td#description{
+    color: #8c8c8c;
+    padding-top: 1em;
 }
 
 tr:hover {
@@ -90,7 +98,7 @@ tr:hover {
 
 .companyName {
     font-weight: bolder;
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #494E6B;
 }
 
@@ -203,4 +211,20 @@ a{
 .logoContainer{
     height: 5em;
     width: 100%;
+}
+
+#leftAlignedContainer{
+    text-align: left;
+    padding: 1em;
+}
+
+#searchBox {
+    margin-left: 1em;
+    border: solid 0.1em black;
+    padding: 0.5em;
+    border-radius: 1em;
+}
+
+.glyphicon{
+    margin-left: -2em;
 }

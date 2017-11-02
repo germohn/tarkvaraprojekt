@@ -35,7 +35,7 @@ const changeNumOrder = (array, sortBy, order) => {
       R.ascend(R.compose(R.toLower(), R.prop('name')))
     ]);
     const newOrder = sortByAsc(definedArray);
-    return undefinedArray.concat(newOrder);
+    return newOrder.concat(undefinedArray);
   }
 };
 
@@ -102,6 +102,7 @@ class TableView extends React.Component {
     const temp = props.tags;
     this.temp = temp;
     this.handleNameClick = this.handleNameClick.bind(this);
+    this.handleSortingClick = this.handleSortingClick.bind(this);
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleStageSelect = this.handleStageSelect.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
@@ -131,7 +132,7 @@ class TableView extends React.Component {
     if (this.state.sortBy != 'name') {
       newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
     } else {
-      if (this.state.order === 'asc' || this.state.order === null) {
+      if (this.state.order === 'asc') {
         newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'desc'), order: 'desc'});
       } else {
         newState = R.merge(newState, {companies: changeOrder(this.state.companies, 'name', 'asc'), order: 'asc'});
@@ -140,70 +141,18 @@ class TableView extends React.Component {
     this.setState({companies: newState.companies, sortBy: 'name', order: newState.order});
   }
 
-  handleFundingClick(e) {
+  handleSortingClick(e, sortBy) {
     let newState = R.clone(this.state);
-    if (this.state.sortBy != 'funding') {
-      newState = R.merge(newState, {companies: changeNumOrder(this.state.companies, 'funding', 'desc'), order: 'desc'});
+    if (this.state.sortBy != sortBy) {
+      newState = R.merge(newState, {companies: changeNumOrder(this.state.companies, sortBy, 'desc'), order: 'desc'});
     } else {
-      if (this.state.order === 'desc' || this.state.order === null) {
-        newState = R.merge(newState, {
-          companies: changeNumOrder(this.state.companies,
-            'funding', 'asc'), order: 'asc'
-        });
+      if (this.state.order === 'desc') {
+        newState = R.merge(newState, {companies: changeNumOrder(this.state.companies, sortBy, 'asc'), order: 'asc'});
       } else {
-        newState = R.merge(newState, {
-          companies: changeNumOrder(this.state.companies,
-            'funding', 'desc'), order: 'desc'
-        });
+        newState = R.merge(newState, {companies: changeNumOrder(this.state.companies, sortBy, 'desc'), order: 'desc'});
       }
     }
-    this.setState({companies: newState.companies, sortBy: 'funding', order: newState.order});
-  }
-
-  handleEmployeesClick(e) {
-    let newState = R.clone(this.state);
-    if (this.state.sortBy != 'employees') {
-      newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies, 'employees', 'desc'),
-        order: 'desc'
-      });
-    } else {
-      if (this.state.order === 'desc' || this.state.order === null) {
-        newState = R.merge(newState, {
-          companies: changeNumOrder(this.state.companies,
-            'employees', 'asc'), order: 'asc'
-        });
-      } else {
-        newState = R.merge(newState, {
-          companies: changeNumOrder(this.state.companies,
-            'employees', 'desc'), order: 'desc'
-        });
-      }
-    }
-    this.setState({companies: newState.companies, sortBy: 'employees', order: newState.order});
-  }
-
-  handleFoundedClick(e) {
-    let newState = R.clone(this.state);
-    if (this.state.sortBy != 'foundedOn') {
-      newState = R.merge(newState, {
-        companies: changeNumOrder(this.state.companies, 'foundedOn', 'desc'),
-        order: 'desc'
-      });
-    } else {
-      if (this.state.order === 'desc' || this.state.order === null) {
-        newState = R.merge(newState, {
-          companies: changeNumOrder(this.state.companies,
-            'foundedOn', 'asc'), order: 'asc'
-        });
-      } else {
-        newState = R.merge(newState, {
-          companies: changeNumOrder(this.state.companies,
-            'foundedOn', 'desc'), order: 'desc'
-        });
-      }
-    }
-    this.setState({companies: newState.companies, sortBy: 'foundedOn', order: newState.order});
+    this.setState({companies: newState.companies, sortBy: sortBy, order: newState.order});
   }
 
   handleTagSelect(tag) {
@@ -249,9 +198,7 @@ class TableView extends React.Component {
     const selected = R.clone(this.state.selectedStages);
     const index = selected.indexOf(stage);
     selected.splice(index, 1);
-    const unSelected = R.clone(this.state.unSelectedStages);
-    const inx = this.state.allstages.indexOf(stage);
-    unSelected.splice(inx, 0, stage);
+    const unSelected = this.state.allstages.filter((val) => selected.indexOf(val) < 0);
     this.setState({
       unSelectedStages: unSelected,
       selectedStages: selected
@@ -335,23 +282,23 @@ class TableView extends React.Component {
         <div className="row">
           <div className="table-responsive">
             <h3>Table view</h3>
-            <div className="row">
-              <input className="text" type="text" placeholder="Search" value={this.state.search}
+            <div id="leftAlignedContainer" className="row">
+              <input id="searchBox" type="text" placeholder="Search by name..." value={this.state.search}
                      onChange={(event) => this.updateSearch(event)}/>
+              <i className="glyphicon glyphicon-search"></i>
             </div>
             <table className="table">
               <thead>
               <tr>
                 <th id='companyCol' onClick={(e) => this.handleNameClick(e)}>Company
                   <i className="fa fa-fw fa-sort"/></th>
-                <th id='descriptionCol'>Description</th>
-                <th id='fundingCol' onClick={(e) => this.handleFundingClick(e)}>Funding
+                <th id='fundingCol' onClick={(e) => this.handleSortingClick(e, 'funding')}>Funding
                   <i className="fa fa-fw fa-sort"/></th>
-                <th id='employeesCol' onClick={(e) => this.handleEmployeesClick(e)}>Employees
+                <th id='employeesCol' onClick={(e) => this.handleSortingClick(e, 'employees')}>Employees
                   <i className="fa fa-fw fa-sort"/></th>
                 <th id='tagsCol'>Tags</th>
                 <th id='stageCol'>Stage</th>
-                <th id='foundedCol' onClick={(e) => this.handleFoundedClick(e)}>Founded
+                <th id='foundedCol' onClick={(e) => this.handleSortingClick(e, 'foundedOn')}>Founded
                   <i className="fa fa-fw fa-sort"/></th>
               </tr>
               </thead>
