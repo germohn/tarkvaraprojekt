@@ -2,22 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const showYear = (dateString) => {
-    try {
-        return dateString.substring(0, 4);
-    } catch (err) {
-        return '-';
-    }
+  try {
+    return dateString.substring(0, 4);
+  } catch (err) {
+    return '-';
+  }
 };
 
 class CompanyRow extends React.Component {
-    constructor(props) {
-        super(props);
-        // console.log(props.company)
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    rowClick(link) {
-        window.open(link);
-    }
+  rowClick(link) {
+    window.open(link);
+  }
 
     render() {
         return (
@@ -51,6 +50,6 @@ class CompanyRow extends React.Component {
 }
 
 CompanyRow.propTypes = {
-    company: PropTypes.object.isRequired
+  company: PropTypes.object.isRequired
 };
 export default CompanyRow;
