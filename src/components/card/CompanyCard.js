@@ -14,7 +14,7 @@ class CompanyCard extends React.Component {
     return (
       <article className="companyCard">
         <div className="logoContainer">
-        <img className='logo' src={this.props.company.logo100x100} alt="logo"/>
+          <img className='logo' src={this.props.company.logo100x100} alt="logo"/>
         </div>
         <p className='companyName'>{this.props.company.name}</p>
         <p className='description'>{this.props.company.description}</p>
