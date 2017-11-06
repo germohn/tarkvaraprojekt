@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CompanyCard from '../../components/card/CompanyCard';
+import Buttons from '../../components/table/Buttons';
+import R from 'ramda';
 
 
 class CardView extends React.Component {
@@ -10,6 +12,18 @@ class CardView extends React.Component {
       showCount: 10,
       showInRow: 3,
     };
+    this.showMore = this.showMore.bind(this);
+    this.showAll = this.showAll.bind(this);
+  }
+
+  showMore(e) {
+    let newLimit = R.clone(this.state.showCount) + 20;
+    this.setState({showCount: newLimit});
+  }
+
+  showAll(e) {
+    let newLimit = this.props.data.length;
+    this.setState({showCount: newLimit});
   }
 
   render() {
@@ -24,6 +38,8 @@ class CardView extends React.Component {
           })
           }
         </section>
+        <Buttons showMore={this.showMore} showAll={this.showAll}
+                 limit={this.state.showCount} length={this.props.data.length}/>
       </div>
     )
       ;

@@ -22,7 +22,7 @@ class TableView extends React.Component {
   }
 
   showAll(e) {
-    let newLimit = this.state.companies.length;
+    let newLimit = this.props.data.length;
     this.setState({showCount: newLimit});
   }
 
