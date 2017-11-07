@@ -3,7 +3,7 @@ import {getStages, getTags} from '../../../src/containers/util/UniqueTagsAndStag
 
 describe('Tags', () => {
   it('If only unique tags are collected', () => {
-    const data1 = [
+    const compsWithTags = [
       {
         'name': 'Fortumo',
         'tags': [
@@ -21,36 +21,35 @@ describe('Tags', () => {
         ],
       }
     ];
-    expect(getTags(data1)).to.eql(
+    expect(getTags(compsWithTags)).to.eql(
         ['big data & ai', 'business and industry', 'marketing and advertising',
       'news and media', 'financial services']
     );
   });
 
   it('If tags not defined then an empty array is returned', () => {
-    const data2 = [
+    const compsWithStages = [
       {
         'name': 'name',
         'tags': undefined
       }
     ];
-    expect(getTags(data2)).to.be.an('array').that.is.empty;
+    expect(getTags(compsWithStages)).to.be.an('array').that.is.empty;
   });
 });
 
 describe('Stages', () => {
   it('If all unique stages are returned as map and key-s are the stageOrder-s, no undefined stages in the map', () => {
-    const map1 = new Map();
-    map1.set('1', 'Discovery');
-    map1.set('2', 'Validation');
-    map1.set('3', 'Efficiency');
-    map1.set('4', 'Scale');
-    map1.set('5', 'Mature growth');
-    map1.set('6', 'Unknown');
+    const expectedStageMap = new Map();
+    expectedStageMap.set('1', 'Discovery');
+    expectedStageMap.set('2', 'Validation');
+    expectedStageMap.set('3', 'Efficiency');
+    expectedStageMap.set('4', 'Scale');
+    expectedStageMap.set('5', 'Mature growth');
+    expectedStageMap.set('6', 'Unknown');
 
-    const data3 = [
+    const compsWithStages = [
       {
-        'name': 'name',
         'stage': 'SCA',
         'stageName': 'Scale',
         'stageOrder': 4
@@ -90,6 +89,6 @@ describe('Stages', () => {
       }
 
     ];
-    expect(getStages(data3)).to.eql(map1);
+    expect(getStages(compsWithStages)).to.eql(expectedStageMap);
   });
 });
