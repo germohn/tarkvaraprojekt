@@ -5,6 +5,7 @@ import TableView from '../table/Table';
 import {changeNumOrder, changeOrder, filterCompanies} from '../util/SortAndFilterFunctions';
 import CardView from '../card/Card';
 import {Nav, NavItem} from 'react-bootstrap';
+import Statistics from '../statistics/Statistics';
 
 
 class HeaderBlock extends React.Component {
@@ -231,15 +232,23 @@ class HeaderBlock extends React.Component {
           data={this.getSortedAndFilteredData()}
           handleNameClick={this.handleNameClick}
           handleSortingClick={this.handleSortingClick}
+          sortBy={this.state.sortBy}
+          order={this.state.order}
         />
       );
     } else if (tabKey == 2) {
-      return(
-        <CardView data={this.getSortedAndFilteredData()}/>
-        );
-    } else{
-      return(
-        <p>Aggregated Statistics</p>
+      return (
+        <CardView data={this.getSortedAndFilteredData()}
+                  handleNameClick={this.handleNameClick}
+                  handleSortingClick={this.handleSortingClick}
+                  sortBy={this.state.sortBy}
+                  order={this.state.order}
+        />
+      );
+    } else {
+      return (
+        <Statistics filteredData={this.getSortedAndFilteredData()}
+                    allData = {this.props.data}/>
       );
     }
   }

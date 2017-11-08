@@ -26,6 +26,24 @@ class TableView extends React.Component {
     this.setState({showCount: newLimit});
   }
 
+  renderArrow(field) {
+    if (this.props.sortBy === field) {
+      if (this.props.order === 'asc') {
+        return(
+          <i className="fa fa-sort-desc"></i>
+        );
+      } else{
+        return(
+          <i className="fa fa-sort-asc"></i>
+        );
+      }
+    } else {
+      return(
+        <i className="fa fa-fw fa-sort"/>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -37,15 +55,15 @@ class TableView extends React.Component {
               <thead>
               <tr>
                 <th id='companyCol' onClick={(e) => this.props.handleNameClick(e)}>Company
-                  <i className="fa fa-fw fa-sort"/></th>
+                  {this.renderArrow('name')}</th>
                 <th id='fundingCol' onClick={(e) => this.props.handleSortingClick(e, 'funding')}>Funding
-                  <i className="fa fa-fw fa-sort"/></th>
+                  {this.renderArrow('funding')}</th>
                 <th id='employeesCol' onClick={(e) => this.props.handleSortingClick(e, 'employees')}>Employees
-                  <i className="fa fa-fw fa-sort"/></th>
+                    {this.renderArrow('employees')}</th>
                 <th id='tagsCol'>Tags</th>
                 <th id='stageCol'>Stage</th>
                 <th id='foundedCol' onClick={(e) => this.props.handleSortingClick(e, 'foundedOn')}>Founded
-                  <i className="fa fa-fw fa-sort"/></th>
+                      {this.renderArrow('foundedOn')}</th>
               </tr>
               </thead>
               <tbody>
@@ -68,6 +86,8 @@ TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   handleNameClick: PropTypes.func.isRequired,
   handleSortingClick: PropTypes.func.isRequired,
+  sortBy: PropTypes.string.isRequired,
+  order: PropTypes.string.isRequired
 };
 
 export default TableView;

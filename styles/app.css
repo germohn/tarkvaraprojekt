@@ -20,7 +20,6 @@ h3 {
     align-items: center;
 }
 
-
 table {
     /*margin-left: 10em;*/
     /*margin-right: 10em;*/
@@ -28,7 +27,6 @@ table {
     width: 100%;
     table-layout: fixed;
 }
-
 
 th {
     border-top: 2px solid #A9A9A9;
@@ -43,35 +41,35 @@ th {
     height: 3em;
 }
 
-.table>thead>tr>th {
+.table > thead > tr > th {
     vertical-align: middle;
 }
 
-.table>tbody>tr>td{
+.table > tbody > tr > td {
     vertical-align: middle;
 }
 
-#companyCol{
+#companyCol {
     width: 25%;
 }
 
-#fundingCol{
+#fundingCol {
     width: 15%;
 }
 
-#employeesCol{
+#employeesCol {
     width: 15%;
 }
 
-#tagsCol{
+#tagsCol {
     width: 15%;
 }
 
-#stageCol{
+#stageCol {
     width: 15%;
 }
 
-#foundedCol{
+#foundedCol {
     width: 15%;
 }
 
@@ -82,7 +80,7 @@ td {
     font-size: 1em;
 }
 
-td#description{
+td#description {
     color: #8c8c8c;
     padding-top: 1em;
 }
@@ -91,7 +89,7 @@ tr:hover {
     background-color: #F7F7F9;
 }
 
-.borderless{
+.borderless {
     border: hidden;
     text-align: center;
 }
@@ -102,13 +100,12 @@ tr:hover {
     color: #494E6B;
 }
 
-.logo{
+.logo {
     width: 4.5em;
 }
 
-
-div{
-    text-align:center;
+div {
+    text-align: center;
 }
 
 .showAll {
@@ -121,14 +118,13 @@ div{
     width: 10em;
     text-align: center;
     font-size: 1.3em;
-    position:relative;
+    position: relative;
     margin: 1em;
 }
 
-.showAll:hover{
+.showAll:hover {
     box-shadow: 0.1em 0.1em 0.5em #888888;
 }
-
 
 .chip {
     display: inline-block;
@@ -142,18 +138,17 @@ div{
 }
 
 .tagsContainer {
-    height:10em;
+    height: 10em;
     width: 100%;
     padding: 3em;
 }
 
-
-.companyCard{
+.companyCard {
     margin: 1em;
     border: 0.1em solid #A9A9A9;
     border-radius: 0.5em;
     width: calc(20% - 2em);
-    padding:0.5em;
+    padding: 0.5em;
 }
 
 @media only screen and (max-width: 1180px) {
@@ -161,59 +156,62 @@ div{
         width: calc(25% - 2em);
     }
 }
+
 @media only screen and (max-width: 960px) {
-    .companyCard{
+    .companyCard {
         width: calc(33.33% - 2em);
     }
 }
+
 @media only screen and (max-width: 680px) {
     .companyCard {
         width: calc(50% - 2em);
     }
 }
+
 @media only screen and (max-width: 460px) {
     .companyCard {
         width: 100%;
     }
 }
 
-.cardView{
+.cardView {
     display: flex;
     flex-wrap: wrap;
 }
 
-article{
+article {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.description{
+.description {
     color: #888888;
     text-align: justify;
 }
 
-.funding{
+.funding {
     background-color: #f4f4f4;
     width: 106%;
     padding: 0.3em;
     font-size: larger;
 }
 
-a{
+a {
     color: darkorange;
 }
 
-.wrapper{
+.wrapper {
     display: block;
 }
 
-.logoContainer{
+.logoContainer {
     height: 5em;
     width: 100%;
 }
 
-#leftAlignedContainer{
+#leftAlignedContainer {
     text-align: left;
     padding: 1em;
 }
@@ -225,6 +223,17 @@ a{
     border-radius: 1em;
 }
 
-.glyphicon{
+.glyphicon {
     margin-left: -2em;
 }
+
+#sortingContainer {
+    text-align: left;
+    font-size: medium;
+    padding-left: 2em;
+}
+
+th > .fa-sort-asc, .fa-sort-desc {
+    margin-left: 0.2em;
+}
+

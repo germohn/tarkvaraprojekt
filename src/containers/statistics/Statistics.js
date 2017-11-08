@@ -88,7 +88,6 @@ class Statistics extends React.Component {
   }
 }
 
-
 Statistics.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };
