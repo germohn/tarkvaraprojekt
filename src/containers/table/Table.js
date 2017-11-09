@@ -50,10 +50,10 @@ class TableView extends React.Component {
               </thead>
               <tbody>
               {this.props.data.map((comp, i) => {
-                if (i <= this.state.showCount)
+                if (i <= this.state.showCount - 1)
                   return (<CompanyRow key={comp.slug} company={comp}/>);
               })}
-              </tbody>
+            </tbody>
             </table>
             <Buttons showMore={this.showMore} showAll={this.showAll}
                      limit={this.state.showCount} length={this.props.data.length}/>
