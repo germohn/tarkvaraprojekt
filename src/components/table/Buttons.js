@@ -7,8 +7,8 @@ const Buttons = (props) => {
     if (props.limit < props.length) {
       return (
         <div>
-          <button className='showAll' type="button" onClick={(e) => props.showMore(e)}>Show more</button>
-          <button className='showAll' type="button" onClick={(e) => props.showAll(e)}>Show all</button>
+          <button className="showMore" type="button" onClick={(e) => props.showMore(e)}>Show more</button>
+          <button className="showAll" type="button" onClick={(e) => props.showAll(e)}>Show all</button>
         </div>);
     } else {
       return (
