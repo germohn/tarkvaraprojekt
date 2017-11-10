@@ -21,11 +21,8 @@ h3 {
 }
 
 table {
-    /*margin-left: 10em;*/
-    /*margin-right: 10em;*/
     border-style: hidden;
     width: 100%;
-    table-layout: fixed;
 }
 
 th {
@@ -236,4 +233,3 @@ a {
 th > .fa-sort-asc, .fa-sort-desc {
     margin-left: 0.2em;
 }
-

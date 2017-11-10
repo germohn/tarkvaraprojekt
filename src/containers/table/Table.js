@@ -26,49 +26,31 @@ class TableView extends React.Component {
     this.setState({showCount: newLimit});
   }
 
-  renderArrow(field) {
-    if (this.props.sortBy === field) {
-      if (this.props.order === 'asc') {
-        return(
-          <i className="fa fa-sort-desc"></i>
-        );
-      } else{
-        return(
-          <i className="fa fa-sort-asc"></i>
-        );
-      }
-    } else {
-      return(
-        <i className="fa fa-fw fa-sort"/>
-      );
-    }
-  }
-
   render() {
     return (
       <div className="container">
         <div className="row">
-          <div className="table-responsive">
+          <div className="table table-responsive">
             <h3>Table view</h3>
 
             <table className="table">
               <thead>
               <tr>
                 <th id='companyCol' onClick={(e) => this.props.handleNameClick(e)}>Company
-                  {this.renderArrow('name')}</th>
+                  {this.props.renderArrow('name')}</th>
                 <th id='fundingCol' onClick={(e) => this.props.handleSortingClick(e, 'funding')}>Funding
-                  {this.renderArrow('funding')}</th>
+                  {this.props.renderArrow('funding')}</th>
                 <th id='employeesCol' onClick={(e) => this.props.handleSortingClick(e, 'employees')}>Employees
-                    {this.renderArrow('employees')}</th>
+                  {this.props.renderArrow('employees')}</th>
                 <th id='tagsCol'>Tags</th>
                 <th id='stageCol'>Stage</th>
                 <th id='foundedCol' onClick={(e) => this.props.handleSortingClick(e, 'foundedOn')}>Founded
-                      {this.renderArrow('foundedOn')}</th>
+                  {this.props.renderArrow('foundedOn')}</th>
               </tr>
               </thead>
               <tbody>
               {this.props.data.map((comp, i) => {
-                if (i <= this.state.showCount)
+                if (i < this.state.showCount)
                   return (<CompanyRow key={comp.slug} company={comp}/>);
               })}
               </tbody>
@@ -86,8 +68,7 @@ TableView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   handleNameClick: PropTypes.func.isRequired,
   handleSortingClick: PropTypes.func.isRequired,
-  sortBy: PropTypes.string.isRequired,
-  order: PropTypes.string.isRequired
+  renderArrow: PropTypes.func.isRequired
 };
 
 export default TableView;

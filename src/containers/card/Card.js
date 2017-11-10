@@ -25,33 +25,16 @@ class CardView extends React.Component {
     this.setState({showCount: newLimit});
   }
 
-  renderArrow(field) {
-    if (this.props.sortBy === field) {
-      if (this.props.order === 'asc') {
-        return (
-          <i className="fa fa-sort-desc"></i>
-        );
-      } else {
-        return (
-          <i className="fa fa-sort-asc"></i>
-        );
-      }
-    } else {
-      return (
-        <i className="fa fa-fw fa-sort"/>
-      );
-    }
-  }
-
   render() {
     return (
       <div className="wrapper">
         <h3> Cardview</h3>
         <div id="sortingContainer">
           Sort By:&emsp;
-          <a onClick={(e) => this.props.handleNameClick(e)}>Name {this.renderArrow('name')}</a>
+          <a onClick={(e) => this.props.handleNameClick(e)}>Name {this.props.renderArrow('name')}</a>
           &emsp;
-          <a onClick={(e) => this.props.handleSortingClick(e, 'funding')}>Funding {this.renderArrow('funding')}</a>
+          <a onClick={(e) => this.props.handleSortingClick(e, 'funding')}>
+            Funding {this.props.renderArrow('funding')}</a>
         </div>
         <section className="cardView">
           {this.props.data.map((comp, i) => {
@@ -73,8 +56,7 @@ CardView.propTypes = {
   data: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   handleNameClick: PropTypes.func.isRequired,
   handleSortingClick: PropTypes.func.isRequired,
-  sortBy: PropTypes.string.isRequired,
-  order: PropTypes.string.isRequired
+  renderArrow: PropTypes.func.isRequired
 };
 
 export default CardView;

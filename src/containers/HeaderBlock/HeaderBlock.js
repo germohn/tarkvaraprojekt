@@ -37,6 +37,7 @@ class HeaderBlock extends React.Component {
     this.handleStageSelect = this.handleStageSelect.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.onTabSelect = this.onTabSelect.bind(this);
+    this.renderArrow = this.renderArrow.bind(this);
   }
 
   onClearTags(e) {
@@ -232,8 +233,7 @@ class HeaderBlock extends React.Component {
           data={this.getSortedAndFilteredData()}
           handleNameClick={this.handleNameClick}
           handleSortingClick={this.handleSortingClick}
-          sortBy={this.state.sortBy}
-          order={this.state.order}
+          renderArrow={this.renderArrow}
         />
       );
     } else if (tabKey == 2) {
@@ -241,14 +241,13 @@ class HeaderBlock extends React.Component {
         <CardView data={this.getSortedAndFilteredData()}
                   handleNameClick={this.handleNameClick}
                   handleSortingClick={this.handleSortingClick}
-                  sortBy={this.state.sortBy}
-                  order={this.state.order}
+                  renderArrow={this.renderArrow}
         />
       );
     } else {
       return (
         <Statistics filteredData={this.getSortedAndFilteredData()}
-                    allData = {this.props.data}/>
+                    allData={this.props.data}/>
       );
     }
   }
@@ -265,6 +264,24 @@ class HeaderBlock extends React.Component {
         <NavItem eventKey="3">Aggregated Statistics</NavItem>
       </Nav>
     );
+  }
+
+  renderArrow(field) {
+    if (this.state.sortBy === field) {
+      if (this.state.order === 'asc') {
+        return (
+          <i className="fa fa-sort-desc"></i>
+        );
+      } else {
+        return (
+          <i className="fa fa-sort-asc"></i>
+        );
+      }
+    } else {
+      return (
+        <i className="fa fa-fw fa-sort"/>
+      );
+    }
   }
 
   render() {
