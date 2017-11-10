@@ -4,6 +4,8 @@ import R from 'ramda';
 import TableView from '../table/Table';
 import {changeNumOrder, changeOrder, filterCompanies} from '../util/SortAndFilterFunctions';
 import CardView from '../card/Card';
+import {Nav, NavItem} from 'react-bootstrap';
+import Statistics from '../statistics/Statistics';
 
 
 class HeaderBlock extends React.Component {
@@ -23,7 +25,8 @@ class HeaderBlock extends React.Component {
       companies: R.sortBy(R.compose(R.toLower, R.prop('name')))(props.data),
       search: '',
       alltags: props.tags,
-      allstages: Array.from((props.stages).values())
+      allstages: Array.from((props.stages).values()),
+      activeTab: 1
     };
 
     const temp = props.tags;
@@ -33,6 +36,8 @@ class HeaderBlock extends React.Component {
     this.handleTagSelect = this.handleTagSelect.bind(this);
     this.handleStageSelect = this.handleStageSelect.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
+    this.onTabSelect = this.onTabSelect.bind(this);
+    this.renderArrow = this.renderArrow.bind(this);
   }
 
   onClearTags(e) {
@@ -221,22 +226,75 @@ class HeaderBlock extends React.Component {
     );
   }
 
+  renderView(tabKey) {
+    if (tabKey == 1) {
+      return (
+        <TableView
+          data={this.getSortedAndFilteredData()}
+          handleNameClick={this.handleNameClick}
+          handleSortingClick={this.handleSortingClick}
+          renderArrow={this.renderArrow}
+        />
+      );
+    } else if (tabKey == 2) {
+      return (
+        <CardView data={this.getSortedAndFilteredData()}
+                  handleNameClick={this.handleNameClick}
+                  handleSortingClick={this.handleSortingClick}
+                  renderArrow={this.renderArrow}
+        />
+      );
+    } else {
+      return (
+        <Statistics filteredData={this.getSortedAndFilteredData()}
+                    allData={this.props.data}/>
+      );
+    }
+  }
+
+  onTabSelect(eventKey) {
+    this.setState({activeTab: eventKey});
+  }
+
+  renderNavBar() {
+    return (
+      <Nav bsStyle="tabs" activeKey="1" onSelect={this.onTabSelect}>
+        <NavItem eventKey="1">Table View</NavItem>
+        <NavItem eventKey="2">Card View</NavItem>
+        <NavItem eventKey="3">Aggregated Statistics</NavItem>
+      </Nav>
+    );
+  }
+
+  renderArrow(field) {
+    if (this.state.sortBy === field) {
+      if (this.state.order === 'asc') {
+        return (
+          <i className="fa fa-sort-desc"></i>
+        );
+      } else {
+        return (
+          <i className="fa fa-sort-asc"></i>
+        );
+      }
+    } else {
+      return (
+        <i className="fa fa-fw fa-sort"/>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="container">
         {this.renderTagsComponent()}
         {this.renderStageComponent()}
         {this.renderSearchBar()}
-        <TableView
-          data={this.getSortedAndFilteredData()}
-          handleNameClick={this.handleNameClick}
-          handleSortingClick={this.handleSortingClick}
-        />
-        <CardView data={this.getSortedAndFilteredData()}/>
+        {this.renderNavBar()}
+        {this.renderView(this.state.activeTab)}
       </div>
     );
   }
-
 }
 
 HeaderBlock.propTypes = {
