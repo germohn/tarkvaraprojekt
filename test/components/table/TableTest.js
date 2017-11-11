@@ -21,10 +21,10 @@ function generateFakeCompanies(n) {
   return result;
 }
 
-describe('Table', function() {
+describe('Table', () => {
   const noop = sinon.spy();
 
-  it('Testing if 5/5 comps are rendered', function() {
+  it('Testing if 5/5 comps are rendered', () => {
      const companies = generateFakeCompanies(5);
 
      const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
@@ -32,7 +32,7 @@ describe('Table', function() {
      expect(wrapper).to.have.exactly(5).descendants(CompanyRow);
   });
 
-  it('Testing if 10/15 comps are rendered', function() {
+  it('Testing if 10/15 comps are rendered', () => {
     const companies = generateFakeCompanies(15);
 
     const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
@@ -40,7 +40,7 @@ describe('Table', function() {
     expect(wrapper).to.have.exactly(10).descendants(CompanyRow);
   });
 
-  it('Tests that "Show more" works correctly', function() {
+  it('Tests that "Show more" works correctly', () => {
     const companies = generateFakeCompanies(15);
 
     const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
@@ -50,7 +50,7 @@ describe('Table', function() {
     expect(wrapper).to.have.exactly(15).descendants(CompanyRow);
   });
 
-  it('Tests that "Show more" adds 20 more rows to showCount state', function() {
+  it('Tests that "Show more" adds 20 more rows to showCount state', () => {
     const companies = generateFakeCompanies(50);
 
     const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
@@ -61,7 +61,7 @@ describe('Table', function() {
 
     expect(wrapper).to.have.exactly(initial + 20).descendants(CompanyRow);
   });
-  it('Tests that "Show more" adds 40 more rows to showCount state', function() {
+  it('Tests that "Show more" adds 40 more rows to showCount state', () => {
     const companies = generateFakeCompanies(80);
 
     const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
