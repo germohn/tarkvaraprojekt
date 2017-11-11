@@ -26,7 +26,7 @@ class HeaderBlock extends React.Component {
       search: '',
       alltags: props.tags,
       allstages: Array.from((props.stages).values()),
-      activeTab: 1
+      activeTab: '1'
     };
 
     const temp = props.tags;
@@ -267,6 +267,7 @@ class HeaderBlock extends React.Component {
   renderNavBar() {
     return (
       <Nav id ="navbar" bsStyle="tabs" activeKey="1" onSelect={this.onTabSelect}>
+      <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
         <NavItem eventKey="1">Table View</NavItem>
         <NavItem eventKey="2">Card View</NavItem>
         <NavItem eventKey="3">Aggregated Statistics</NavItem>

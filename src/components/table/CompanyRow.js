@@ -39,10 +39,10 @@ class CompanyRow extends React.Component {
           </table>
         </td>
         <td>{this.props.company.funding ? this.props.company.funding.toLocaleString('en-US') + ' $' : '-'}</td>
-        <td>{this.props.company.employees}</td>
-        <td>{this.props.company.tags}</td>
+        <td>{this.props.company.employees ? this.props.company.employees : '-'}</td>
+        <td>{this.props.company.tags ? this.props.company.tags : '-'}</td>
         <td>{this.props.company.stageName}</td>
-        <td>{showYear(this.props.company.foundedOn)}</td>
+        <td>{this.props.company.foundedOn ? showYear(this.props.company.foundedOn) : '-'}</td>
       </tr>
     );
   }
