@@ -27,7 +27,8 @@ describe('Table', () => {
   it('Testing if 5/5 comps are rendered', () => {
      const companies = generateFakeCompanies(5);
 
-     const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
+     const wrapper = shallow(<TableView data={companies} handleNameClick={noop}
+                                        handleSortingClick={noop} renderArrow={noop}/>);
 
      expect(wrapper).to.have.exactly(5).descendants(CompanyRow);
   });
@@ -35,7 +36,8 @@ describe('Table', () => {
   it('Testing if 10/15 comps are rendered', () => {
     const companies = generateFakeCompanies(15);
 
-    const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
+    const wrapper = shallow(<TableView data={companies} handleNameClick={noop}
+                                       handleSortingClick={noop} renderArrow={noop}/>);
 
     expect(wrapper).to.have.exactly(10).descendants(CompanyRow);
   });
@@ -43,7 +45,8 @@ describe('Table', () => {
   it('Tests that "Show more" works correctly', () => {
     const companies = generateFakeCompanies(15);
 
-    const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
+    const wrapper = shallow(<TableView data={companies} handleNameClick={noop}
+                                       handleSortingClick={noop} renderArrow={noop}/>);
 
     wrapper.instance().showMore();
 
@@ -53,7 +56,8 @@ describe('Table', () => {
   it('Tests that "Show more" adds 20 more rows to showCount state', () => {
     const companies = generateFakeCompanies(50);
 
-    const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
+    const wrapper = shallow(<TableView data={companies} handleNameClick={noop}
+                                       handleSortingClick={noop} renderArrow={noop}/>);
 
     const initial = wrapper.find(CompanyRow).length;
 
@@ -64,7 +68,8 @@ describe('Table', () => {
   it('Tests that "Show more" adds 40 more rows to showCount state', () => {
     const companies = generateFakeCompanies(80);
 
-    const wrapper = shallow(<TableView data={companies} handleNameClick={noop} handleSortingClick={noop}/>);
+    const wrapper = shallow(<TableView data={companies} handleNameClick={noop}
+                                       handleSortingClick={noop} renderArrow={noop}/>);
 
     const initial = wrapper.find(CompanyRow).length;
 
@@ -72,5 +77,15 @@ describe('Table', () => {
     wrapper.instance().showMore();
 
     expect(wrapper).to.have.exactly(initial + 40).descendants(CompanyRow);
+  });
+  it('Tests that "Show all" displays all companies', () => {
+    const companies = generateFakeCompanies(80);
+
+    const wrapper = shallow(<TableView data={companies} handleNameClick={noop}
+                                       handleSortingClick={noop} renderArrow={noop}/>);
+    wrapper.setState({data: companies.length});
+
+    wrapper.instance().showAll();
+    expect(wrapper).to.have.exactly(80).descendants(CompanyRow);
   });
 });

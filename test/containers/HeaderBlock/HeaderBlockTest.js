@@ -17,12 +17,13 @@ function generateTagsList(n) {
 describe('HeaderBlock', () => {
   const comp1 = {'name': 'Zlick', 'employees': 500, 'funding': 5000, 'tags': ['business and industry',
     'financial services'],
-    'stageName': 'Efficiency'};
+    'stageName': 'Efficiency', 'foundedOn': 2008};
   const comp2 = {'name': 'Zev Motors', 'employees': 2000, 'funding': 20000, 'tags': [
-    'big data & ai', 'business and industry', 'marketing and advertising', 'news and media'], 'stageName': 'Unknown'};
+    'big data & ai', 'business and industry', 'marketing and advertising', 'news and media'], 'stageName': 'Unknown',
+    'foundedOn': 2011};
   const comp3 = {'name': 'ZeroTurnaround', 'employees': 14, 'funding': 14000, 'tags': ['marketing and advertising',
     'news and media'],
-    'stageName': 'Validation'};
+    'stageName': 'Validation', 'foundedOn': 2015};
   const stagesMap = new Map();
   stagesMap.set('1', 'Discovery');
   stagesMap.set('2', 'Validation');
@@ -30,6 +31,8 @@ describe('HeaderBlock', () => {
   stagesMap.set('4', 'Scale');
   stagesMap.set('5', 'Mature growth');
   stagesMap.set('6', 'Unknown');
+
+  const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
 
   const generatedTags = generateTagsList(10);
   it('Testing when tag elected, then it should be in selectedTags and one less in unSelectedTags', () => {
@@ -89,8 +92,6 @@ describe('HeaderBlock', () => {
   });
 
   it('Testing if handleSortingClick sets data desc -> asc in table, current and last sortBy: employees', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
-
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp2, comp1, comp3])});
     wrapper.setState({order: ('desc')});
     wrapper.setState({sortBy: 'employees'});
@@ -99,21 +100,19 @@ describe('HeaderBlock', () => {
 
     expect(wrapper.state().companies).to.eql([comp3, comp1, comp2]);
     expect(wrapper.state().order).to.eql('asc');
+    expect(wrapper.state().sortBy).to.eql('employees');
   });
   it('Testing if handleSortingClick sets data asc -> desc in table, current and last sortBy: employees', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp3, comp1, comp2])});
     wrapper.setState({order: ('asc')});
     wrapper.setState({sortBy: 'employees'});
     wrapper.instance().handleSortingClick(0, 'employees');
 
-
     expect(wrapper.state().companies).to.eql([comp2, comp1, comp3]);
     expect(wrapper.state().order).to.eql('desc');
+    expect(wrapper.state().sortBy).to.eql('employees');
   });
   it('Testing if handleSortingClick sets data desc -> asc in table,current and last sorby: funding', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
-
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp2, comp3, comp1])});
     wrapper.setState({order: ('desc')});
     wrapper.setState({sortBy: 'funding'});
@@ -122,11 +121,10 @@ describe('HeaderBlock', () => {
 
     expect(wrapper.state().companies).to.eql([comp1, comp3, comp2]);
     expect(wrapper.state().order).to.eql('asc');
+    expect(wrapper.state().sortBy).to.eql('funding');
   });
 
-  it('Testing if handleSortingClick sets data asc -> desc in table, current and last sorby: funding', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
-
+  it('Testing if handleSortingClick sets data asc -> desc, current and last sorby: funding', () => {
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp1, comp3, comp2])});
     wrapper.setState({order: ('asc')});
     wrapper.setState({sortBy: 'funding'});
@@ -135,10 +133,31 @@ describe('HeaderBlock', () => {
 
     expect(wrapper.state().companies).to.eql([comp2, comp3, comp1]);
     expect(wrapper.state().order).to.eql('desc');
+    expect(wrapper.state().sortBy).to.eql('funding');
   });
-  it('Testing if handleNameClick sets data asc -> desc in table, current and last sorby: name', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
 
+  it('Testing if handleSortingClick sets data asc -> desc, current and last sortby: foundedOn', () => {
+    wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp1, comp2, comp3])});
+    wrapper.setState({order: ('asc')});
+    wrapper.setState({sortBy: 'foundedOn'});
+    wrapper.instance().handleSortingClick(0, 'foundedOn');
+
+    expect(wrapper.state().companies).to.eql([comp3, comp2, comp1]);
+    expect(wrapper.state().order).to.eql('desc');
+    expect(wrapper.state().sortBy).to.eql('foundedOn');
+  });
+  it('Testing if handleSortingClick sets data desc -> asc, current and last sortby: foundedOn', () => {
+    wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp3, comp2, comp1])});
+    wrapper.setState({order: ('desc')});
+    wrapper.setState({sortBy: 'foundedOn'});
+    wrapper.instance().handleSortingClick(0, 'foundedOn');
+
+    expect(wrapper.state().companies).to.eql([comp1, comp2, comp3]);
+    expect(wrapper.state().order).to.eql('asc');
+    expect(wrapper.state().sortBy).to.eql('foundedOn');
+  });
+
+  it('Testing if handleNameClick sets data asc -> desc in table, current and last sorby: name', () => {
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp3, comp2, comp1])});
     wrapper.setState({order: 'asc'});
     wrapper.setState({sortBy: 'name'});
@@ -147,10 +166,9 @@ describe('HeaderBlock', () => {
 
     expect(wrapper.state().companies).to.eql([comp1, comp2, comp3]);
     expect(wrapper.state().order).to.eql('desc');
+    expect(wrapper.state().sortBy).to.eql('name');
   });
   it('Testing if handleNameClick sets data desc-> asc in table, current and last sorby: name', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
-
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp1, comp2, comp3])});
     wrapper.setState({order: 'desc'});
     wrapper.setState({sortBy: 'name'});
@@ -159,5 +177,58 @@ describe('HeaderBlock', () => {
 
     expect(wrapper.state().companies).to.eql([comp3, comp2, comp1]);
     expect(wrapper.state().order).to.eql('asc');
+    expect(wrapper.state().sortBy).to.eql('name');
+  });
+  it('Testing if handleSortingClick sets data emp asc -> founded desc, current sortBy: employees, last sortBy: ' +
+    'foundedOn', () => {
+    wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp3, comp1, comp2])});
+    wrapper.setState({order: 'asc'});
+    wrapper.setState({sortBy: 'employees'});
+    wrapper.instance().handleSortingClick(0, 'foundedOn');
+
+    expect(wrapper.state().companies).to.eql([comp3, comp2, comp1]);
+    expect(wrapper.state().order).to.eql('desc');
+    expect(wrapper.state().sortBy).to.eql('foundedOn');
+  });
+  it('Testint if handleSortingClick sets data funding asc -> emp desc', () => {
+    wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp1, comp3, comp2])});
+    wrapper.setState({order: 'asc'});
+    wrapper.setState({sortBy: 'funding'});
+    wrapper.instance().handleSortingClick(0, 'employees');
+
+    expect(wrapper.state().companies).to.eql([comp2, comp1, comp3]);
+    expect(wrapper.state().order).to.eql('desc');
+    expect(wrapper.state().sortBy).to.eql('employees');
+  });
+  it('Navbar is rendered', () => {
+    expect(wrapper.contains('#navbar'));
+  });
+  it('Testing RenderSearchBar existence', () => {
+    expect(wrapper.contains('#searchBox'));
+  });
+  it('Testing renderView function, key = 1', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+
+    wrapper.setState({activeTab: 1});
+
+    expect(wrapper.find('TableView')).to.exist;
+    expect(wrapper.find('CardView')).to.not.exist;
+    expect(wrapper.find('Statistics')).to.not.exist;
+  });
+  it('Testing renderView function, key = 2 ', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+
+    wrapper.setState({activeTab: 2});
+
+    expect(wrapper.find('CardView')).to.exist;
+    expect(wrapper.find('TableView')).to.not.exist;
+    expect(wrapper.find('Statistics')).to.not.exist;
+  });
+  it('Testing renderView function, !key = 1, !key= 2 ', () => {
+    wrapper.setState({activeTab: 3});
+
+    expect(wrapper.find('Statistics')).to.exist;
+    expect(wrapper.find('TableView')).to.not.exist;
+    expect(wrapper.find('CardView')).to.not.exist;
   });
 });
