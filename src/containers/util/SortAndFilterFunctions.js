@@ -54,7 +54,7 @@ export const filterCompanies = (companies, stages, tags) => {
     let comps = [];
     stages.forEach((stage) => {
       companies.forEach((comp) => {
-        if (comp.stage && stages.includes(comp.stageName)) {
+        if (comp.stageName && stages.includes(comp.stageName)) {
           comps.push(comp);
         }
       });
@@ -65,7 +65,7 @@ export const filterCompanies = (companies, stages, tags) => {
     stages.forEach((stage) => {
       tags.forEach((tag) => {
         companies.forEach((comp) => {
-          if (comp.stage && stages.includes(comp.stageName) && comp.tags && comp.tags.includes(tag)) {
+          if (comp.stageName && stages.includes(comp.stageName) && comp.tags && comp.tags.includes(tag)) {
             comps.push(comp);
           }
         });
