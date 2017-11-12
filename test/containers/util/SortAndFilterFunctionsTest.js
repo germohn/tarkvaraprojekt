@@ -1,6 +1,5 @@
 import {changeOrder, filterCompanies, changeNumOrder} from '../../../src/containers/util/SortAndFilterFunctions';
 
-
 describe('Testing changeOrder function, sorting by name ', () => {
   const descendingData = [
     {slug: 'first-wallet', name: 'Zlick', tags: ['financial services'], stageName: 'Validation'},

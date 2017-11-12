@@ -35,7 +35,6 @@ describe('HeaderBlock', () => {
   const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
 
   const generatedTags = generateTagsList(10);
-
   it('Testing when tag elected, then it should be in selectedTags and one less in unSelectedTags', () => {
 
     const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={new Map()}/>);
@@ -45,7 +44,6 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().selectedTags).to.eql([generatedTags[0]]);
     expect(wrapper.state().unSelectedTags.length).to.eql(9);
   });
-
   it('Testing if tag not in an array', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={['a', 'b', 'c']} stages={new Map()}/>);
 
