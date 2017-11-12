@@ -35,7 +35,9 @@ describe('HeaderBlock', () => {
   const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
 
   const generatedTags = generateTagsList(10);
-  it('Testing when tag selected, then it should be in selectedTags and one less in unSelectedTags', () => {
+
+  it('Testing when tag elected, then it should be in selectedTags and one less in unSelectedTags', () => {
+
     const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={new Map()}/>);
 
     wrapper.instance().handleTagSelect(generatedTags[0]);
@@ -231,6 +233,7 @@ describe('HeaderBlock', () => {
     expect(wrapper.find('TableView')).to.not.exist;
     expect(wrapper.find('CardView')).to.not.exist;
   });
+
   it('Testing if all stages are deselected when using clearStages', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
 
