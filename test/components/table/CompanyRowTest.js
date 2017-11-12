@@ -33,3 +33,5 @@ describe('CompanyRow', () => {
         expect(shallow(<CompanyRow company={mockCompany}/>)).to.exist;
     });
 });
+
+

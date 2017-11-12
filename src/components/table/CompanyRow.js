@@ -20,7 +20,7 @@ class CompanyRow extends React.Component {
 
   render() {
     return (
-      <tr onClick={(e) => this.rowClick(this.props.company.url)}>
+      <tr className='company-row' onClick={(e) => this.rowClick(this.props.company.url)}>
         <td>
           <table>
             <tbody>
