@@ -36,11 +36,8 @@ describe('HeaderBlock', () => {
 
   const generatedTags = generateTagsList(10);
   it('Testing when tag elected, then it should be in selectedTags and one less in unSelectedTags', () => {
-
     const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={new Map()}/>);
-
     wrapper.instance().handleTagSelect(generatedTags[0]);
-
     expect(wrapper.state().selectedTags).to.eql([generatedTags[0]]);
     expect(wrapper.state().unSelectedTags.length).to.eql(9);
   });
