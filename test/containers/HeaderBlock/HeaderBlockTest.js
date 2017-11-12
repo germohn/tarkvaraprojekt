@@ -240,6 +240,7 @@ describe('HeaderBlock', () => {
 
     wrapper.instance().clearStages();
     expect(wrapper.state().unSelectedStages.length).to.eql(6);
+    expect(wrapper.state().selectedStages.length).to.eql(0);
   });
   it('Testing if all tags are deselcted when using clearTags', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={new Map()}/>);
@@ -250,6 +251,7 @@ describe('HeaderBlock', () => {
     wrapper.instance().onClearTags(0);
 
     expect(wrapper.state().unSelectedTags.length).to.eql(10);
+    expect(wrapper.state().selectedTags.length).to.eql(0);
   });
   it('Testing if SearchBar is rendered', () =>{
     expect(wrapper.contains('#searchBar'));
