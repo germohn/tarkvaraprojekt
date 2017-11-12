@@ -78,52 +78,60 @@ class HeaderBlock extends React.Component {
 
   handleTagSelect(tag) {
     const unSeleceted = R.clone(this.state.unSelectedTags);
-    const index = unSeleceted.indexOf(tag);
-    unSeleceted.splice(index, 1);
-    const selected = R.clone(this.state.selectedTags);
-    selected.push(tag);
-    this.setState({
-      unSelectedTags: unSeleceted,
-      selectedTags: selected
-    });
+    if (this.state.unSelectedTags.includes(tag)) {
+      const index = unSeleceted.indexOf(tag);
+      unSeleceted.splice(index, 1);
+      const selected = R.clone(this.state.selectedTags);
+      selected.push(tag);
+      this.setState({
+        unSelectedTags: unSeleceted,
+        selectedTags: selected
+      });
+    }
   }
 
   handleTagDeselect(tag) {
     const selected = R.clone(this.state.selectedTags);
-    const index = selected.indexOf(tag);
-    selected.splice(index, 1);
-    let unSelected = R.clone(this.state.unSelectedTags);
-    unSelected.push(tag);
-    unSelected.sort((a, b) => {
-      return a.toLowerCase().localeCompare(b.toLowerCase());
-    });
-    this.setState({
-      unSelectedTags: unSelected,
-      selectedTags: selected
-    });
+    if (this.state.selectedTags.includes(tag)) {
+      const index = selected.indexOf(tag);
+      selected.splice(index, 1);
+      let unSelected = R.clone(this.state.unSelectedTags);
+      unSelected.push(tag);
+      unSelected.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      });
+      this.setState({
+        unSelectedTags: unSelected,
+        selectedTags: selected
+      });
+    }
   }
 
   handleStageSelect(stage) {
     const unSeleceted = R.clone(this.state.unSelectedStages);
-    const index = unSeleceted.indexOf(stage);
-    unSeleceted.splice(index, 1);
-    const selected = R.clone(this.state.selectedStages);
-    selected.push(stage);
-    this.setState({
-      unSelectedStages: unSeleceted,
-      selectedStages: selected
-    });
+    if (this.state.unSelectedStages.includes(stage)) {
+      const index = unSeleceted.indexOf(stage);
+      unSeleceted.splice(index, 1);
+      const selected = R.clone(this.state.selectedStages);
+      selected.push(stage);
+      this.setState({
+        unSelectedStages: unSeleceted,
+        selectedStages: selected
+      });
+    }
   }
 
   handleStageDeselect(stage) {
     const selected = R.clone(this.state.selectedStages);
-    const index = selected.indexOf(stage);
-    selected.splice(index, 1);
-    const unSelected = this.state.allstages.filter((val) => selected.indexOf(val) < 0);
-    this.setState({
-      unSelectedStages: unSelected,
-      selectedStages: selected
-    });
+    if (this.state.selectedStages.includes(stage)) {
+      const index = selected.indexOf(stage);
+      selected.splice(index, 1);
+      const unSelected = this.state.allstages.filter((val) => selected.indexOf(val) < 0);
+      this.setState({
+        unSelectedStages: unSelected,
+        selectedStages: selected
+      });
+    }
   }
 
   clearStages() {
