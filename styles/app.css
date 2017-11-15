@@ -33,7 +33,7 @@ th {
     text-align: center;
     padding: 0.7em;
     font-family: Helvetica;
-    font-size: 1.7em;
+    font-size: 1.5em;
     color: white;
     height: 3em;
 }
@@ -79,7 +79,6 @@ td {
 
 td#description {
     color: #8c8c8c;
-    padding-top: 1em;
 }
 
 tr:hover {
@@ -105,7 +104,7 @@ div {
     text-align: center;
 }
 
-.showAll , .showMore{
+.showAll, .showMore {
     background-color: white;
     background: linear-gradient(#7E8D85, #092140);
     border: 0.1em solid #494E6B;
