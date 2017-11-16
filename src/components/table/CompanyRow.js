@@ -10,14 +10,6 @@ const getSubstring = (input) => {
   return input.substring(0, end) + '...';
 };
 
-const showYear = (dateString) => {
-  try {
-    return dateString.substring(0, 4);
-  } catch (err) {
-    return '-';
-  }
-};
-
 class CompanyRow extends React.Component {
   constructor(props) {
     super(props);
@@ -29,10 +21,10 @@ class CompanyRow extends React.Component {
 
   showLogo(link) {
     if (link == undefined) {
-      return (<img className='logo' src='../styles/img/no-image-icon-23494.png'
+      return (<img className='logo' src='../styles/img/no-image-icon-23494.jpg'
                    alt="logo"/>);
     } else {
-      return (<img className='logo' src={this.props.company.logo100x100}
+      return (<img className='logo' src={link}
                    alt="logo"/>);
     }
   }
@@ -65,7 +57,7 @@ class CompanyRow extends React.Component {
         <td>{this.props.company.employees ? this.props.company.employees : '-'}</td>
         <td>{this.props.company.tags ? this.props.company.tags.join(', ') : '-'}</td>
         <td>{this.props.company.stageName}</td>
-        <td>{this.props.company.foundedOn ? showYear(this.props.company.foundedOn) : '-'}</td>
+        <td>{this.props.company.foundedOn ? this.props.company.foundedOn.substring(0, 4) : '-'}</td>
       </tr>
     );
   }
