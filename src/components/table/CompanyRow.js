@@ -20,7 +20,7 @@ class CompanyRow extends React.Component {
   }
 
   showLogo(link) {
-    if (link == undefined) {
+    if (!link) {
       return (<img className='logo' src='../styles/img/no-image-icon-23494.jpg'
                    alt="logo"/>);
     } else {

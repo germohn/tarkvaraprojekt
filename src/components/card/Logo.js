@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Logo = (props) => {
   {
-    if (props.url == undefined) {
+    if (!props.url) {
       return (<img className="logo" src='../styles/img/no-image-icon-23494.jpg'
                    alt="logo"/>);
     } else {
