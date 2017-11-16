@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Button} from 'react-bootstrap';
+import Logo from '../card/Logo';
 
 class CompanyCard extends React.Component {
   constructor(props) {
@@ -23,18 +24,8 @@ class CompanyCard extends React.Component {
     this.setState({showModal: true});
   }
 
-  showLogo(link) {
-    if (link == undefined) {
-      return (<img className="logo" src='../styles/img/no-image-icon-23494.jpg'
-                   alt="logo"/>);
-    } else {
-      return (<img className="logo" src={link}
-                   alt="logo"/>);
-    }
-  }
-
   joinList(elems) {
-    if (elems == undefined) return '';
+    if (!elems) return '';
     let names = [];
     elems.map((founder) =>
       names.push(founder.name)
@@ -51,7 +42,7 @@ class CompanyCard extends React.Component {
             </div>
             <div className="row">
               <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3">
-                {this.showLogo(this.props.company.logo100x100)}
+                <Logo url={this.props.company.logo100x100}/>
               </div>
               <div className="col-lg-9 col-xs-9 col-sm-9 col-md-9">
                 <div className="row">
@@ -125,7 +116,7 @@ class CompanyCard extends React.Component {
                   <div key={investor.name} className="col-lg-3 col-xs-3 col-sm-3 col-md-3 investor col-centered">
                     <div className="row">
                       <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12">
-                        {this.showLogo(investor.logo100x100)}
+                        <Logo url={investor.logo100x100}/>
                       </div>
                     </div>
                     <div className="row">
@@ -151,7 +142,7 @@ class CompanyCard extends React.Component {
   render() {
     return (
       <article onClick={(e) => this.open()} className="companyCard">
-        {this.showLogo(this.props.company.logo100x100)}
+        <Logo url={this.props.company.logo100x100}/>
         <p className='companyName'>{this.props.company.name}</p>
         <p className='description'>{this.props.company.description}</p>
         <div className="funding">
