@@ -66,6 +66,12 @@ class CompanyCard extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+                <b><a href={this.props.company.url} target="_blank">See the profile...</a></b>
+              </div>
+            </div>
+            <br/>
             <div className="row modalRow">
               <div className="col-lg-4 col-xs-4 col-sm-4 col-md-4">
                 <div className="row">
