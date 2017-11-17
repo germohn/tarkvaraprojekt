@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Button} from 'react-bootstrap';
-import Logo from '../card/Logo';
+import Logo from '../shared/Logo';
 
 class CompanyCard extends React.Component {
   constructor(props) {

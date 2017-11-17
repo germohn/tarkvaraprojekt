@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Logo from '../shared/Logo';
 
 const getSubstring = (input) => {
   if (!input) return;
@@ -19,16 +20,6 @@ class CompanyRow extends React.Component {
     window.open(link);
   }
 
-  showLogo(link) {
-    if (!link) {
-      return (<img className='logo' src='../styles/img/no-image-icon-23494.jpg'
-                   alt="logo"/>);
-    } else {
-      return (<img className='logo' src={link}
-                   alt="logo"/>);
-    }
-  }
-
   render() {
     return (
       <tr className='company-row' onClick={(e) => this.rowClick(this.props.company.url)}>
@@ -36,7 +27,7 @@ class CompanyRow extends React.Component {
           <table>
             <tbody>
             <tr>
-              <td className="borderless" rowSpan="2">{this.showLogo(this.props.company.logo100x100)}</td>
+              <td className="borderless" rowSpan="2"><Logo url={this.props.company.logo100x100}/></td>
               <td className="borderless">
                 <table>
                   <tbody>
