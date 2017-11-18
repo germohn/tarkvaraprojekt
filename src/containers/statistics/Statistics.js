@@ -4,36 +4,31 @@ import TwoLevelPieChart from './TwoLevelPieChart';
 import TwoLevelRadarChart from './TwoLevelRadarChart';
 
 /* eslint-disable no-unused-vars */
-const calculate = (data, fieldType) => {
-  let calculatedData = {};
-  const allDataArray = [];
+const calculate = (data) => {
+  const initialLength = data.length;
+  let allFunding = [];
+  let allEmployees = [];
+  let totalFunding = 0;
+  let totalEmployees = 0;
 
-  data.map((comp) => {
-    if (comp[fieldType] !== undefined) {
-      return allDataArray.push(comp[fieldType]);
+  data.forEach((comp) => {
+    if (comp.employees) {
+      allEmployees.push(comp.employees);
+      totalEmployees += comp.employees;
+    }
+    if (comp.funding) {
+      allFunding.push(comp.funding);
+      totalFunding += comp.funding;
     }
   });
-
-  const undefinedData = data.length - allDataArray.length;
-  const definedData = allDataArray.length;
-  const totalSum = total(allDataArray);
-  const averageOfData = average(totalSum, definedData);
-
-  calculatedData['total'] = totalSum;
-  calculatedData['average'] = averageOfData;
-  calculatedData['undefined'] = undefinedData;
-
-  return calculatedData;
-};
-
-const average = (sum, definedData) => {
-  return Math.round(sum / definedData);
-};
-
-const total = (dataArray) => {
-  const sum = dataArray.reduce((accumulator, currentValue) =>
-    accumulator + currentValue);
-  return sum;
+  return {
+    totalFunding: totalFunding,
+    totalEmployees: totalEmployees,
+    averageFunding: Math.round(totalFunding / allFunding.length),
+    averageEmployees: Math.round(totalEmployees / allEmployees.length),
+    noOfUndefinedEmployees: initialLength - allEmployees.length,
+    noOfUndefinedFunding: initialLength - allFunding.length
+  };
 };
 
 const yearByYear = (data) => {
