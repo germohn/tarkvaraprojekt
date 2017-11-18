@@ -125,17 +125,9 @@ a, .tags, .founders{
     color: darkorange;
 }
 
-.wrapper {
-    display: block;
-}
-
-#leftAlignedContainer {
-    text-align: left;
-    margin: 1em;
-}
-
 #searchBox {
-    margin-left: 1em;
+    margin-left: 3em;
+    margin-bottom: 1em;
     border: solid 0.1em black;
     padding: 0.5em;
     border-radius: 1em;
@@ -176,7 +168,11 @@ th > .fa-sort-asc, .fa-sort-desc {
 }
 
 #tableLogo {
-    padding-top: 0.3em;
-    padding-bottom:0.3em;
+    margin-top: 0.3em;
+    margin-bottom:0.3em;
     width: 6em;
+}
+
+#cardLogo {
+    margin-bottom:0.5em;
 }

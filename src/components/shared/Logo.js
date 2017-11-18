@@ -8,7 +8,7 @@ const Logo = (props) => {
                    alt="logo"/>);
     } else {
       if (props.view == 'cardView') {
-        return (<img src={props.url} alt="logo"/>);
+        return (<img id="cardLogo" src={props.url} alt="logo"/>);
       } else{
         return (<img id="tableLogo" src={props.url} alt="logo"/>);
       }
