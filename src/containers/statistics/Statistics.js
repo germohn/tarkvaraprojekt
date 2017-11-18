@@ -6,28 +6,28 @@ import TwoLevelRadarChart from './TwoLevelRadarChart';
 /* eslint-disable no-unused-vars */
 const calculate = (data) => {
   const initialLength = data.length;
-  let allFunding = [];
-  let allEmployees = [];
+  let noOfDefinedFunding = 0;
+  let noOfDefinedEmployees = 0;
   let totalFunding = 0;
   let totalEmployees = 0;
 
   data.forEach((comp) => {
     if (comp.employees) {
-      allEmployees.push(comp.employees);
+      noOfDefinedEmployees += 1;
       totalEmployees += comp.employees;
     }
     if (comp.funding) {
-      allFunding.push(comp.funding);
+      noOfDefinedFunding += 1;
       totalFunding += comp.funding;
     }
   });
   return {
     totalFunding: totalFunding,
     totalEmployees: totalEmployees,
-    averageFunding: Math.round(totalFunding / allFunding.length),
-    averageEmployees: Math.round(totalEmployees / allEmployees.length),
-    noOfUndefinedEmployees: initialLength - allEmployees.length,
-    noOfUndefinedFunding: initialLength - allFunding.length
+    averageFunding: Math.round(totalFunding / noOfDefinedFunding),
+    averageEmployees: Math.round(totalEmployees / noOfDefinedEmployees),
+    noOfUndefinedEmployees: initialLength - noOfDefinedEmployees,
+    noOfUndefinedFunding: initialLength - noOfDefinedFunding
   };
 };
 
