@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../shared/Logo';
-
-const getSubstring = (input) => {
-  if (!input) return;
-  const limit = 70;
-  if (input.length < limit) return input;
-  if (input.indexOf(' ', limit * 0.9) == -1) return input;
-  const end = input.indexOf(' ', limit * 0.9);
-  return input.substring(0, end) + '...';
-};
+import getSubstring from '../../containers/util/OtherFunctions';
 
 class CompanyRow extends React.Component {
   constructor(props) {
@@ -27,15 +19,15 @@ class CompanyRow extends React.Component {
           <table>
             <tbody>
             <tr>
-              <td className="borderless" rowSpan="2"><Logo url={this.props.company.logo100x100}/></td>
-              <td className="borderless">
+              <td rowSpan="2"><Logo url={this.props.company.logo100x100} view="tableView"/></td>
+              <td>
                 <table>
                   <tbody>
                   <tr>
                     <td><p className='companyName'>{this.props.company.name}</p></td>
                   </tr>
                   <tr>
-                    <td id="description" colSpan="2">{getSubstring(this.props.company.description)}</td>
+                    <td className="description" colSpan="2">{getSubstring(this.props.company.description)}</td>
                   </tr>
                   </tbody>
                 </table>

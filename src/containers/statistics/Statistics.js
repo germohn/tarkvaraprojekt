@@ -132,8 +132,6 @@ class Statistics extends React.Component {
 
     return (
       <div>
-
-        <p>statistics</p>
         <TwoLevelPieChart data={popularTags(this.props.allData)}/>
         <TwoLevelPieChart data={popularTags(this.props.filteredData)}/>
         <TwoLevelRadarChart data={getRadarChartData(this.props.allData, this.props.filteredData)}/>

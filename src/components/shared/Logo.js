@@ -4,17 +4,21 @@ import PropTypes from 'prop-types';
 const Logo = (props) => {
   {
     if (!props.url) {
-      return (<img className="logo" src='../styles/img/no-image-icon-23494.jpg'
+      return (<img src='../styles/img/no-image-icon-23494.jpg'
                    alt="logo"/>);
     } else {
-      return (<img className="logo" src={props.url}
-                   alt="logo"/>);
+      if (props.view == 'cardView') {
+        return (<img src={props.url} alt="logo"/>);
+      } else{
+        return (<img id="tableLogo" src={props.url} alt="logo"/>);
+      }
     }
   }
 };
 
 Logo.propTypes = {
-  url: PropTypes.string.isRequired
+  url: PropTypes.string,
+  view: PropTypes.string.isRequired
 };
 
 export default Logo;

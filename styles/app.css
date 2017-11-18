@@ -1,93 +1,42 @@
-h1 {
-    font-size: 4em;
-    text-align: center;
-}
-
-h2 {
-    font-size: 3em;
-    text-align: center;
-}
-
-h3 {
-    font-size: 2.5em;
-    text-align: center;
-}
-
 .app {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-table {
-    border-style: hidden;
-    width: 100%;
+    font-family: Helvetica;
 }
 
 th {
-    border-top: 2px solid #A9A9A9;
     background-color: #092140;
-    /*background-color: #494E6B;*/
-    /*background-color: #6B7A8F;*/
     text-align: center;
-    padding: 0.7em;
-    font-family: Helvetica;
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: white;
     height: 3em;
 }
 
-.table > thead > tr > th {
-    vertical-align: middle;
-}
-
-.table > tbody > tr > td {
+.table > thead > tr > th, .table > tbody > tr > td {
     vertical-align: middle;
 }
 
 #companyCol {
-    width: 25%;
+    width: 31%;
 }
 
-#fundingCol {
-    width: 15%;
-}
-
-#employeesCol {
-    width: 15%;
-}
-
-#tagsCol {
-    width: 15%;
-}
-
-#stageCol {
-    width: 15%;
-}
-
-#foundedCol {
-    width: 15%;
+#fundingCol, #employeesCol, #tagsCol, #stageCol, #foundedCol {
+    width: 14%;
 }
 
 td {
-    text-align: center;
-    padding: 0.2em 0.3em 0.2em 0.3em;
-    font-family: Helvetica;
+    padding: 0.1em 0.1em 0.1em 0.2em;
     font-size: 1em;
 }
 
-td#description {
+.description {
     color: #8c8c8c;
 }
 
 tr:hover {
     background-color: #F7F7F9;
-}
-
-.borderless {
-    border: hidden;
-    text-align: center;
 }
 
 .companyName {
@@ -105,16 +54,13 @@ div {
 }
 
 .showAll, .showMore {
-    background-color: white;
     background: linear-gradient(#7E8D85, #092140);
     border: 0.1em solid #494E6B;
     border-radius: 1em;
     color: white;
     padding: 0.7em;
     width: 10em;
-    text-align: center;
-    font-size: 1.3em;
-    position: relative;
+    font-size: 1.1em;
     margin: 1em;
 }
 
@@ -125,47 +71,33 @@ div {
 .chip {
     display: inline-block;
     padding: 0.5em;
-    height: 2em;
-    line-height: 1em;
-    font-size: 1em;
+    font-size: 1.1em;
     border-radius: 1.2em;
     background-color: #f1f1f1;
     margin: 0.2em;
 }
 
-.tagsContainer {
-    height: 10em;
-    width: 100%;
-    padding: 3em;
-}
-
 .companyCard {
-    margin: 1em;
+    margin: 0.7em;
     border: 0.1em solid #A9A9A9;
     border-radius: 0.5em;
-    width: calc(20% - 2em);
-    padding: 0.5em;
+    width: calc(25% - 2em);
+    padding: 1em;
 }
 
-@media only screen and (max-width: 1180px) {
-    .companyCard {
-        width: calc(25% - 2em);
-    }
-}
-
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1200px) {
     .companyCard {
         width: calc(33.33% - 2em);
     }
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 991px) {
     .companyCard {
         width: calc(50% - 2em);
     }
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 750px) {
     .companyCard {
         width: 100%;
     }
@@ -174,7 +106,6 @@ div {
 .cardView, .investors {
     display: flex;
     flex-wrap: wrap;
-    text-align: center;
 }
 
 article {
@@ -183,19 +114,14 @@ article {
     align-items: center;
 }
 
-.description {
-    color: #888888;
-    text-align: center;
-}
-
 .funding {
     background-color: #f4f4f4;
-    width: 106%;
+    width: calc(100% + 1.3em);
     padding: 0.3em;
     font-size: larger;
 }
 
-a {
+a, .tags, .founders{
     color: darkorange;
 }
 
@@ -234,13 +160,9 @@ th > .fa-sort-asc, .fa-sort-desc {
     padding: 1em;
 }
 
-.tags, .founders {
-    color: darkorange;
-}
-
 .investor {
     padding: 0.5em;
-    color: darkblue;
+    color: #494E6B;
     font-size: smaller;
 }
 
@@ -251,4 +173,10 @@ th > .fa-sort-asc, .fa-sort-desc {
 
 .leftAligned {
     text-align: left;
+}
+
+#tableLogo {
+    padding-top: 0.3em;
+    padding-bottom:0.3em;
+    width: 6em;
 }
