@@ -118,7 +118,7 @@ class Statistics extends React.Component {
 
 
   render() {
-    const allChatData =calculate(this.props.allData);
+    const allChartData =calculate(this.props.allData);
     const filteredChartData = calculate(this.props.filteredData);
 
     return (
