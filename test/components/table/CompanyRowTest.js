@@ -4,7 +4,7 @@ import {shallow} from 'enzyme';
 import CompanyRow from '../../../src/components/table/CompanyRow';
 
 describe('CompanyRow', () => {
-    it('renders', () => {
+    it('renders ComapnyRow', () => {
         const mockCompany = {
             'slug': 'inv24',
             'name': 'INV24',

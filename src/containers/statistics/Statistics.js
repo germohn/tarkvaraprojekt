@@ -4,36 +4,31 @@ import TwoLevelPieChart from './TwoLevelPieChart';
 import TwoLevelRadarChart from './TwoLevelRadarChart';
 
 /* eslint-disable no-unused-vars */
-const calculate = (data, fieldType) => {
-  let calculatedData = {};
-  const allDataArray = [];
+const calculate = (data) => {
+  const initialLength = data.length;
+  let noOfDefinedFunding = 0;
+  let noOfDefinedEmployees = 0;
+  let totalFunding = 0;
+  let totalEmployees = 0;
 
-  data.map((comp) => {
-    if (comp[fieldType] !== undefined) {
-      return allDataArray.push(comp[fieldType]);
+  data.forEach((comp) => {
+    if (comp.employees) {
+      noOfDefinedEmployees += 1;
+      totalEmployees += comp.employees;
+    }
+    if (comp.funding) {
+      noOfDefinedFunding += 1;
+      totalFunding += comp.funding;
     }
   });
-
-  const undefinedData = data.length - allDataArray.length;
-  const definedData = allDataArray.length;
-  const totalSum = total(allDataArray);
-  const averageOfData = average(totalSum, definedData);
-
-  calculatedData['total'] = totalSum;
-  calculatedData['average'] = averageOfData;
-  calculatedData['undefined'] = undefinedData;
-
-  return calculatedData;
-};
-
-const average = (sum, definedData) => {
-  return Math.round(sum / definedData);
-};
-
-const total = (dataArray) => {
-  const sum = dataArray.reduce((accumulator, currentValue) =>
-    accumulator + currentValue);
-  return sum;
+  return {
+    totalFunding: totalFunding,
+    totalEmployees: totalEmployees,
+    averageFunding: Math.round(totalFunding / noOfDefinedFunding),
+    averageEmployees: Math.round(totalEmployees / noOfDefinedEmployees),
+    noOfUndefinedEmployees: initialLength - noOfDefinedEmployees,
+    noOfUndefinedFunding: initialLength - noOfDefinedFunding
+  };
 };
 
 const yearByYear = (data) => {
@@ -79,17 +74,15 @@ const popularTags = (data) => {
 
 
 const getRadarChartData = (allData, filtered) => {
-  const allDataFunging = calculate(allData, 'funding');
-  const filteredDataFunging = calculate(filtered, 'funding');
-  const allDataEmployees = calculate(allData, 'employees');
-  const filteredDataEmployees = calculate(filtered, 'employees');
+  const allRadarData =calculate(allData);
+  const filteredRadarData = calculate(filtered);
 
   return ([
     temp('count', allData.length, filtered.length),
-    temp('avgFunding', allDataFunging.average, filteredDataFunging.average),
-    temp('avgEmployees', allDataEmployees.average, filteredDataEmployees.average),
-    temp('totalFunding', allDataFunging.total, filteredDataFunging.total),
-    temp('totalEmployees', allDataEmployees.total, filteredDataEmployees.total),
+    temp('avgFunding', allRadarData.averageFunding, filteredRadarData.averageFunding),
+    temp('avgEmployees', allRadarData.averageEmployees, filteredRadarData.averageEmployees),
+    temp('totalFunding', allRadarData.totalFunding, filteredRadarData.totalFunding),
+    temp('totalEmployees', allRadarData.totalEmployees, filteredRadarData.totalEmployees),
   ]);
 };
 
@@ -125,10 +118,8 @@ class Statistics extends React.Component {
 
 
   render() {
-    const allDataFunging = calculate(this.props.allData, 'funding');
-    const filteredDataFunging = calculate(this.props.filteredData, 'funding');
-    const allDataEmployees = calculate(this.props.allData, 'employees');
-    const filteredDataEmployees = calculate(this.props.filteredData, 'employees');
+    const allChartData =calculate(this.props.allData);
+    const filteredChartData = calculate(this.props.filteredData);
 
     return (
       <div>
@@ -152,23 +143,23 @@ class Statistics extends React.Component {
           </tr>
           <tr>
             <td>Average funding</td>
-            <td>{allDataFunging.average.toLocaleString('en-US') + ' $'}</td>
-            <td>{filteredDataFunging.average.toLocaleString('en-US') + ' $'}</td>
+            <td>{allChartData.averageFunding.toLocaleString('en-US') + ' $'}</td>
+            <td>{filteredChartData.averageFunding.toLocaleString('en-US') + ' $'}</td>
           </tr>
           <tr>
             <td>Average employees</td>
-            <td>{allDataEmployees.average}</td>
-            <td>{filteredDataEmployees.average}</td>
+            <td>{allChartData.averageEmployees}</td>
+            <td>{filteredChartData.averageEmployees}</td>
           </tr>
           <tr>
             <td>Total funding</td>
-            <td>{allDataFunging.total.toLocaleString('en-US') + ' $'}</td>
-            <td>{filteredDataFunging.total.toLocaleString('en-US') + ' $'}</td>
+            <td>{allChartData.totalFunding.toLocaleString('en-US') + ' $'}</td>
+            <td>{filteredChartData.totalFunding.toLocaleString('en-US') + ' $'}</td>
           </tr>
           <tr>
             <td>Total Employees</td>
-            <td>{allDataEmployees.total}</td>
-            <td>{filteredDataEmployees.total}</td>
+            <td>{allChartData.totalEmployees}</td>
+            <td>{filteredChartData.totalEmployees}</td>
           </tr>
           </tbody>
         </table>
