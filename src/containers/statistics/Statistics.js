@@ -143,22 +143,22 @@ class Statistics extends React.Component {
           </tr>
           <tr>
             <td>Average funding</td>
-            <td>{allChatData.averageFunding.toLocaleString('en-US') + ' $'}</td>
+            <td>{allChartData.averageFunding.toLocaleString('en-US') + ' $'}</td>
             <td>{filteredChartData.averageFunding.toLocaleString('en-US') + ' $'}</td>
           </tr>
           <tr>
             <td>Average employees</td>
-            <td>{allChatData.averageEmployees}</td>
+            <td>{allChartData.averageEmployees}</td>
             <td>{filteredChartData.averageEmployees}</td>
           </tr>
           <tr>
             <td>Total funding</td>
-            <td>{allChatData.totalFunding.toLocaleString('en-US') + ' $'}</td>
+            <td>{allChartData.totalFunding.toLocaleString('en-US') + ' $'}</td>
             <td>{filteredChartData.totalFunding.toLocaleString('en-US') + ' $'}</td>
           </tr>
           <tr>
             <td>Total Employees</td>
-            <td>{allChatData.totalEmployees}</td>
+            <td>{allChartData.totalEmployees}</td>
             <td>{filteredChartData.totalEmployees}</td>
           </tr>
           </tbody>
