@@ -27,25 +27,33 @@ class CardView extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
-        <h3> Cardview</h3>
-        <div id="sortingContainer">
-          Sort By:&emsp;
-          <a onClick={(e) => this.props.handleNameClick(e)}>Name {this.props.renderArrow('name')}</a>
-          &emsp;
-          <a onClick={(e) => this.props.handleSortingClick(e, 'funding')}>
-            Funding {this.props.renderArrow('funding')}</a>
+      <div className="container">
+        <br/>
+        <div id="sortingContainer" className="row">
+          <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
+            Sort By:&emsp;
+            <a onClick={(e) => this.props.handleNameClick(e)}>Name {this.props.renderArrow('name')}</a>
+            &emsp;
+            <a onClick={(e) => this.props.handleSortingClick(e, 'funding')}>
+              Funding {this.props.renderArrow('funding')}</a>
+          </div>
         </div>
-        <section className="cardView">
-          {this.props.data.map((comp, i) => {
-            if (i < this.state.showCount) {
-              return (<CompanyCard key={comp.slug} company={comp}/>);
+        <div className="row">
+          <div className="cardView col-lg-12 col-xs-12 col-sm-12 col-md-12">
+            {this.props.data.map((comp, i) => {
+              if (i < this.state.showCount) {
+                return (<CompanyCard key={comp.slug} company={comp}/>);
+              }
+            })
             }
-          })
-          }
-        </section>
-        <Buttons showMore={this.showMore} showAll={this.showAll}
-                 limit={this.state.showCount} length={this.props.data.length}/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+            <Buttons showMore={this.showMore} showAll={this.showAll}
+                     limit={this.state.showCount} length={this.props.data.length}/>
+          </div>
+        </div>
       </div>
     )
       ;
