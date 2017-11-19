@@ -251,7 +251,4 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().unSelectedTags.length).to.eql(10);
     expect(wrapper.state().selectedTags.length).to.eql(0);
   });
-  it('Testing if SearchBar is rendered', () =>{
-    expect(wrapper.contains('#searchBar'));
-  });
 });

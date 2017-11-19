@@ -31,4 +31,16 @@ describe('CompanyRow', () => {
     };
     expect(shallow(<CompanyCard company={mockCompany}/>)).to.exist;
   });
+  it('Modal opens when closed', () => {
+    const wrapper = shallow(<CompanyCard company={[]}/>);
+    wrapper.setState({showModal: false});
+    wrapper.instance().open();
+    expect(wrapper.state().showModal).to.eql(true);
+  });
+  it('Modal closes when opened', () => {
+    const wrapper = shallow(<CompanyCard company={[]}/>);
+    wrapper.setState({showModal: true});
+    wrapper.instance().close();
+    expect(wrapper.state().showModal).to.eql(false);
+  });
 });
