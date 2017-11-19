@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const showYear = (dateString) => {
-  try {
-    return dateString.substring(0, 4);
-  } catch (err) {
-    return '-';
-  }
-};
+import Logo from '../shared/Logo';
+import getSubstring from '../../containers/util/OtherFunctions';
 
 class CompanyRow extends React.Component {
   constructor(props) {
@@ -25,24 +19,28 @@ class CompanyRow extends React.Component {
           <table>
             <tbody>
             <tr>
-              <td className='borderless'>
-                <img className='logo' src={this.props.company.logo100x100} alt="logo"/>
+              <td rowSpan="2"><Logo url={this.props.company.logo100x100} view="tableView"/></td>
+              <td>
+                <table>
+                  <tbody>
+                  <tr>
+                    <td><p className='companyName'>{this.props.company.name}</p></td>
+                  </tr>
+                  <tr>
+                    <td className="description" colSpan="2">{getSubstring(this.props.company.description)}</td>
+                  </tr>
+                  </tbody>
+                </table>
               </td>
-              <td className='borderless'>
-                <p className='companyName'>{this.props.company.name}</p>
-              </td>
-            </tr>
-            <tr>
-              <td id="description" colSpan="2">{this.props.company.description}</td>
             </tr>
             </tbody>
           </table>
         </td>
         <td>{this.props.company.funding ? this.props.company.funding.toLocaleString('en-US') + ' $' : '-'}</td>
         <td>{this.props.company.employees ? this.props.company.employees : '-'}</td>
-        <td>{this.props.company.tags ? this.props.company.tags : '-'}</td>
+        <td>{this.props.company.tags ? this.props.company.tags.join(', ') : '-'}</td>
         <td>{this.props.company.stageName}</td>
-        <td>{this.props.company.foundedOn ? showYear(this.props.company.foundedOn) : '-'}</td>
+        <td>{this.props.company.foundedOn ? this.props.company.foundedOn.substring(0, 4) : '-'}</td>
       </tr>
     );
   }

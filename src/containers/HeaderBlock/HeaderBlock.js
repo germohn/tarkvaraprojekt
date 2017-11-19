@@ -226,7 +226,7 @@ class HeaderBlock extends React.Component {
 
   renderSearchBar() {
     return (
-      <div id="leftAlignedContainer" className="row">
+      <div className="row leftAligned">
         <input id="searchBox" type="text" placeholder="Search by name..." value={this.state.search}
                onChange={(event) => this.updateSearch(event)}/>
         <i className="glyphicon glyphicon-search"></i>
