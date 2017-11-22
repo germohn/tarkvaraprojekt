@@ -140,7 +140,7 @@ class CompanyCard extends React.Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={(e) => this.close(e)}>Close</Button>
+          <Button class='closeButton' onClick={(e) => this.close(e)}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

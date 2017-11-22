@@ -174,7 +174,7 @@ class HeaderBlock extends React.Component {
           {
             this.state.unSelectedTags.map((tag, i) => {
               return (
-                <div className="chip" key={i} onClick={(e) => this.handleTagSelect(tag)}>{tag}</div>);
+                <div id="chip1" className="chip" key={i} onClick={(e) => this.handleTagSelect(tag)}>{tag}</div>);
             })
           }
         </div>

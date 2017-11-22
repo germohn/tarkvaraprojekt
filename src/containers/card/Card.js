@@ -32,9 +32,9 @@ class CardView extends React.Component {
         <div id="sortingContainer" className="row">
           <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
             Sort By:&emsp;
-            <a onClick={(e) => this.props.handleNameClick(e)}>Name {this.props.renderArrow('name')}</a>
+            <a id='sortByName' onClick={(e) => this.props.handleNameClick(e)}>Name {this.props.renderArrow('name')}</a>
             &emsp;
-            <a onClick={(e) => this.props.handleSortingClick(e, 'funding')}>
+            <a id='sortByFunding' onClick={(e) => this.props.handleSortingClick(e, 'funding')}>
               Funding {this.props.renderArrow('funding')}</a>
           </div>
         </div>

@@ -53,4 +53,26 @@ describe('Card', () => {
     wrapper.instance().showAll();
     expect(wrapper).to.have.exactly(80).descendants(CompanyCard);
   });
+  it('Testing if the cards are sorted by name when clicking Name or its arrow', () => {
+    const companies = generateFakeCompanies(30);
+    const noop1 = sinon.spy();
+    const wrapper = shallow(<CardView data={companies} handleNameClick={noop1}
+                                      handleSortingClick={noop} renderArrow={noop}/>);
+
+    expect(wrapper.find('#sortByName'));
+    const modal = wrapper.find('#sortByName');
+    modal.simulate('click');
+    expect(noop1.calledOnce).to.be.true;
+  });
+  it('Testing if the cards are sorted by name when clicking Name or its arrow', () => {
+    const companies = generateFakeCompanies(30);
+    const noop1 = sinon.spy();
+    const wrapper = shallow(<CardView data={companies} handleNameClick={noop}
+                                      handleSortingClick={noop1} renderArrow={noop}/>);
+
+    expect(wrapper.find('#sortByFunding'));
+    const modal = wrapper.find('#sortByFunding');
+    modal.simulate('click');
+    expect(noop1.calledOnce).to.be.true;
+  });
 });
