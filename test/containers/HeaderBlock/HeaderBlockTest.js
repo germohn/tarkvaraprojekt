@@ -228,27 +228,4 @@ describe('HeaderBlock', () => {
     expect(wrapper.find('TableView')).to.not.exist;
     expect(wrapper.find('CardView')).to.not.exist;
   });
-
-  it('Testing if all stages are deselected when using clearStages', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
-
-    wrapper.instance().handleStageSelect('Discovery');
-    wrapper.instance().handleStageSelect('Scale');
-    wrapper.instance().handleStageSelect('Validation');
-
-    wrapper.instance().clearStages();
-    expect(wrapper.state().unSelectedStages.length).to.eql(6);
-    expect(wrapper.state().selectedStages.length).to.eql(0);
-  });
-  it('Testing if all tags are deselcted when using clearTags', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={new Map()}/>);
-    wrapper.instance().handleTagSelect(generatedTags[0]);
-    wrapper.instance().handleTagSelect(generatedTags[1]);
-    wrapper.instance().handleTagSelect(generatedTags[2]);
-
-    wrapper.instance().onClearTags(0);
-
-    expect(wrapper.state().unSelectedTags.length).to.eql(10);
-    expect(wrapper.state().selectedTags.length).to.eql(0);
-  });
 });
