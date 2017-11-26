@@ -23,3 +23,6 @@ Application is running on [Github Pages](https://germohn.github.io/tarkvaraproje
 * commit new functionality to "feature/newFunctionality" branch and push that feature branch (git checkout -b feature/name)
 * create pull request on github page and link to issue.
 * If problems occur Contact Germo Hünerson
+
+## Peer-reviw for team DecisionRegister
+[Link to wiki-page](https://github.com/germohn/tarkvaraprojekt/wiki/Peer-review)
