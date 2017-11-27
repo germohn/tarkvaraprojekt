@@ -266,7 +266,7 @@ class HeaderBlock extends React.Component {
 
   renderNavBar() {
     return (
-      <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
+      <Nav id="navBar" bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
         <NavItem eventKey="1">Table View</NavItem>
         <NavItem eventKey="2">Card View</NavItem>
         <NavItem eventKey="3">Aggregated Statistics</NavItem>

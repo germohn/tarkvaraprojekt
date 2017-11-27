@@ -251,4 +251,11 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().unSelectedTags.length).to.eql(10);
     expect(wrapper.state().selectedTags.length).to.eql(0);
   });
+  it('Testing if renderNavBar works a expected', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+    wrapper.setState({activeTab: 1});
+    // expect(wrapper.find('Nav').contains('NavItem'));
+    expect(wrapper.find('Nav')).to.have.id('navBar');
+    expect(wrapper.find('NavItem')).to.exist;
+  });
 });

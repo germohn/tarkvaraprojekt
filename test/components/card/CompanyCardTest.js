@@ -26,7 +26,23 @@ describe('CompanyRow', () => {
     'acquired': false,
     'public': false,
     'established': false,
-    'closed': false
+    'closed': false,
+    'founders': [
+      {
+        'name': 'Sten Tuudak',
+        'linkedin': 'https://www.linkedin.com/in/stentuudak',
+        'twitter': null,
+        'image': 'https://funderbeam-706056.c.cdn77.org/logos/IN/sten-tuudak.jpeg?1474041989',
+        'image100x100': 'https://funderbeam-706056.c.cdn77.org/logos/100x100/IN/sten-tuudak.png?1474041992'
+      },
+      {
+        'name': 'Sten Seppo',
+        'linkedin': 'https://www.linkedin.com/in/sten-seppo-10601427',
+        'twitter': 'https://twitter.com/stenseppo',
+        'image': 'https://funderbeam-706056.c.cdn77.org/logos/IN/sten-seppo.jpeg?1495180967',
+        'image100x100': 'https://funderbeam-706056.c.cdn77.org/logos/100x100/IN/sten-seppo.png?1495180976'
+      }
+    ],
   };
   it('renders CompanyCard', () => {
     expect(shallow(<CompanyCard company={mockCompany}/>)).to.exist;

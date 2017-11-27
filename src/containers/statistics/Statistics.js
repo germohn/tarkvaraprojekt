@@ -4,7 +4,7 @@ import TwoLevelPieChart from './TwoLevelPieChart';
 import TwoLevelRadarChart from './TwoLevelRadarChart';
 
 /* eslint-disable no-unused-vars */
-const calculate = (data) => {
+export const calculate = (data) => {
   const initialLength = data.length;
   let noOfDefinedFunding = 0;
   let noOfDefinedEmployees = 0;
@@ -120,6 +120,7 @@ class Statistics extends React.Component {
   render() {
     const allChartData =calculate(this.props.allData);
     const filteredChartData = calculate(this.props.filteredData);
+
 
     return (
       <div>
