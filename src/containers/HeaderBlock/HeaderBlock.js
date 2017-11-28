@@ -4,7 +4,7 @@ import R from 'ramda';
 import TableView from '../table/Table';
 import {changeNumOrder, changeOrder, filterCompanies} from '../util/SortAndFilterFunctions';
 import CardView from '../card/Card';
-import {Nav, NavItem} from 'react-bootstrap';
+import {Nav, NavItem, Button, Panel} from 'react-bootstrap';
 import Statistics from '../statistics/Statistics';
 
 
@@ -26,7 +26,8 @@ class HeaderBlock extends React.Component {
       search: '',
       alltags: props.tags,
       allstages: Array.from((props.stages).values()),
-      activeTab: '1'
+      activeTab: '1',
+      filterOpen: false
     };
 
     const temp = props.tags;
@@ -38,15 +39,20 @@ class HeaderBlock extends React.Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.onTabSelect = this.onTabSelect.bind(this);
     this.renderArrow = this.renderArrow.bind(this);
+    this.renderFilter = this.renderFilter.bind(this);
+    this.handleTagClick = this.handleTagClick.bind(this);
+    this.renderSelectedTagsandStages = this.renderSelectedTagsandStages.bind(this);
+    this.rederClearFilterButton = this.renderClearFilterButton.bind(this);
   }
 
-  onClearTags(e) {
+  onClearFiltering(e) {
     this.setState({
       unSelectedTags: this.temp,
-      selectedTags: []
+      selectedTags: [],
+      unSelectedStages: this.state.allstages,
+      selectedStages: []
     });
   }
-
 
   handleNameClick(e) {
     let newState = R.clone(this.state);
@@ -76,6 +82,14 @@ class HeaderBlock extends React.Component {
     this.setState({companies: newState.companies, sortBy: sortBy, order: newState.order});
   }
 
+  handleTagClick(tag) {
+    if (this.state.selectedTags.includes(tag)) {
+      this.handleTagDeselect(tag);
+    } else {
+      this.handleTagSelect(tag);
+    }
+  }
+
   handleTagSelect(tag) {
     const unSeleceted = R.clone(this.state.unSelectedTags);
     if (this.state.unSelectedTags.includes(tag)) {
@@ -92,18 +106,30 @@ class HeaderBlock extends React.Component {
 
   handleTagDeselect(tag) {
     const selected = R.clone(this.state.selectedTags);
-    if (this.state.selectedTags.includes(tag)) {
-      const index = selected.indexOf(tag);
-      selected.splice(index, 1);
-      let unSelected = R.clone(this.state.unSelectedTags);
-      unSelected.push(tag);
-      unSelected.sort((a, b) => {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-      });
-      this.setState({
-        unSelectedTags: unSelected,
-        selectedTags: selected
-      });
+    if (selected.includes(tag)) {
+      if (this.state.selectedTags.includes(tag)) {
+        const index = selected.indexOf(tag);
+        selected.splice(index, 1);
+        let unSelected = R.clone(this.state.unSelectedTags);
+        unSelected.push(tag);
+        unSelected.sort((a, b) => {
+          return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+        this.setState({
+          unSelectedTags: unSelected,
+          selectedTags: selected
+        });
+      }
+    } else {
+      this.handleTagDeselect(tag);
+    }
+  }
+
+  handleStageClick(tag) {
+    if (this.state.selectedStages.includes(tag)) {
+      this.handleStageDeselect(tag);
+    } else {
+      this.handleStageSelect(tag);
     }
   }
 
@@ -134,13 +160,6 @@ class HeaderBlock extends React.Component {
     }
   }
 
-  clearStages() {
-    this.setState({
-      unSelectedStages: this.state.allstages,
-      selectedStages: []
-    });
-  }
-
   updateSearch(event) {
     this.setState({
       search: event.target.value.substr(0, 10)
@@ -168,68 +187,91 @@ class HeaderBlock extends React.Component {
 
   renderTagsComponent() {
     return (
-      <section>
+      <div>
         <div className="row">
-          <h3>Tags</h3>
-          {
-            this.state.unSelectedTags.map((tag, i) => {
+          <div className="col-lg-1 col-xs-1 col-sm-1 col-md-1 leftAligned">
+            <h4>Tags:</h4>
+          </div>
+          <div className="col-lg-11 col-xs-11 col-sm-11 col-md-11">
+            {this.state.alltags.map((tag, i) => {
+              let style = '';
+              if (this.state.selectedTags.includes(tag)) style = 'selectedChip';
+              else style = 'chip';
               return (
-                <div className="chip" key={i} onClick={(e) => this.handleTagSelect(tag)}>{tag}</div>);
+                <div className={style} key={i} onClick={(e) => this.handleTagClick(tag)}>{tag}</div>
+              );
             })
-          }
+            }
+          </div>
         </div>
-        <div className="row">
-          <h4>Selected tags</h4>
-          {
-            this.state.selectedTags.map((tag, i) => {
-              return (
-                <div className="chip" key={i} onClick={(e) => this.handleTagDeselect(tag)}>{tag}</div>);
-            })
-          }
-        </div>
-        <div className="row">
-          <button className='showAll' type="button" onClick={(e) => this.onClearTags(e)}>Clear tags</button>
-        </div>
-      </section>
+      </div>
     );
   }
 
   renderStageComponent() {
     return (
-      <section>
+      <div>
         <div className="row">
-          <h3>Stages</h3>
-          {
-            this.state.unSelectedStages.map((stage, i) => {
+          <div className="col-lg-1 col-xs-1 col-sm-1 col-md-1 leftAligned">
+            <h4>Stages:</h4>
+          </div>
+          <div className="col-lg-11 col-xs-11 col-sm-11 col-md-11">
+            {this.state.allstages.map((stage, i) => {
+              let style = '';
+              if (this.state.selectedStages.includes(stage)) style = 'selectedChip';
+              else style = 'chip';
               return (
-                <div className="chip" key={i} onClick={(e) =>
-                  this.handleStageSelect(stage)}>{stage}</div>);
+                <div className={style} key={i} onClick={(e) =>
+                  this.handleStageClick(stage)}>{stage}</div>);
             })
-          }
+            }
+          </div>
         </div>
-        <div className="row">
-          <h4>Selected stages</h4>
-          {
-            this.state.selectedStages.map((stage, i) => {
-              return (
-                <div className="chip" key={i} onClick={(e) =>
-                  this.handleStageDeselect(stage)}>{stage}</div>);
-            })
-          }
-        </div>
-        <div className="row">
-          <button className='showAll' type="button" onClick={(e) => this.clearStages()}>Clear stages</button>
-        </div>
-      </section>
+      </div>
     );
   }
 
-  renderSearchBar() {
+  renderClearFilterButton() {
+    if (this.state.selectedTags.length > 0 || this.state.selectedStages > 0) {
+      return (
+        <Button className="clearFilterButton" type="button" onClick={(e) => this.onClearFiltering()}> Clear Filtering
+        </Button>
+      );
+    }
+  }
+
+  renderFilter() {
     return (
-      <div className="row leftAligned">
-        <input id="searchBox" type="text" placeholder="Search by name..." value={this.state.search}
-               onChange={(event) => this.updateSearch(event)}/>
-        <i className="glyphicon glyphicon-search"></i>
+      <div className="row filterContainer">
+        <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3 leftAligned">
+          <div className="input-group">
+            <input type="text" className="form-control" placeholder="Search by name..." value={this.state.search}
+                   onChange={(event) => this.updateSearch(event)}/>
+            <span className="input-group-btn">
+                <button className="btn btn-default" type="button">
+                  <i className="glyphicon glyphicon-search"></i>
+                </button>
+              </span>
+          </div>
+        </div>
+        <div className="col-lg-9 col-xs-9 col-sm-9 col-md-9 leftAligned">
+          <Button className="filterButton" onClick={() => this.setState({filterOpen: !this.state.filterOpen})}>
+            Filter by Tags and Stages
+          </Button>
+          {this.renderClearFilterButton()}
+          <Panel className="dropdown" collapsible expanded={this.state.filterOpen}>
+            <div className="row">
+              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 tagsContainer">
+                {this.renderTagsComponent()}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 stagesContainer">
+                {this.renderStageComponent()}
+              </div>
+            </div>
+          </Panel>
+        </div>
       </div>
     );
   }
@@ -264,13 +306,46 @@ class HeaderBlock extends React.Component {
     this.setState({activeTab: eventKey});
   }
 
+  renderSelectedTagsandStages() {
+    if (this.state.selectedTags.length > 0 || this.state.selectedStages > 0) {
+      return (
+        <div>
+          <div className="row">
+            <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
+              {this.state.selectedTags.map((tag, i) => {
+                return (
+                  <div className="selectedTag" key={i} onClick={(e) => this.handleTagClick(tag)}>{tag}</div>
+                );
+              })
+              }
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
+              {this.state.selectedStages.map((stage, i) => {
+                return (
+                  <div className="selectedStage" key={i} onClick={(e) => this.handleTagClick(stage)}>{stage}</div>
+                );
+              })
+              }
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+
   renderNavBar() {
     return (
-      <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
-        <NavItem eventKey="1">Table View</NavItem>
-        <NavItem eventKey="2">Card View</NavItem>
-        <NavItem eventKey="3">Aggregated Statistics</NavItem>
-      </Nav>
+      <div className="row navBarContainer">
+        <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
+          <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
+            <NavItem eventKey="1">Table View</NavItem>
+            <NavItem eventKey="2">Card View</NavItem>
+            <NavItem eventKey="3">Aggregated Statistics</NavItem>
+          </Nav>
+        </div>
+      </div>
     );
   }
 
@@ -295,9 +370,8 @@ class HeaderBlock extends React.Component {
   render() {
     return (
       <div className="container">
-        {this.renderTagsComponent()}
-        {this.renderStageComponent()}
-        {this.renderSearchBar()}
+        {this.renderFilter()}
+        {this.renderSelectedTagsandStages()}
         {this.renderNavBar()}
         {this.renderView(this.state.activeTab)}
       </div>

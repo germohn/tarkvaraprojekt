@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../shared/Logo';
-import getSubstring from '../../containers/util/OtherFunctions';
+import {getSubstring} from '../../containers/util/OtherFunctions';
 
 class CompanyRow extends React.Component {
   constructor(props) {

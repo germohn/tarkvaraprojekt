@@ -7,5 +7,3 @@ export const getSubstring = (input) => {
   const end = input.indexOf(' ', limit * 0.9);
   return input.substring(0, end) + '...';
 };
-
-export default getSubstring;
