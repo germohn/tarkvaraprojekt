@@ -53,6 +53,7 @@ class HeaderBlock extends React.Component {
       selectedStages: []
     });
   }
+
   handleNameClick(e) {
     let newState = R.clone(this.state);
     if (this.state.sortBy !== 'name') {
@@ -232,7 +233,7 @@ class HeaderBlock extends React.Component {
 
   renderClearFilterButton() {
     if (this.state.selectedTags.length > 0 || this.state.selectedStages > 0) {
-      return(
+      return (
         <Button className="clearFilterButton" type="button" onClick={(e) => this.onClearFiltering()}> Clear Filtering
         </Button>
       );
@@ -241,7 +242,7 @@ class HeaderBlock extends React.Component {
 
   renderFilter() {
     return (
-      <div className="row">
+      <div className="row filterContainer">
         <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3 leftAligned">
           <div className="input-group">
             <input type="text" className="form-control" placeholder="Search by name..." value={this.state.search}
@@ -260,13 +261,12 @@ class HeaderBlock extends React.Component {
           {this.renderClearFilterButton()}
           <Panel className="dropdown" collapsible expanded={this.state.filterOpen}>
             <div className="row">
-              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 tagsContainer">
                 {this.renderTagsComponent()}
               </div>
             </div>
-            <br/>
             <div className="row">
-              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 stagesContainer">
                 {this.renderStageComponent()}
               </div>
             </div>
@@ -337,11 +337,15 @@ class HeaderBlock extends React.Component {
 
   renderNavBar() {
     return (
-      <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
-        <NavItem eventKey="1">Table View</NavItem>
-        <NavItem eventKey="2">Card View</NavItem>
-        <NavItem eventKey="3">Aggregated Statistics</NavItem>
-      </Nav>
+      <div className="row navBarContainer">
+        <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
+          <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
+            <NavItem eventKey="1">Table View</NavItem>
+            <NavItem eventKey="2">Card View</NavItem>
+            <NavItem eventKey="3">Aggregated Statistics</NavItem>
+          </Nav>
+        </div>
+      </div>
     );
   }
 
@@ -367,7 +371,6 @@ class HeaderBlock extends React.Component {
     return (
       <div className="container">
         {this.renderFilter()}
-        <br/>
         {this.renderSelectedTagsandStages()}
         {this.renderNavBar()}
         {this.renderView(this.state.activeTab)}

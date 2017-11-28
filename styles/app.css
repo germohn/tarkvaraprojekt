@@ -156,12 +156,12 @@ article {
     font-size: larger;
 }
 
-a{
+a {
     cursor: pointer;
     color: darkorange;
 }
 
-.tags, .founders{
+.tags, .founders {
     color: darkorange;
 }
 
@@ -197,12 +197,12 @@ th > .fa-sort-asc, .fa-sort-desc {
 
 #tableLogo {
     margin-top: 0.3em;
-    margin-bottom:0.3em;
+    margin-bottom: 0.3em;
     width: 6em;
 }
 
 #cardLogo {
-    margin-bottom:0.5em;
+    margin-bottom: 0.5em;
 }
 
 .panel-collapse {
@@ -214,8 +214,7 @@ th > .fa-sort-asc, .fa-sort-desc {
     z-index: 10;
 }
 
-
-.filterButton, .clearFilterButton{
+.filterButton, .clearFilterButton {
     border-color: #092140;
     color: #092140;
     background-color: white;
@@ -227,4 +226,12 @@ th > .fa-sort-asc, .fa-sort-desc {
     color: #092140;
     background-color: white;
     box-shadow: 0.1em 0.1em 0.5em #888888;
+}
+
+.tagsContainer, .filterContainer {
+    margin-bottom: 0.5em;
+}
+
+.stagesContainer, .navBarContainer {
+    margin-top: 0.5em;
 }
