@@ -1,4 +1,5 @@
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
+import 'jsdom-global/register';
 import React from 'react';
 import HeaderBlock from '../../../src/containers/HeaderBlock/HeaderBlock';
 import R from 'ramda';
@@ -228,34 +229,90 @@ describe('HeaderBlock', () => {
     expect(wrapper.find('TableView')).to.not.exist;
     expect(wrapper.find('CardView')).to.not.exist;
   });
-
-  it('Testing if all stages are deselected when using clearStages', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
-
-    wrapper.instance().handleStageSelect('Discovery');
-    wrapper.instance().handleStageSelect('Scale');
-    wrapper.instance().handleStageSelect('Validation');
-
-    wrapper.instance().clearStages();
-    expect(wrapper.state().unSelectedStages.length).to.eql(6);
-    expect(wrapper.state().selectedStages.length).to.eql(0);
-  });
-  it('Testing if all tags are deselcted when using clearTags', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={new Map()}/>);
+  it('Testing onClearFiltering, if tags and stages both are cleared when clicking "Clear filtering"', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={generatedTags} stages={stagesMap}/>);
     wrapper.instance().handleTagSelect(generatedTags[0]);
     wrapper.instance().handleTagSelect(generatedTags[1]);
     wrapper.instance().handleTagSelect(generatedTags[2]);
+    wrapper.instance().handleStageSelect('Validation');
+    wrapper.instance().handleStageSelect('Scale');
 
-    wrapper.instance().onClearTags(0);
+    wrapper.instance().onClearFiltering(0);
 
     expect(wrapper.state().unSelectedTags.length).to.eql(10);
     expect(wrapper.state().selectedTags.length).to.eql(0);
+    expect(wrapper.state().unSelectedStages.length).to.eql(6);
+    expect(wrapper.state().selectedStages.length).to.eql(0);
   });
-  it('Testing if renderNavBar works a expected', () => {
+  /*
+  it('Testing if selected tags and stages are rendered', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+    const wrapper2 = render(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+    wrapper.setState({selectedStages: ['Validation', ' Scale']});
+
+    // const stuff = wrapper2.find('div');
+    // console.log((stuff.get(0).getAttribute('class').should.equal('container')));
+    expect(wrapper.find('div.selectedStage'));
+  });*/
+
+  it('Test that filter container exists', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+
+    expect(wrapper.find('.filterContainer')).to.exist;
+  });
+
+  it('Test that arrow changes direction', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+
+    // Default
+    expect(wrapper.find('.fa-sort')).to.exist;
+
+    wrapper.setState({sortBy: 'name', order: 'desc'});
+    expect(wrapper.find('.fa-sort-asc')).to.exist;
+
+    wrapper.setState({sortBy: 'name', order: 'asc'});
+    expect(wrapper.find('.fa-sort-desc')).to.exist;
+
+    wrapper.setState({sortBy: 'funding', order: 'desc'});
+    expect(wrapper.find('.fa-sort-asc')).to.exist;
+
+    wrapper.setState({sortBy: 'funding', order: 'asc'});
+    expect(wrapper.find('.fa-sort-desc')).to.exist;
+
+    wrapper.setState({sortBy: 'employees', order: 'desc'});
+    expect(wrapper.find('.fa-sort-asc')).to.exist;
+
+    wrapper.setState({sortBy: 'employees', order: 'asc'});
+    expect(wrapper.find('.fa-sort-desc')).to.exist;
+
+    wrapper.setState({sortBy: 'foundedOn', order: 'desc'});
+    expect(wrapper.find('.fa-sort-asc')).to.exist;
+
+    wrapper.setState({sortBy: 'foundedOn', order: 'asc'});
+    expect(wrapper.find('.fa-sort-desc')).to.exist;
+  });
+  it('Testing if the views are changed when clicking on the new tab', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
-    wrapper.setState({activeTab: 1});
-    // expect(wrapper.find('Nav').contains('NavItem'));
-    expect(wrapper.find('Nav')).to.have.id('navBar');
-    expect(wrapper.find('NavItem')).to.exist;
+    const modal = wrapper.find('#tableView');
+    modal.simulate('click');
+    expect(wrapper.state().activeTab).to.eql('1');
+  });
+  it('Testing if the filtering collapsible opens', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+    wrapper.setState({filterOpen: false});
+    const modal = wrapper.find('.filterButton');
+    modal.simulate('click');
+    expect(wrapper.state().filterOpen).to.eql(true);
+  });
+  it('Testing if the selected tags are rendered', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={['tag1', 'tag2', 'tag3', 'tag4']} stages={new Map()}/>);
+    wrapper.setState({selectedTags: ['tag1']});
+    expect(wrapper.find('.selectedTag')).to.exist;
+  });
+  it('Testing if the selected stages are rendered', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={['tag1', 'tag2', 'tag3', 'tag4']} stages={new Map()}/>);
+    wrapper.setState({selectedStages: ['tag1', 'tag2', 'tag3']});
+    wrapper.setState({selectedTags: ['stage1', 'stage2', 'stage3']});
+    expect(wrapper.find('.selectedStage')).to.exist;
   });
 });

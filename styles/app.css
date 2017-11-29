@@ -12,6 +12,7 @@ th {
     font-size: 1.4em;
     color: white;
     height: 3em;
+    cursor: pointer;
 }
 
 .table > thead > tr > th, .table > tbody > tr > td {
@@ -70,11 +71,45 @@ div {
 
 .chip {
     display: inline-block;
-    padding: 0.5em;
-    font-size: 1.1em;
-    border-radius: 1.2em;
+    padding: 0.2em;
+    font-size: 1em;
+    border-radius: 0.5em;
     background-color: #f1f1f1;
-    margin: 0.2em;
+    margin: 0.15em;
+    cursor: pointer;
+}
+
+.selectedChip {
+    display: inline-block;
+    padding: 0.2em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    background-color: #494E6B;
+    color: white;
+    margin: 0.15em;
+    cursor: pointer;
+}
+
+.selectedTag {
+    display: inline-block;
+    padding: 0.2em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    background-color: #F06543;
+    color: white;
+    margin: 0.15em;
+    cursor: pointer;
+}
+
+.selectedStage {
+    display: inline-block;
+    padding: 0.2em;
+    font-size: 1em;
+    border-radius: 0.5em;
+    background-color: #44BBA4;
+    color: white;
+    margin: 0.15em;
+    cursor: pointer;
 }
 
 .companyCard {
@@ -121,20 +156,13 @@ article {
     font-size: larger;
 }
 
-a, .tags, .founders{
+a {
+    cursor: pointer;
     color: darkorange;
 }
 
-#searchBox {
-    margin-left: 3em;
-    margin-bottom: 1em;
-    border: solid 0.1em black;
-    padding: 0.5em;
-    border-radius: 1em;
-}
-
-.glyphicon {
-    margin-left: -2em;
+.tags, .founders {
+    color: darkorange;
 }
 
 #sortingContainer {
@@ -169,10 +197,41 @@ th > .fa-sort-asc, .fa-sort-desc {
 
 #tableLogo {
     margin-top: 0.3em;
-    margin-bottom:0.3em;
+    margin-bottom: 0.3em;
     width: 6em;
 }
 
 #cardLogo {
-    margin-bottom:0.5em;
+    margin-bottom: 0.5em;
+}
+
+.panel-collapse {
+    border: none;
+}
+
+.dropdown {
+    position: absolute;
+    z-index: 10;
+}
+
+.filterButton, .clearFilterButton {
+    border-color: #092140;
+    color: #092140;
+    background-color: white;
+    margin-right: 1em;
+}
+
+.filterButton:hover, .clearFilterButton:hover {
+    border-color: #092140;
+    color: #092140;
+    background-color: white;
+    box-shadow: 0.1em 0.1em 0.5em #888888;
+}
+
+.tagsContainer, .filterContainer {
+    margin-bottom: 0.5em;
+}
+
+.stagesContainer, .navBarContainer {
+    margin-top: 0.5em;
 }

@@ -1,8 +1,8 @@
 
-import getSubstring from '../../../src/containers/util/OtherFunctions';
+import {getSubstring} from '../../../src/containers/util/OtherFunctions';
 
 
-describe('CompanyRow', () => {
+describe('Testing getSubstring', () => {
   it('Testing if the substring functions works correctly with long string description', () => {
     const str = 'CHANGE is a mobile-only bank that is built by millennials for millennials.';
     expect(getSubstring(str)).to.eql('CHANGE is a mobile-only bank that is built by millennials for millennials.');
