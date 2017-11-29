@@ -41,6 +41,7 @@ class HeaderBlock extends React.Component {
     this.renderArrow = this.renderArrow.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
     this.handleTagClick = this.handleTagClick.bind(this);
+    this.hadleStageClick = this.handleStageClick.bind(this);
     this.renderSelectedTagsandStages = this.renderSelectedTagsandStages.bind(this);
     this.rederClearFilterButton = this.renderClearFilterButton.bind(this);
   }
@@ -307,7 +308,7 @@ class HeaderBlock extends React.Component {
   }
 
   renderSelectedTagsandStages() {
-    if (this.state.selectedTags.length > 0 || this.state.selectedStages > 0) {
+    if (this.state.selectedTags.length > 0 || this.state.selectedStages.length > 0) {
       return (
         <div>
           <div className="row">
@@ -324,7 +325,7 @@ class HeaderBlock extends React.Component {
             <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
               {this.state.selectedStages.map((stage, i) => {
                 return (
-                  <div className="selectedStage" key={i} onClick={(e) => this.handleTagClick(stage)}>{stage}</div>
+                  <div className="selectedStage" key={i} onClick={(e) => this.handleStageClick(stage)}>{stage}</div>
                 );
               })
               }
