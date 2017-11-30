@@ -72,7 +72,6 @@ class CompanyCard extends React.Component {
                 <b><a href={this.props.company.url} target="_blank">See the profile...</a></b>
               </div>
             </div>
-            <br/>
             <div className="row modalRow">
               <div className="col-lg-4 col-xs-4 col-sm-4 col-md-4">
                 <div className="row">
@@ -102,21 +101,17 @@ class CompanyCard extends React.Component {
                 </div>
               </div>
             </div>
-            <br/>
             <div className="row">
               <b>Founders:</b>
             </div>
-            <br/>
             <div className="row">
               <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 founders">
                 {this.joinList(this.props.company.founders)}
               </div>
             </div>
-            <br/>
             <div className="row">
               <b>Investors:</b>
             </div>
-            <br/>
             <div className="row investors">
               {this.props.company.investors ? this.props.company.investors.map((investor) => {
                 return (
