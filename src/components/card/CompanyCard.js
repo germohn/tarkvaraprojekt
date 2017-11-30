@@ -144,9 +144,13 @@ class CompanyCard extends React.Component {
   render() {
     return (
       <article onClick={(e) => this.open()} className="companyCard">
-        <Logo url={this.props.company.logo100x100} view="cardView"/>
+        <div className="logoContainer">
+          <Logo url={this.props.company.logo100x100} view="cardView"/>
+        </div>
         <p className='companyName'>{this.props.company.name}</p>
-        <p className='description'>{getSubstring(this.props.company.description)}</p>
+        <div className="descriptionContainer">
+          <p className='description'>{getSubstring(this.props.company.description)}</p>
+        </div>
         <div className="funding">
           <p>Funding:</p>
           <p>
