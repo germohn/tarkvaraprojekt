@@ -29,7 +29,6 @@ class TableView extends React.Component {
   render() {
     return (
       <div className="container">
-        <br/>
         <div className="row">
           <div className="table table-responsive">
             <table className="table">

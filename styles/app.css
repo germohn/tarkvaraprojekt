@@ -138,9 +138,15 @@ div {
     }
 }
 
-.cardView, .investors {
+.cardView {
     display: flex;
     flex-wrap: wrap;
+}
+
+.investors {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1em;
 }
 
 article {
@@ -154,6 +160,7 @@ article {
     width: calc(100% + 1.3em);
     padding: 0.3em;
     font-size: larger;
+    margin-bottom: 1em;
 }
 
 a {
@@ -161,8 +168,15 @@ a {
     color: darkorange;
 }
 
-.tags, .founders {
+.tags {
     color: darkorange;
+}
+
+.founders {
+    color: darkorange;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
 }
 
 #sortingContainer {
@@ -176,6 +190,8 @@ th > .fa-sort-asc, .fa-sort-desc {
 }
 
 .modalRow {
+    margin-bottom: 1em;
+    margin-top: 1em;
     background-color: #F7F7F9;
     padding: 1em;
 }
@@ -232,6 +248,19 @@ th > .fa-sort-asc, .fa-sort-desc {
     margin-bottom: 0.5em;
 }
 
-.stagesContainer, .navBarContainer {
+.stagesContainer {
     margin-top: 0.5em;
+}
+
+.navBarContainer {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.logoContainer {
+    height: 8em;
+}
+
+.descriptionContainer {
+    height: 5em;
 }

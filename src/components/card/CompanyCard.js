@@ -72,7 +72,6 @@ class CompanyCard extends React.Component {
                 <b><a href={this.props.company.url} target="_blank">See the profile...</a></b>
               </div>
             </div>
-            <br/>
             <div className="row modalRow">
               <div className="col-lg-4 col-xs-4 col-sm-4 col-md-4">
                 <div className="row">
@@ -102,21 +101,17 @@ class CompanyCard extends React.Component {
                 </div>
               </div>
             </div>
-            <br/>
             <div className="row">
               <b>Founders:</b>
             </div>
-            <br/>
             <div className="row">
               <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 founders">
                 {this.joinList(this.props.company.founders)}
               </div>
             </div>
-            <br/>
             <div className="row">
               <b>Investors:</b>
             </div>
-            <br/>
             <div className="row investors">
               {this.props.company.investors ? this.props.company.investors.map((investor) => {
                 return (
@@ -149,9 +144,13 @@ class CompanyCard extends React.Component {
   render() {
     return (
       <article onClick={(e) => this.open()} className="companyCard">
-        <Logo url={this.props.company.logo100x100} view="cardView"/>
+        <div className="logoContainer">
+          <Logo url={this.props.company.logo100x100} view="cardView"/>
+        </div>
         <p className='companyName'>{this.props.company.name}</p>
-        <p className='description'>{getSubstring(this.props.company.description)}</p>
+        <div className="descriptionContainer">
+          <p className='description'>{getSubstring(this.props.company.description)}</p>
+        </div>
         <div className="funding">
           <p>Funding:</p>
           <p>

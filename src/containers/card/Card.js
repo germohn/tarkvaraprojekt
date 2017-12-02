@@ -28,7 +28,6 @@ class CardView extends React.Component {
   render() {
     return (
       <div className="container">
-        <br/>
         <div id="sortingContainer" className="row">
           <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
             Sort By:&emsp;
