@@ -160,6 +160,7 @@ article {
     width: calc(100% + 1.3em);
     padding: 0.3em;
     font-size: larger;
+    margin-bottom: 1em;
 }
 
 a {
@@ -256,6 +257,13 @@ th > .fa-sort-asc, .fa-sort-desc {
     margin-bottom: 1em;
 }
 
+.logoContainer {
+    height: 8em;
+}
+
+.descriptionContainer {
+    height: 5em;
+}
 .rotated {
     transform: rotate(45deg);
 }
