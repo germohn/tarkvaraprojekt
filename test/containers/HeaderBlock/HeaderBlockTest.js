@@ -4,6 +4,7 @@ import React from 'react';
 import HeaderBlock from '../../../src/containers/HeaderBlock/HeaderBlock';
 import R from 'ramda';
 
+
 function generateTag() {
   return Math.random().toString(30).substring(7);
 }
@@ -25,6 +26,7 @@ describe('HeaderBlock', () => {
   const comp3 = {'name': 'ZeroTurnaround', 'employees': 14, 'funding': 14000, 'tags': ['marketing and advertising',
     'news and media'],
     'stageName': 'Validation', 'foundedOn': 2015};
+
   const stagesMap = new Map();
   stagesMap.set('1', 'Discovery');
   stagesMap.set('2', 'Validation');
@@ -244,27 +246,9 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().unSelectedStages.length).to.eql(6);
     expect(wrapper.state().selectedStages.length).to.eql(0);
   });
-  /*
-  it('Testing if selected tags and stages are rendered', () => {
-    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
-    const wrapper2 = render(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
-    wrapper.setState({selectedStages: ['Validation', ' Scale']});
-
-    // const stuff = wrapper2.find('div');
-    // console.log((stuff.get(0).getAttribute('class').should.equal('container')));
-    expect(wrapper.find('div.selectedStage'));
-  });*/
-
-  it('Test that filter container exists', () => {
-    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
-
-    expect(wrapper.find('.filterContainer')).to.exist;
-  });
-
   it('Test that arrow changes direction', () => {
     const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
 
-    // Default
     expect(wrapper.find('.fa-sort')).to.exist;
 
     wrapper.setState({sortBy: 'name', order: 'desc'});
@@ -291,8 +275,8 @@ describe('HeaderBlock', () => {
     wrapper.setState({sortBy: 'foundedOn', order: 'asc'});
     expect(wrapper.find('.fa-sort-desc')).to.exist;
   });
-  it('Testing if the views are changed when clicking on the new tab', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+  it('Testing if the views are changed when clicking on tableview tab', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
     const modal = wrapper.find('#tableView');
     modal.simulate('click');
     expect(wrapper.state().activeTab).to.eql('1');
@@ -304,15 +288,61 @@ describe('HeaderBlock', () => {
     modal.simulate('click');
     expect(wrapper.state().filterOpen).to.eql(true);
   });
-  it('Testing if the selected tags are rendered', () => {
-    const wrapper = shallow(<HeaderBlock data={[]} tags={['tag1', 'tag2', 'tag3', 'tag4']} stages={new Map()}/>);
-    wrapper.setState({selectedTags: ['tag1']});
-    expect(wrapper.find('.selectedTag')).to.exist;
+  it('Testing if the views are changed when clicking on tableview tab', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+    wrapper.setState({activeTab: '2'});
+    const modal = wrapper.find('#tableView');
+    modal.simulate('click');
+    expect(wrapper.state().activeTab).to.eql('1');
   });
-  it('Testing if the selected stages are rendered', () => {
-    const wrapper = mount(<HeaderBlock data={[]} tags={['tag1', 'tag2', 'tag3', 'tag4']} stages={new Map()}/>);
-    wrapper.setState({selectedStages: ['tag1', 'tag2', 'tag3']});
-    wrapper.setState({selectedTags: ['stage1', 'stage2', 'stage3']});
-    expect(wrapper.find('.selectedStage')).to.exist;
+  it('Testing if the navbar is rendered', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+    expect(wrapper.find('.navBarContainer')).to.exist;
+  });
+  it('Testing if the searchbar render', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={new Map()}/>);
+    wrapper.setState({search: 'blah'});
+    const modal = wrapper.find('.form-control');
+    const event = {target: {name: 'pollName', value: 'spam'}};
+    modal.simulate('change', event);
+    expect(wrapper.state().search).to.eql('spam');
+  });
+  it('Testing if clearFiltering button is rendered', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={['tag2', 'tag3', 'tag4']} stages={stagesMap}/>);
+    wrapper.instance().handleTagSelect('tag2');
+    wrapper.instance().handleTagSelect('tag3');
+    wrapper.instance().handleStageSelect('Scale');
+    const modal = wrapper.find('.clearFilterButton');
+    modal.simulate('click');
+    expect(wrapper.state().selectedTags).to.eql([]);
+  });
+  it('Testing if stages are rendered and dealed correctly when selected and clicked on them', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+    wrapper.instance().handleStageSelect('Scale');
+    const modal = wrapper.find('.selectedChip');
+    modal.simulate('click');
+    expect(wrapper.state().selectedStages).to.eql([]);
+    expect(wrapper.state().unSelectedStages).to.eql(['Discovery', 'Validation', 'Efficiency', 'Scale',
+      'Mature growth', 'Unknown']);
+  });
+  it('Testing if stages are rendered when selecting them', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+    wrapper.instance().handleStageSelect('Scale');
+    wrapper.instance().handleStageSelect('Discovery');
+    wrapper.instance().handleStageSelect('Efficiency');
+    wrapper.instance().handleStageSelect('Unknown');
+    wrapper.instance().handleStageSelect('Validation');
+    const modal = wrapper.find('.chip');
+    modal.simulate('click');
+    expect(wrapper.state().selectedStages).to.eql(['Scale', 'Discovery', 'Efficiency', 'Unknown', 'Validation',
+      'Mature growth']);
+  });
+  it('Testing if tags are rendered and dealed correctly when selected and clicked on them', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={['tag1', 'tag2', 'tag3']} stages={stagesMap}/>);
+    wrapper.instance().handleTagSelect('tag1');
+    const modal = wrapper.find('.selectedChip');
+    modal.simulate('click');
+    expect(wrapper.state().selectedTags).to.eql([]);
+    expect(wrapper.state().unSelectedTags).to.eql(['tag1', 'tag2', 'tag3']);
   });
 });
