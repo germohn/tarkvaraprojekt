@@ -10,6 +10,8 @@ const calculate = (data) => {
   let noOfDefinedEmployees = 0;
   let totalFunding = 0;
   let totalEmployees = 0;
+  let noOfFounderInfo = 0;
+  let totalFounders = 0;
 
   data.forEach((comp) => {
     if (comp.employees) {
@@ -20,14 +22,21 @@ const calculate = (data) => {
       noOfDefinedFunding += 1;
       totalFunding += comp.funding;
     }
+    if (comp.founders) {
+      noOfFounderInfo += 1;
+      totalFounders += comp.founders.length;
+    }
   });
   return {
+    count: initialLength,
     totalFunding: totalFunding,
     totalEmployees: totalEmployees,
     averageFunding: Math.round(totalFunding / noOfDefinedFunding),
     averageEmployees: Math.round(totalEmployees / noOfDefinedEmployees),
     noOfUndefinedEmployees: initialLength - noOfDefinedEmployees,
-    noOfUndefinedFunding: initialLength - noOfDefinedFunding
+    noOfUndefinedFunding: initialLength - noOfDefinedFunding,
+    totalFounders,
+    averageFounders: Math.round(totalFounders / noOfFounderInfo)
   };
 };
 
@@ -35,16 +44,22 @@ const yearByYear = (data) => {
   let obj = {};
   data.forEach((comp) => {
     const date = comp.foundedOn;
-    if (date !== undefined) {
+    if (date) {
       obj[date.substring(0, 4)] = (obj[date.substring(0, 4)] || 0) + 1;
     } else {
-      obj['NaN'] = (obj['NaN'] || 0) + 1;
+      obj['Unknown'] = (obj['Unknown'] || 0) + 1;
     }
   });
   const entries = Object.entries(obj);
   const res = [];
+  let entriesCount = entries.length;
   entries.forEach(([year, value]) => {
-    res.push({[year]: value});
+    if (entriesCount > 10) {
+      if (value >= data.length * 0.03)
+        res.push({name: year, value: value});
+    } else {
+      res.push({name: year, value: value});
+    }
   });
   return res;
 };
@@ -73,18 +88,17 @@ const popularTags = (data) => {
 };
 
 
-const getRadarChartData = (allData, filtered) => {
-  const allRadarData =calculate(allData);
-  const filteredRadarData = calculate(filtered);
-
+const getRadarChartData = (allRadarData, filteredRadarData) => {
   return ([
-    temp('count', allData.length, filtered.length),
-    temp('avgFunding', allRadarData.averageFunding, filteredRadarData.averageFunding),
-    temp('avgEmployees', allRadarData.averageEmployees, filteredRadarData.averageEmployees),
-    temp('totalFunding', allRadarData.totalFunding, filteredRadarData.totalFunding),
-    temp('totalEmployees', allRadarData.totalEmployees, filteredRadarData.totalEmployees),
+    temp('Count', allRadarData.count, filteredRadarData.count),
+    temp('Average funding', allRadarData.averageFunding, filteredRadarData.averageFunding),
+    temp('Average employees', allRadarData.averageEmployees, filteredRadarData.averageEmployees),
+    temp('Total funding', allRadarData.totalFunding, filteredRadarData.totalFunding),
+    temp('Total employees', allRadarData.totalEmployees, filteredRadarData.totalEmployees),
+    temp('Average number of founders', allRadarData.averageFounders, filteredRadarData.averageFounders)
   ]);
 };
+
 
 const temp = (field, a, b) => {
   if (a > b) {
@@ -118,15 +132,10 @@ class Statistics extends React.Component {
 
 
   render() {
-    const allChartData =calculate(this.props.allData);
+    const allChartData = calculate(this.props.allData);
     const filteredChartData = calculate(this.props.filteredData);
-
     return (
       <div>
-        <TwoLevelPieChart data={popularTags(this.props.allData)}/>
-        <TwoLevelPieChart data={popularTags(this.props.filteredData)}/>
-        <TwoLevelRadarChart data={getRadarChartData(this.props.allData, this.props.filteredData)}/>
-
         <table className="table">
           <thead>
           <tr>
@@ -161,8 +170,26 @@ class Statistics extends React.Component {
             <td>{allChartData.totalEmployees}</td>
             <td>{filteredChartData.totalEmployees}</td>
           </tr>
+          <tr>
+            <td>Average number of founders</td>
+            <td>{allChartData.averageFounders}</td>
+            <td>{filteredChartData.averageFounders}</td>
+          </tr>
           </tbody>
         </table>
+        <div className="col-sm-6 col-sm-offset-3 ">
+          <TwoLevelRadarChart data={getRadarChartData(allChartData, filteredChartData)}/>
+
+        </div>
+        <div className="col-sm-6 marginTop">
+          <label>Popular tags</label>
+          <TwoLevelPieChart data={popularTags(this.props.filteredData)}/>
+        </div>
+        <div className="col-sm-6 marginTop">
+          <label>Popular founding years</label>
+
+          <TwoLevelPieChart data={yearByYear(this.props.filteredData)}/>
+        </div>
       </div>
     );
   }

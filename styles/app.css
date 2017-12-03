@@ -255,3 +255,17 @@ th > .fa-sort-asc, .fa-sort-desc {
     margin-top: 0.5em;
     margin-bottom: 1em;
 }
+
+.rotated {
+    transform: rotate(45deg);
+}
+
+.radar {
+    position: absolute;
+    display: block;
+    /*margin: auto;*/
+}
+
+.marginTop {
+    margin-top: 5em;
+}
