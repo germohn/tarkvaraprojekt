@@ -4,7 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: [
     './src/index.js',
-    './styles/app.css'
+    './styles/app.css',
+    './styles/img/no-image-icon-23494.jpg',
   ],
   output: {
     filename: 'dist/bundle.js',
@@ -14,10 +15,18 @@ module.exports = {
   devtool: "inline-source-map",
   module: {
     rules: [
-      { test: /\.js/, use: 'babel-loader' },
+      {test: /\.js/, use: 'babel-loader'},
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract('css-loader'),
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [{
+          loader: 'file-loader'
+        }
+
+        ]
       }
     ]
   },
