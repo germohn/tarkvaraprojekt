@@ -1,5 +1,6 @@
-import React from 'react';
+import 'jsdom-global/register';
 import {shallow} from 'enzyme';
+import React from 'react';
 
 import CompanyCard from '../../../src/components/card/CompanyCard';
 
@@ -27,6 +28,14 @@ describe('CompanyRow', () => {
     'public': false,
     'established': false,
     'closed': false,
+    'investors': [
+      {
+        'name': 'EyeFocus Accelerator ',
+        'logo100x100': 'https://funderbeam-706056.c.cdn77.org/logos/100x100/CO/eyefocus-accelerator.png?1453408494',
+        'logo': 'https://funderbeam-706056.c.cdn77.org/logos/CO/eyefocus-accelerator.jpeg?1453408469',
+        'homepage': 'http://www.eyefocus.co'
+      }
+    ],
     'founders': [
       {
         'name': 'Sten Tuudak',

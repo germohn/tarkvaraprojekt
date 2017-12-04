@@ -179,6 +179,17 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().order).to.eql('asc');
     expect(wrapper.state().sortBy).to.eql('name');
   });
+  it('Testing if handleNameClick sets data desc-> asc in table, current sortBy: name last sorby: funding', () => {
+    wrapper.setState({companies: [comp2, comp3, comp1]});
+    wrapper.setState({order: 'desc'});
+    wrapper.setState({sortBy: 'funding'});
+
+    wrapper.instance().handleNameClick(0, 'name');
+
+    expect(wrapper.state().companies).to.eql([comp3, comp2, comp1]);
+    expect(wrapper.state().order).to.eql('asc');
+    expect(wrapper.state().sortBy).to.eql('name');
+  });
   it('Testing if handleSortingClick sets data emp asc -> founded desc, current sortBy: employees, last sortBy: ' +
     'foundedOn', () => {
     wrapper.setState({companies: R.sortBy(R.compose(R.toLower, R.prop('name')))([comp3, comp1, comp2])});
@@ -344,5 +355,12 @@ describe('HeaderBlock', () => {
     modal.simulate('click');
     expect(wrapper.state().selectedTags).to.eql([]);
     expect(wrapper.state().unSelectedTags).to.eql(['tag1', 'tag2', 'tag3']);
+  });
+  it('Testing if tags are rendered and dealed correctly when selected and clicked on them', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={['tag1']} stages={new Map()}/>);
+    const modal = wrapper.find('.chip');
+    modal.simulate('click');
+    expect(wrapper.state().selectedTags).to.eql(['tag1']);
+    expect(wrapper.state().unSelectedTags).to.eql([]);
   });
 });

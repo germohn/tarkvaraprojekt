@@ -121,8 +121,6 @@ class HeaderBlock extends React.Component {
           selectedTags: selected
         });
       }
-    } else {
-      this.handleTagDeselect(tag);
     }
   }
 
