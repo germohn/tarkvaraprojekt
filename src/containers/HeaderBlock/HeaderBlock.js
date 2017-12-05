@@ -107,20 +107,18 @@ class HeaderBlock extends React.Component {
 
   handleTagDeselect(tag) {
     const selected = R.clone(this.state.selectedTags);
-    if (selected.includes(tag)) {
-      if (this.state.selectedTags.includes(tag)) {
-        const index = selected.indexOf(tag);
-        selected.splice(index, 1);
-        let unSelected = R.clone(this.state.unSelectedTags);
-        unSelected.push(tag);
-        unSelected.sort((a, b) => {
-          return a.toLowerCase().localeCompare(b.toLowerCase());
-        });
-        this.setState({
-          unSelectedTags: unSelected,
-          selectedTags: selected
-        });
-      }
+    if (this.state.selectedTags.includes(tag)) {
+      const index = selected.indexOf(tag);
+      selected.splice(index, 1);
+      let unSelected = R.clone(this.state.unSelectedTags);
+      unSelected.push(tag);
+      unSelected.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      });
+      this.setState({
+        unSelectedTags: unSelected,
+        selectedTags: selected
+      });
     }
   }
 

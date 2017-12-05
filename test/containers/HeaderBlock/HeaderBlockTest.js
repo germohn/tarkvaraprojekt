@@ -44,10 +44,18 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().selectedTags).to.eql([generatedTags[0]]);
     expect(wrapper.state().unSelectedTags.length).to.eql(9);
   });
-  it('Testing if tag not in an array', () => {
+  it('Testing if nonexisiting tag can be selected in an array', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={['a', 'b', 'c']} stages={new Map()}/>);
 
     wrapper.instance().handleTagSelect('tag');
+
+    expect(wrapper.state().selectedTags).to.eql([]);
+    expect(wrapper.state().unSelectedTags.length).to.eql(3);
+  });
+  it('Testing if nonexisiting tag can be deselected', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={['a', 'b', 'c']} stages={new Map()}/>);
+
+    wrapper.instance().handleTagDeselect('tag');
 
     expect(wrapper.state().selectedTags).to.eql([]);
     expect(wrapper.state().unSelectedTags.length).to.eql(3);
@@ -62,7 +70,6 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().unSelectedTags.length).to.eql(3);
   });
 
-
   it('Testing if stage is moved to selectedStages when selecting', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
 
@@ -76,6 +83,14 @@ describe('HeaderBlock', () => {
     const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
 
     wrapper.instance().handleStageSelect('Stuff');
+
+    expect(wrapper.state().selectedStages).to.eql([]);
+    expect(wrapper.state().unSelectedStages.length).to.eql(6);
+  });
+  it('Testing if non exisiting stage can be deselected', () => {
+    const wrapper = shallow(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+
+    wrapper.instance().handleStageDeselect('Stuff');
 
     expect(wrapper.state().selectedStages).to.eql([]);
     expect(wrapper.state().unSelectedStages.length).to.eql(6);
@@ -348,7 +363,7 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().selectedStages).to.eql(['Scale', 'Discovery', 'Efficiency', 'Unknown', 'Validation',
       'Mature growth']);
   });
-  it('Testing if tags are rendered and dealed correctly when selected and clicked on them', () => {
+  it('Testing if tags are highlighted correctly when selected and clicked on them', () => {
     const wrapper = mount(<HeaderBlock data={[]} tags={['tag1', 'tag2', 'tag3']} stages={stagesMap}/>);
     wrapper.instance().handleTagSelect('tag1');
     const modal = wrapper.find('.selectedChip');
@@ -356,11 +371,28 @@ describe('HeaderBlock', () => {
     expect(wrapper.state().selectedTags).to.eql([]);
     expect(wrapper.state().unSelectedTags).to.eql(['tag1', 'tag2', 'tag3']);
   });
-  it('Testing if tags are rendered and dealed correctly when selected and clicked on them', () => {
+  it('Testing if tags are highligthed correctly when selected and clicked on them', () => {
     const wrapper = mount(<HeaderBlock data={[]} tags={['tag1']} stages={new Map()}/>);
     const modal = wrapper.find('.chip');
     modal.simulate('click');
     expect(wrapper.state().selectedTags).to.eql(['tag1']);
     expect(wrapper.state().unSelectedTags).to.eql([]);
+  });
+  it('Testing if selected tags are rendered', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={['tag1']} stages={new Map()}/>);
+    wrapper.instance().handleTagSelect('tag1');
+    const modal = wrapper.find('.selectedTag');
+    modal.simulate('click');
+    expect(wrapper.state().selectedTags).to.eql([]);
+    expect(wrapper.state().unSelectedTags).to.eql(['tag1']);
+  });
+  it('Testing if selected stages are rendered ', () => {
+    const wrapper = mount(<HeaderBlock data={[]} tags={[]} stages={stagesMap}/>);
+    wrapper.instance().handleStageSelect('Scale');
+    const modal = wrapper.find('.selectedStage');
+    modal.simulate('click');
+    expect(wrapper.state().selectedStages).to.eql([]);
+    expect(wrapper.state().unSelectedStages).to.eql(['Discovery', 'Validation', 'Efficiency', 'Scale', 'Mature growth',
+      'Unknown']);
   });
 });

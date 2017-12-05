@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Pie, PieChart, Sector} from 'recharts';
 
 /* eslint-disable */
-const renderActiveShape = (props) => {
+export const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const {
     cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
