@@ -53,6 +53,10 @@ describe('CompanyRow', () => {
       }
     ],
   };
+   const comp = {'slug': 'inv24',
+    'name': 'INV24',
+    'url': 'https://www.funderbeam.com/startups/inv24?ref=startupestonia',
+   'funding': 2000};
   it('renders CompanyCard', () => {
     expect(shallow(<CompanyCard company={mockCompany}/>)).to.exist;
   });
@@ -79,5 +83,9 @@ describe('CompanyRow', () => {
     wrapper.setState({showModal: true});
     (wrapper.find('Button')).simulate('click');
     expect(wrapper.state().showModal).to.be.false;
+  });
+it('Testing the companycard to localeString if funding existing', () => {
+    const wrapper = shallow(<CompanyCard company={comp}/>);
+    expect(wrapper).to.exist;
   });
 });

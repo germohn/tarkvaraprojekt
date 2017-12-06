@@ -27,6 +27,8 @@
     "eslint-plugin-import": "2.0.1",
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "global-jsdom": "4.2.0",
+    "jsdom": "11.5.1",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",
     "sinon": "^1.17.7",

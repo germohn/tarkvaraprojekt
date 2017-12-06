@@ -13,10 +13,6 @@ class CompanyCard extends React.Component {
     this.close = this.close.bind(this);
   }
 
-  cardClick(link) {
-    window.open(link);
-  }
-
   close() {
     this.setState({showModal: false});
   }

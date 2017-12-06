@@ -31,14 +31,6 @@ describe('CompanyRow', () => {
     it('renders ComapnyRow', () => {
           expect(shallow(<CompanyRow company={mockCompany}/>)).to.exist;
       });
- //   it('Testing if rowClick function is been called out when clicking on the company row', () => {
- //     const noop = sinon.spy();
- //     const wrapper = shallow(<CompanyRow company={mockCompany}/>);
- //     const modal = wrapper.find('.company-row');
- //     modal.simulate('click');
- //     // const stub = sinon.stub(window, 'redirect');
- //     expect(sinon.stub(window,'https://www.funderbeam.com/startups/inv24?ref=startupestonia'));
- //   });
 });
 
 
