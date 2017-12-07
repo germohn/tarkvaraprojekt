@@ -1,5 +1,4 @@
 import {mount, shallow} from 'enzyme';
-import 'jsdom-global/register';
 import React from 'react';
 import HeaderBlock from '../../../src/containers/HeaderBlock/HeaderBlock';
 import R from 'ramda';

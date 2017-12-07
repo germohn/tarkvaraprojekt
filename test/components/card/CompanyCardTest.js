@@ -1,4 +1,3 @@
-import 'jsdom-global/register';
 import {shallow} from 'enzyme';
 import React from 'react';
 
