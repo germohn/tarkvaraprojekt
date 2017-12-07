@@ -13,10 +13,6 @@ class CompanyCard extends React.Component {
     this.close = this.close.bind(this);
   }
 
-  cardClick(link) {
-    window.open(link);
-  }
-
   close() {
     this.setState({showModal: false});
   }
@@ -135,7 +131,7 @@ class CompanyCard extends React.Component {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={(e) => this.close(e)}>Close</Button>
+          <Button class='closeButton' onClick={(e) => this.close(e)}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

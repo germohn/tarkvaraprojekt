@@ -73,7 +73,7 @@ describe('Testing changeOrder function, sorting by name ', () => {
       {slug: 'first-wallet', name: 'Zlick', tags: ['financial services'], stageName: 'Validation'}
     ]);
   });
-  it('Testing filterCompanies function, when some stages and tags are both selected selected', () => {
+  it('Testing filterCompanies function, when some stages and tags are both selected', () => {
     expect(filterCompanies(ascendingData, ['Validation', 'Efficiency'], ['business and industry',
       'financial services'])).to.eql([
         {slug: 'smartly-3', name: 'Smartly.sg', tags: [
@@ -96,12 +96,16 @@ describe('Testing changeNumOrder, employees, founded and funding', () => {
   const comp3 ={slug: 'sportlyzer', name: 'Sportlyzer', employees: 7, foundedOn: '2009-07-09', funding: 1059231};
   const comp4 ={slug: 'smartly-3', name: 'Smartly.sg', employees: 5, foundedOn: '2014-01-01', funding: 69744};
   const comp5 ={slug: 'zerply', name: 'Zerply', employees: 3, foundedOn: '2010-04-30', funding: 700000};
+  const comp6 ={slug: 'comp1', name: 'comp1', employees: undefined, foundedOn: '2010-04-30', funding: undefined};
   const descendingDataEmployees = [comp1, comp2, comp3, comp4, comp5];
   const ascendingDataEmployees = [comp5, comp4, comp3, comp2, comp1];
   const descendingDataFounded =[comp4, comp5, comp3, comp1, comp2];
   const ascendingDataFounded = [comp2, comp1, comp3, comp5, comp4];
   const descendingDataFunding = [comp1, comp3, comp5, comp4, comp2];
   const ascendingDataFunding = [comp2, comp4, comp5, comp3, comp1];
+  it('When employees is not defined in one comp', () => {
+    expect(changeNumOrder([comp1, comp6], 'employees', 'asc')).to.eql([comp1, comp6]);
+  });
   it('When employees is descending and changed to ascending', () =>{
     expect(changeNumOrder(descendingDataEmployees, 'employees',
       'asc')).to.eql(ascendingDataEmployees);
