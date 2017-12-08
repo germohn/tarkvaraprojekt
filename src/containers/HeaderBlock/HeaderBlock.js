@@ -159,7 +159,7 @@ class HeaderBlock extends React.Component {
 
   updateSearch(event) {
     this.setState({
-      search: event.target.value.substr(0, 10)
+      search: event.target.value.substr(0, 25)
     });
   }
 

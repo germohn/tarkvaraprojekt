@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import Logo from '../shared/Logo';
 import {getSubstring} from '../../containers/util/OtherFunctions';
 
@@ -21,7 +21,7 @@ class CompanyCard extends React.Component {
     this.setState({showModal: true});
   }
 
-  joinList(elems) {
+  joinFoundersToList(elems) {
     if (!elems) return '';
     let names = [];
     elems.map((founder) =>
@@ -102,7 +102,7 @@ class CompanyCard extends React.Component {
             </div>
             <div className="row">
               <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 founders">
-                {this.joinList(this.props.company.founders)}
+                {this.joinFoundersToList(this.props.company.founders)}
               </div>
             </div>
             <div className="row">
@@ -130,9 +130,6 @@ class CompanyCard extends React.Component {
             </div>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button class='closeButton' onClick={(e) => this.close(e)}>Close</Button>
-        </Modal.Footer>
       </Modal>
     );
   }
