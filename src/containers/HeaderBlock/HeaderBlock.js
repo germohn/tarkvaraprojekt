@@ -107,22 +107,18 @@ class HeaderBlock extends React.Component {
 
   handleTagDeselect(tag) {
     const selected = R.clone(this.state.selectedTags);
-    if (selected.includes(tag)) {
-      if (this.state.selectedTags.includes(tag)) {
-        const index = selected.indexOf(tag);
-        selected.splice(index, 1);
-        let unSelected = R.clone(this.state.unSelectedTags);
-        unSelected.push(tag);
-        unSelected.sort((a, b) => {
-          return a.toLowerCase().localeCompare(b.toLowerCase());
-        });
-        this.setState({
-          unSelectedTags: unSelected,
-          selectedTags: selected
-        });
-      }
-    } else {
-      this.handleTagDeselect(tag);
+    if (this.state.selectedTags.includes(tag)) {
+      const index = selected.indexOf(tag);
+      selected.splice(index, 1);
+      let unSelected = R.clone(this.state.unSelectedTags);
+      unSelected.push(tag);
+      unSelected.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+      });
+      this.setState({
+        unSelectedTags: unSelected,
+        selectedTags: selected
+      });
     }
   }
 
@@ -341,9 +337,9 @@ class HeaderBlock extends React.Component {
       <div className="row navBarContainer">
         <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
           <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
-            <NavItem eventKey="1">Table View</NavItem>
-            <NavItem eventKey="2">Card View</NavItem>
-            <NavItem eventKey="3">Aggregated Statistics</NavItem>
+            <NavItem id='tableView' eventKey="1">Table View</NavItem>
+            <NavItem id='cardView'eventKey="2">Card View</NavItem>
+            <NavItem id='statistics' eventKey="3">Aggregated Statistics</NavItem>
           </Nav>
         </div>
       </div>

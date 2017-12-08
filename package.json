@@ -28,6 +28,7 @@
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^1.1.5",
+    "jsdom": "11.5.1",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",
     "sinon": "^1.17.7",
@@ -39,7 +40,7 @@
     "build": "webpack --config webpack.config.js && cp index.html dist/index.html",
     "start": "webpack-dev-server --open --config webpack.config.js",
     "lint": "eslint src/ test/",
-    "test": "mocha",
+    "test": "mocha --require jsDomSetup.js --recursive ./test",
     "test-watch": "mocha --watch",
     "pretest": "npm run lint"
   },
