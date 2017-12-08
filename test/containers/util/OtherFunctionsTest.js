@@ -1,4 +1,3 @@
-
 import {getSubstring} from '../../../src/containers/util/OtherFunctions';
 
 

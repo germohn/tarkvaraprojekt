@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Pie, PieChart} from 'recharts';
 
 /* eslint-disable */
-const renderActiveShape = (props) => {
+export const renderActiveShape = (props) => {
   // console.log(props)
   const RADIAN = Math.PI / 180;
   const {

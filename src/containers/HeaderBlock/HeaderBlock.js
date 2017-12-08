@@ -4,7 +4,7 @@ import R from 'ramda';
 import TableView from '../table/Table';
 import {changeNumOrder, changeOrder, filterCompanies} from '../util/SortAndFilterFunctions';
 import CardView from '../card/Card';
-import {Nav, NavItem, Button, Panel} from 'react-bootstrap';
+import {Button, Nav, NavItem, Panel} from 'react-bootstrap';
 import Statistics from '../statistics/Statistics';
 
 
@@ -338,7 +338,7 @@ class HeaderBlock extends React.Component {
         <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 leftAligned">
           <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.onTabSelect}>
             <NavItem id='tableView' eventKey="1">Table View</NavItem>
-            <NavItem id='cardView'eventKey="2">Card View</NavItem>
+            <NavItem id='cardView' eventKey="2">Card View</NavItem>
             <NavItem id='statistics' eventKey="3">Aggregated Statistics</NavItem>
           </Nav>
         </div>
