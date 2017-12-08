@@ -229,7 +229,7 @@ class HeaderBlock extends React.Component {
   }
 
   renderClearFilterButton() {
-    if (this.state.selectedTags.length > 0 || this.state.selectedStages > 0) {
+    if (this.state.selectedTags.length > 0 || this.state.selectedStages.length > 0) {
       return (
         <Button className="clearFilterButton" type="button" onClick={(e) => this.onClearFiltering()}> Clear Filtering
         </Button>
