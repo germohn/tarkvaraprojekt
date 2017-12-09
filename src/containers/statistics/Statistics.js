@@ -77,13 +77,31 @@ const popularTags = (data) => {
   const sorted = entries.sort((a, b) => {
     return a[1] - b[1];
   });
-  const top10 = sorted.reverse().slice(0, 10);
+  // const top10 = sorted.reverse().slice(0, 10);
   let othersCount = 0;
   const res = [];
   sorted.forEach(([key, val], i) => {
     i < 10 ? res.push({name: key, value: val}) : othersCount += val;
   });
   res.push(({name: 'others', value: othersCount}));
+  return res;
+};
+
+const popularStages = (data) => {
+  let stages = {};
+  data.forEach((comp) => {
+    if (comp.stageName) {
+      stages[comp.stageName] = (stages[comp.stageName] || 0) + 1;
+    }
+  });
+  const res = [];
+  const entries = Object.entries(stages);
+  const sorted = entries.sort((a, b) => {
+    return a[1] - b[1];
+  });
+  sorted.forEach(([key, val]) => {
+    res.push({name: key, value: val});
+  });
   return res;
 };
 
@@ -134,6 +152,7 @@ class Statistics extends React.Component {
   render() {
     const allChartData = calculate(this.props.allData);
     const filteredChartData = calculate(this.props.filteredData);
+
     return (
       <div>
         <table className="table">
@@ -153,43 +172,58 @@ class Statistics extends React.Component {
           <tr>
             <td>Average funding</td>
             <td>{allChartData.averageFunding.toLocaleString('en-US') + ' $'}</td>
-            <td>{filteredChartData.averageFunding.toLocaleString('en-US') + ' $'}</td>
+            <td>{this.props.filteredData.length > 0 ?
+              filteredChartData.averageFunding.toLocaleString('en-US') + ' $' : ''}</td>
           </tr>
           <tr>
             <td>Average employees</td>
             <td>{allChartData.averageEmployees}</td>
-            <td>{filteredChartData.averageEmployees}</td>
+            <td>{this.props.filteredData.length > 0 ?
+              filteredChartData.averageEmployees : ''}</td>
           </tr>
           <tr>
             <td>Total funding</td>
             <td>{allChartData.totalFunding.toLocaleString('en-US') + ' $'}</td>
-            <td>{filteredChartData.totalFunding.toLocaleString('en-US') + ' $'}</td>
+            <td>{this.props.filteredData.length > 0 ?
+              filteredChartData.totalFunding.toLocaleString('en-US') + ' $' : ''}</td>
           </tr>
           <tr>
             <td>Total Employees</td>
             <td>{allChartData.totalEmployees}</td>
-            <td>{filteredChartData.totalEmployees}</td>
+            <td>{this.props.filteredData.length > 0 ? filteredChartData.totalEmployees : ''}</td>
           </tr>
           <tr>
             <td>Average number of founders</td>
             <td>{allChartData.averageFounders}</td>
-            <td>{filteredChartData.averageFounders}</td>
+            <td>{this.props.filteredData.length > 0 ? filteredChartData.averageFounders : ''}</td>
           </tr>
           </tbody>
         </table>
-        <div className="col-sm-6 col-sm-offset-3 ">
-          <TwoLevelRadarChart data={getRadarChartData(allChartData, filteredChartData)}/>
 
-        </div>
-        <div className="col-sm-6 marginTop">
-          <label>Popular tags</label>
-          <TwoLevelPieChart data={popularTags(this.props.filteredData)}/>
-        </div>
-        <div className="col-sm-6 marginTop">
-          <label>Popular founding years</label>
+        {this.props.filteredData.length > 0 ?
+          <div>
+            <div className="col-sm-6 col-sm-offset-3 ">
+              <TwoLevelRadarChart data={getRadarChartData(allChartData, filteredChartData)}/>
+            </div>
+            <div className="col-sm-6 col-sm-offset-2 marginTop">
+              <label>Popular tags</label>
+              <TwoLevelPieChart data={popularTags(this.props.filteredData)}/>
+            </div>
+            <div className="col-sm-6 col-sm-offset-2 marginTop">
+              <label>Popular founding years</label>
+              <TwoLevelPieChart data={yearByYear(this.props.filteredData)}/>
+            </div>
+            <div className="col-sm-6 col-sm-offset-2 marginTop">
+              <label>Startup stages </label>
+              <TwoLevelPieChart data={popularStages(this.props.filteredData)}/>
+            </div>
+          </div>
+          :
+          <div>
+            <h3>The filter is too strict, I don't have anything to show</h3>
+          </div>
 
-          <TwoLevelPieChart data={yearByYear(this.props.filteredData)}/>
-        </div>
+        }
       </div>
     );
   }

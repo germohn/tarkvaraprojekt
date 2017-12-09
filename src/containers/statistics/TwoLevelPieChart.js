@@ -8,9 +8,8 @@ export const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const {
     cx, cy, midAngle, outerRadius,
-    fill, payload, value
+    fill, payload, value, percent
   } = props;
-  /* eslint-enable */
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
@@ -24,11 +23,17 @@ export const renderActiveShape = (props) => {
   return (
     <g>
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{payload.name} ( {value} )
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">
+        {payload.name} ( {value} = {(percent * 100).toFixed(2)}% )
       </text>
+      {/*<text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">*/}
+      {/*{`(Rate ${(percent * 100).toFixed(2)}%)`}*/}
+      {/*</text>*/}
     </g>
   );
 };
+
+/* eslint-enable */
 
 class TwoLevelPieChart extends React.Component {
   constructor(props) {
@@ -38,7 +43,7 @@ class TwoLevelPieChart extends React.Component {
 
   render() {
     return (
-      <PieChart width={700} height={300}>
+      <PieChart cx={400} cy={150} width={800} height={300}>
         <Pie
           label={renderActiveShape}
           data={this.props.data}
