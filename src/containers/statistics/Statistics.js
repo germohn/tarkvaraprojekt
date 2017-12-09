@@ -220,7 +220,7 @@ class Statistics extends React.Component {
           </div>
           :
           <div>
-            <h3>The filter is too strict, I don't have anything to show</h3>
+            <h3>The filter is too strict, I don’t have anything to show</h3>
           </div>
 
         }
