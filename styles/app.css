@@ -253,12 +253,16 @@ th > .fa-sort-asc, .fa-sort-desc {
 }
 
 .navBarContainer {
-    margin-top: 0.5em;
+    margin-top: 1.5em;
     margin-bottom: 1em;
 }
 
-.logoContainer {
+.cardLogoContainer {
     height: 8em;
+}
+
+.tableLogoContainer{
+    width: 6em;
 }
 
 .descriptionContainer {

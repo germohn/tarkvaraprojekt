@@ -19,7 +19,8 @@ class CompanyRow extends React.Component {
           <table>
             <tbody>
             <tr>
-              <td rowSpan="2"><Logo url={this.props.company.logo100x100} view="tableView"/></td>
+              <td rowSpan="2" className="tableLogoContainer">
+                <Logo url={this.props.company.logo100x100} view="tableView"/></td>
               <td>
                 <table>
                   <tbody>
