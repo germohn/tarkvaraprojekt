@@ -77,12 +77,6 @@ describe('CompanyRow', () => {
     (wrapper.find('article')).simulate('click');
     expect(wrapper.state().showModal).to.be.true;
   });
-  it('Testing if the modal closed when clicking on close button ', () => {
-    const wrapper = shallow(<CompanyCard company={mockCompany}/>);
-    wrapper.setState({showModal: true});
-    (wrapper.find('Button')).simulate('click');
-    expect(wrapper.state().showModal).to.be.false;
-  });
 it('Testing the companycard to localeString if funding existing', () => {
     const wrapper = shallow(<CompanyCard company={comp}/>);
     expect(wrapper).to.exist;
