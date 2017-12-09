@@ -77,7 +77,7 @@ const popularTags = (data) => {
   const sorted = entries.sort((a, b) => {
     return a[1] - b[1];
   });
-  // const top10 = sorted.reverse().slice(0, 10);
+  const top10 = sorted.reverse().slice(0, 10);
   let othersCount = 0;
   const res = [];
   sorted.forEach(([key, val], i) => {
