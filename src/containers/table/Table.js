@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import R from 'ramda';
 import CompanyRow from '../../components/table/CompanyRow';
 import Buttons from '../../components/table/Buttons';
 
@@ -17,7 +16,7 @@ class TableView extends React.Component {
   }
 
   showMore(e) {
-    let newLimit = R.clone(this.state.showCount) + 20;
+    let newLimit = this.state.showCount + 20;
     this.setState({showCount: newLimit});
   }
 

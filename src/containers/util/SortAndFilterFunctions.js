@@ -36,11 +36,10 @@ export const changeNumOrder = (array, sortBy, order) => {
   }
 };
 
-
 export const filterCompanies = (companies, stages, tags) => {
-  if (stages.length <= 0 && tags.length <= 0) {
+  if (stages.length == 0 && tags.length == 0) {
     return companies;
-  } else if (stages.length <= 0 && !(tags.length <= 0)) {
+  } else if (stages.length == 0 && tags.length > 0) {
     let comps = [];
     tags.forEach((tag) => {
       companies.forEach((comp) => {
@@ -50,7 +49,7 @@ export const filterCompanies = (companies, stages, tags) => {
       });
     });
     return R.uniq(comps);
-  } else if (!(stages.length <= 0) && tags.length <= 0) {
+  } else if (stages.length > 0 && tags.length == 0) {
     let comps = [];
     stages.forEach((stage) => {
       companies.forEach((comp) => {
@@ -60,7 +59,7 @@ export const filterCompanies = (companies, stages, tags) => {
       });
     });
     return R.uniq(comps);
-  } else if (!(stages.length <= 0) && !(tags.length <= 0)) {
+  } else {
     let comps = [];
     stages.forEach((stage) => {
       tags.forEach((tag) => {

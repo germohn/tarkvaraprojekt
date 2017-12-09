@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Modal} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import Logo from '../shared/Logo';
 import {getSubstring} from '../../containers/util/OtherFunctions';
 
@@ -21,7 +21,7 @@ class CompanyCard extends React.Component {
     this.setState({showModal: true});
   }
 
-  joinList(elems) {
+  joinFoundersToList(elems) {
     if (!elems) return '';
     let names = [];
     elems.map((founder) =>
@@ -38,7 +38,7 @@ class CompanyCard extends React.Component {
             <div className="row">
             </div>
             <div className="row">
-              <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3 logoContainer">
+              <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3 cardLogoContainer">
                 <Logo url={this.props.company.logo100x100} view="cardView"/>
               </div>
               <div className="col-lg-9 col-xs-9 col-sm-9 col-md-9">
@@ -102,7 +102,7 @@ class CompanyCard extends React.Component {
             </div>
             <div className="row">
               <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 founders">
-                {this.joinList(this.props.company.founders)}
+                {this.joinFoundersToList(this.props.company.founders)}
               </div>
             </div>
             <div className="row">
@@ -130,9 +130,6 @@ class CompanyCard extends React.Component {
             </div>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button class='closeButton' onClick={(e) => this.close(e)}>Close</Button>
-        </Modal.Footer>
       </Modal>
     );
   }
@@ -140,7 +137,7 @@ class CompanyCard extends React.Component {
   render() {
     return (
       <article onClick={(e) => this.open()} className="companyCard">
-        <div className="logoContainer">
+        <div className="cardLogoContainer">
           <Logo url={this.props.company.logo100x100} view="cardView"/>
         </div>
         <p className='companyName'>{this.props.company.name}</p>

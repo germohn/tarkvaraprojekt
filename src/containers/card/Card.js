@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CompanyCard from '../../components/card/CompanyCard';
 import Buttons from '../../components/table/Buttons';
-import R from 'ramda';
 
 
 class CardView extends React.Component {
@@ -16,7 +15,7 @@ class CardView extends React.Component {
   }
 
   showMore(e) {
-    let newLimit = R.clone(this.state.showCount) + 20;
+    let newLimit = this.state.showCount + 20;
     this.setState({showCount: newLimit});
   }
 

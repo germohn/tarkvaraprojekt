@@ -7,11 +7,7 @@ const Logo = (props) => {
       return (<img id="defaultIcon" src='../styles/img/no-image-icon-23494.jpg'
                    alt="logo"/>);
     } else {
-      if (props.view == 'cardView') {
-        return (<img id="cardLogo" src={props.url} alt="logo"/>);
-      } else{
-        return (<img id="tableLogo" src={props.url} alt="logo"/>);
-      }
+      return (<img id={props.view == 'cardView' ? 'cardLogo' : 'tableLogo'} src={props.url} alt="logo"/>);
     }
   }
 };
