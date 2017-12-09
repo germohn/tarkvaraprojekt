@@ -1,4 +1,4 @@
-import {changeOrder, filterCompanies, changeNumOrder} from '../../../src/containers/util/SortAndFilterFunctions';
+import {changeNumOrder, changeOrder, filterCompanies} from '../../../src/containers/util/SortAndFilterFunctions';
 
 describe('Testing changeOrder function, sorting by name ', () => {
   const descendingData = [
@@ -96,7 +96,7 @@ describe('Testing changeNumOrder, employees, founded and funding', () => {
   const comp3 ={slug: 'sportlyzer', name: 'Sportlyzer', employees: 7, foundedOn: '2009-07-09', funding: 1059231};
   const comp4 ={slug: 'smartly-3', name: 'Smartly.sg', employees: 5, foundedOn: '2014-01-01', funding: 69744};
   const comp5 ={slug: 'zerply', name: 'Zerply', employees: 3, foundedOn: '2010-04-30', funding: 700000};
-  const comp6 ={slug: 'comp1', name: 'comp1', employees: undefined, foundedOn: '2010-04-30', funding: undefined};
+  const comp6 = {slug: 'comp1', name: 'comp1', employees: undefined, foundedOn: '2010-04-30', funding: undefined};
   const descendingDataEmployees = [comp1, comp2, comp3, comp4, comp5];
   const ascendingDataEmployees = [comp5, comp4, comp3, comp2, comp1];
   const descendingDataFounded =[comp4, comp5, comp3, comp1, comp2];

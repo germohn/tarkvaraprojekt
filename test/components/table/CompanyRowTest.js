@@ -28,9 +28,9 @@ describe('CompanyRow', () => {
     'established': false,
     'closed': false
   };
-    it('renders ComapnyRow', () => {
-          expect(shallow(<CompanyRow company={mockCompany}/>)).to.exist;
-      });
+  it('renders ComapnyRow', () => {
+    expect(shallow(<CompanyRow company={mockCompany}/>)).to.exist;
+  });
 });
 
 

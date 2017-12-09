@@ -10,7 +10,10 @@ describe('Statistics tests', () => {
     {name: 'Huntloc', employees: 4, funding: 5300, tags: ['tag5', 'tag6'], foundedOn: '2002-10-20'}
   ];
   it('Testing calculate function', () => {
-    expect(calculate(allData)).to.eql({totalFunding: 443300, totalEmployees: 118, averageFunding: 73883,
-      averageEmployees: 20, noOfUndefinedEmployees: 0, noOfUndefinedFunding: 0});
+    expect(calculate(allData)).to.eql({
+      totalFunding: 443300, totalEmployees: 118, averageFunding: 73883,
+      averageEmployees: 20, noOfUndefinedEmployees: 0, noOfUndefinedFunding: 0,
+      count: 6, averageFounders: NaN, totalFounders: 0
+    });
   });
 });

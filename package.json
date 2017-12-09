@@ -8,7 +8,7 @@
     "react": "^15.4.2",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.4.2",
-    "recharts": "^1.0.0-beta.1"
+    "recharts": "1.0.0-beta.1"
   },
   "devDependencies": {
     "babel-core": "6.17.0",
@@ -27,6 +27,7 @@
     "eslint-plugin-import": "2.0.1",
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "file-loader": "^1.1.5",
     "jsdom": "11.5.1",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",

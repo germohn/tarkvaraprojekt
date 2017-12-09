@@ -261,10 +261,23 @@ th > .fa-sort-asc, .fa-sort-desc {
     height: 8em;
 }
 
-.tableLogoContainer{
+.tableLogoContainer {
     width: 6em;
 }
 
 .descriptionContainer {
     height: 5em;
+}
+.rotated {
+    transform: rotate(45deg);
+}
+
+.radar {
+    position: absolute;
+    display: block;
+    /*margin: auto;*/
+}
+
+.marginTop {
+    margin-top: 5em;
 }

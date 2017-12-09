@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Pie, PieChart, Sector} from 'recharts';
+import {Pie, PieChart} from 'recharts';
 
 /* eslint-disable */
 export const renderActiveShape = (props) => {
+  // console.log(props)
   const RADIAN = Math.PI / 180;
   const {
-    cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-    fill, payload, percent, value
+    cx, cy, midAngle, outerRadius,
+    fill, payload, value, percent
   } = props;
-  /* eslint-enable */
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
@@ -22,67 +22,39 @@ export const renderActiveShape = (props) => {
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{value}</text>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
-        fill={fill}
-      />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{payload.name}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">
+        {payload.name} ( {value} = {(percent * 100).toFixed(2)}% )
       </text>
+      {/*<text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">*/}
+      {/*{`(Rate ${(percent * 100).toFixed(2)}%)`}*/}
+      {/*</text>*/}
     </g>
   );
 };
 
+/* eslint-enable */
+
 class TwoLevelPieChart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeIndex: 0,
-      // data: this.props.data
-    };
-    this.onPieEnter = this.onPieEnter.bind(this);
-  }
-
-
-  onPieEnter(data, index) {
-    this.setState({
-      activeIndex: index,
-    });
   }
 
 
   render() {
     return (
-      <PieChart width={700} height={300}>
+      <PieChart cx={400} cy={150} width={800} height={300}>
         <Pie
-          activeIndex={this.state.activeIndex}
-          activeShape={renderActiveShape}
+          label={renderActiveShape}
           data={this.props.data}
 
           innerRadius={70}
           outerRadius={95}
           fill="#8884d8"
-          onMouseEnter={this.onPieEnter}
           dataKey={'value'}
+          isAnimationActive={false}
         />
+
       </PieChart>
     );
   }
