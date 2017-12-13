@@ -12,7 +12,8 @@ const App = () => {
       <div className="funderbeam">
         <p id="funderbeamLink">Powered by</p>
         <a href="https://markets.funderbeam.com" target="_blank">
-        <img id="funderbeamLogo" src='../../styles/img/funderbeam2.png'
+        <img id="funderbeamLogo"
+             src="https://raw.githubusercontent.com/germohn/tarkvaraprojekt/master/styles/img/funderbeam2.png"
              alt="logo"/>
         </a>
       </div>
