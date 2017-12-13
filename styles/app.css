@@ -118,6 +118,7 @@ div {
     border-radius: 0.5em;
     width: calc(25% - 2em);
     padding: 1em;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -261,23 +262,34 @@ th > .fa-sort-asc, .fa-sort-desc {
     height: 8em;
 }
 
-.tableLogoContainer {
+.tableLogoContainer{
     width: 6em;
 }
 
 .descriptionContainer {
     height: 5em;
 }
-.rotated {
-    transform: rotate(45deg);
+
+.clickable {
+    cursor: pointer;
 }
 
-.radar {
-    position: absolute;
-    display: block;
-    /*margin: auto;*/
+#funderbeamLogo {
+    height: 1.2em;
 }
 
-.marginTop {
-    margin-top: 5em;
+#funderbeamLink {
+    margin-left: 0.5em;
+    color: #ED1879;
+}
+
+.company{
+    padding-left: 1em;
+}
+
+.funderbeam{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+
 }
