@@ -34,7 +34,7 @@ class CompanyCard extends React.Component {
         <div className="funding">
           <p>Funding:</p>
           <p>
-            {this.props.company.funding ? this.props.company.funding.toLocaleString('en-US') + ' $' : '-'}
+            {this.props.company.funding ? this.props.company.funding.toLocaleString('en-US') + ' $' : 'unknown'}
           </p>
         </div>
         <a>Read more...</a>

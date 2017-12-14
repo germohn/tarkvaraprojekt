@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CompanyRow from '../../components/table/CompanyRow';
-import Buttons from '../../components/table/Buttons';
+import Buttons from '../../components/shared/Buttons';
 
 
 class TableView extends React.Component {

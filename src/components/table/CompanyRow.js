@@ -49,12 +49,12 @@ class CompanyRow extends React.Component {
           </table>
         </td>
         <td className="clickable">{this.props.company.funding ?
-          this.props.company.funding.toLocaleString('en-US') + ' $' : '-'}</td>
-        <td className="clickable">{this.props.company.employees ? this.props.company.employees : '-'}</td>
-        <td className="clickable">{this.props.company.tags ? this.props.company.tags.join(', ') : '-'}</td>
-        <td className="clickable">{this.props.company.stageName}</td>
+          this.props.company.funding.toLocaleString('en-US') + ' $' : 'unknown'}</td>
+        <td className="clickable">{this.props.company.employees ? this.props.company.employees : 'unknown'}</td>
+        <td className="clickable">{this.props.company.tags ? this.props.company.tags.join(', ') : 'unknown'}</td>
+        <td className="clickable">{this.props.company.stageName ? this.props.company.stageName : 'unknown'}</td>
         <td className="clickable">{this.props.company.foundedOn ?
-          this.props.company.foundedOn.substring(0, 4) : '-'}</td>
+          this.props.company.foundedOn.substring(0, 4) : 'unknown'}</td>
         <CompanyModal company={this.props.company} show={this.state.showModal} close = {this.close}/>
       </tr>
     );

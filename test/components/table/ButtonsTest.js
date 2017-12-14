@@ -1,5 +1,5 @@
 import React from 'react';
-import Buttons from '../../../src/components/table/Buttons';
+import Buttons from '../../../src/components/shared/Buttons';
 import {shallow} from 'enzyme';
 
 describe('Testing if Buttons are rendered', () => {
