@@ -80,6 +80,10 @@ div {
     cursor: pointer;
 }
 
+.chip:hover, .selectedChip:hover, .selectedStage:hover, .selectedTag:hover {
+    box-shadow: 0.1em 0.1em 0.5em #888888;
+}
+
 .selectedChip {
     display: inline-block;
     padding: 0.2em;
@@ -288,6 +292,10 @@ th > .fa-sort-asc, .fa-sort-desc {
     margin-right: 0.5em;
     color: #ED1879;
     margin-bottom: -1em;
+}
+
+.company-row:hover {
+    box-shadow: 0.1em 0.1em 0.7em #888888;
 }
 
 .company{
