@@ -4,8 +4,9 @@ import R from 'ramda';
 import TableView from '../table/Table';
 import {changeNumOrder, changeOrder, filterCompanies} from '../util/SortAndFilterFunctions';
 import CardView from '../card/Card';
-import {Button, Nav, NavItem, Panel} from 'react-bootstrap';
+import {Button, Nav, NavItem} from 'react-bootstrap';
 import Statistics from '../statistics/Statistics';
+import DropDown from './Dropdown';
 
 
 class HeaderBlock extends React.Component {
@@ -44,6 +45,13 @@ class HeaderBlock extends React.Component {
     this.hadleStageClick = this.handleStageClick.bind(this);
     this.renderSelectedTagsandStages = this.renderSelectedTagsandStages.bind(this);
     this.rederClearFilterButton = this.renderClearFilterButton.bind(this);
+    this.renderStageComponent = this.renderStageComponent.bind(this);
+    this.renderTagsComponent = this.renderTagsComponent.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
+  }
+
+  closeFilter() {
+    this.setState({filterOpen: false});
   }
 
   onClearFiltering(e) {
@@ -256,18 +264,8 @@ class HeaderBlock extends React.Component {
             Filter by Tags and Stages
           </Button>
           {this.renderClearFilterButton()}
-          <Panel className="dropdown" collapsible expanded={this.state.filterOpen}>
-            <div className="row">
-              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 tagsContainer">
-                {this.renderTagsComponent()}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 stagesContainer">
-                {this.renderStageComponent()}
-              </div>
-            </div>
-          </Panel>
+          <DropDown renderTags={this.renderTagsComponent} renderStages={this.renderStageComponent}
+                    show={this.state.filterOpen} close={this.closeFilter}/>
         </div>
       </div>
     );
