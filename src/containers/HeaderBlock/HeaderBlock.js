@@ -265,7 +265,7 @@ class HeaderBlock extends React.Component {
           </Button>
           {this.renderClearFilterButton()}
           <DropDown renderTags={this.renderTagsComponent} renderStages={this.renderStageComponent}
-                    show={this.state.filterOpen} close={this.closeFilter}/>
+                    show={this.state.filterOpen} close={this.closeFilter} outsideClickIgnoreClass={'filterButton'} />
         </div>
       </div>
     );
