@@ -166,6 +166,9 @@ class HeaderBlock extends React.Component {
   }
 
   updateSearch(event) {
+    if (this.state.activeTab == '3') {
+      this.setState({activeTab: '2'});
+    }
     this.setState({
       search: event.target.value.substr(0, 25)
     });
@@ -250,7 +253,8 @@ class HeaderBlock extends React.Component {
       <div className="row filterContainer">
         <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3 leftAligned">
           <div className="input-group">
-            <input type="text" className="form-control" placeholder="Search by name..." value={this.state.search}
+            <input type="text" className="form-control"
+                   placeholder="Search by name..." value={this.state.search}
                    onChange={(event) => this.updateSearch(event)}/>
             <span className="input-group-btn">
                 <button className="btn btn-default" type="button">
@@ -265,7 +269,7 @@ class HeaderBlock extends React.Component {
           </Button>
           {this.renderClearFilterButton()}
           <DropDown renderTags={this.renderTagsComponent} renderStages={this.renderStageComponent}
-                    show={this.state.filterOpen} close={this.closeFilter} outsideClickIgnoreClass={'filterButton'} />
+                    show={this.state.filterOpen} close={this.closeFilter} outsideClickIgnoreClass={'filterButton'}/>
         </div>
       </div>
     );
