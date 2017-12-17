@@ -4,8 +4,9 @@ import R from 'ramda';
 import TableView from '../table/Table';
 import {changeNumOrder, changeOrder, filterCompanies} from '../util/SortAndFilterFunctions';
 import CardView from '../card/Card';
-import {Button, Nav, NavItem, Panel} from 'react-bootstrap';
+import {Button, Nav, NavItem} from 'react-bootstrap';
 import Statistics from '../statistics/Statistics';
+import DropDown from './Dropdown';
 
 
 class HeaderBlock extends React.Component {
@@ -44,6 +45,13 @@ class HeaderBlock extends React.Component {
     this.hadleStageClick = this.handleStageClick.bind(this);
     this.renderSelectedTagsandStages = this.renderSelectedTagsandStages.bind(this);
     this.rederClearFilterButton = this.renderClearFilterButton.bind(this);
+    this.renderStageComponent = this.renderStageComponent.bind(this);
+    this.renderTagsComponent = this.renderTagsComponent.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
+  }
+
+  closeFilter() {
+    this.setState({filterOpen: false});
   }
 
   onClearFiltering(e) {
@@ -158,6 +166,9 @@ class HeaderBlock extends React.Component {
   }
 
   updateSearch(event) {
+    if (this.state.activeTab == '3') {
+      this.setState({activeTab: '2'});
+    }
     this.setState({
       search: event.target.value.substr(0, 25)
     });
@@ -242,7 +253,8 @@ class HeaderBlock extends React.Component {
       <div className="row filterContainer">
         <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3 leftAligned">
           <div className="input-group">
-            <input type="text" className="form-control" placeholder="Search by name..." value={this.state.search}
+            <input type="text" className="form-control"
+                   placeholder="Search by name..." value={this.state.search}
                    onChange={(event) => this.updateSearch(event)}/>
             <span className="input-group-btn">
                 <button className="btn btn-default" type="button">
@@ -256,18 +268,8 @@ class HeaderBlock extends React.Component {
             Filter by Tags and Stages
           </Button>
           {this.renderClearFilterButton()}
-          <Panel className="dropdown" collapsible expanded={this.state.filterOpen}>
-            <div className="row">
-              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 tagsContainer">
-                {this.renderTagsComponent()}
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 stagesContainer">
-                {this.renderStageComponent()}
-              </div>
-            </div>
-          </Panel>
+          <DropDown renderTags={this.renderTagsComponent} renderStages={this.renderStageComponent}
+                    show={this.state.filterOpen} close={this.closeFilter} outsideClickIgnoreClass={'filterButton'}/>
         </div>
       </div>
     );

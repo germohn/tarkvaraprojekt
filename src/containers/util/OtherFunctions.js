@@ -7,3 +7,12 @@ export const getSubstring = (input) => {
   const end = substring.lastIndexOf(' ');
   return input.substring(0, end) + '...';
 };
+
+export const joinFoundersToList = (elems) => {
+  if (!elems) return '';
+  let names = [];
+  elems.map((founder) =>
+    names.push(founder.name)
+  );
+  return names.join('  |  ');
+};

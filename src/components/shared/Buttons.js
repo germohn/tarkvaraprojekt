@@ -10,11 +10,12 @@ const Buttons = (props) => {
           <button className="showMore" type="button" onClick={(e) => props.showMore(e)}>Show more</button>
           <button className="showAll" type="button" onClick={(e) => props.showAll(e)}>Show all</button>
         </div>);
+    } else if (props.length==0) {
+      return(
+        <p>The filter is too strict, I don’t have anything to show</p>
+      );
     } else {
-      return (
-        <div>
-          <p>No more results to show...</p>
-        </div>);
+      return ( null );
     }
   }
 };

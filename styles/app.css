@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     font-family: Helvetica;
+    margin-top: 2em;
 }
 
 th {
@@ -12,7 +13,6 @@ th {
     font-size: 1.4em;
     color: white;
     height: 3em;
-    cursor: pointer;
 }
 
 .table > thead > tr > th, .table > tbody > tr > td {
@@ -79,6 +79,10 @@ div {
     cursor: pointer;
 }
 
+.chip:hover, .selectedChip:hover, .selectedStage:hover, .selectedTag:hover {
+    box-shadow: 0.1em 0.1em 0.5em #888888;
+}
+
 .selectedChip {
     display: inline-block;
     padding: 0.2em;
@@ -118,6 +122,11 @@ div {
     border-radius: 0.5em;
     width: calc(25% - 2em);
     padding: 1em;
+    cursor: pointer;
+}
+
+.companyCard:hover {
+    box-shadow: 0.1em 0.1em 0.5em #888888;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -261,23 +270,44 @@ th > .fa-sort-asc, .fa-sort-desc {
     height: 8em;
 }
 
-.tableLogoContainer {
+.modalLogoContainer {
+    height: 8em;
+    margin-bottom: 1em;
+}
+
+.tableLogoContainer{
     width: 6em;
 }
 
 .descriptionContainer {
     height: 5em;
 }
-.rotated {
-    transform: rotate(45deg);
+
+.clickable {
+    cursor: pointer;
 }
 
-.radar {
-    position: absolute;
-    display: block;
-    /*margin: auto;*/
+#funderbeamLogo {
+    height: 4em;
 }
 
-.marginTop {
-    margin-top: 5em;
+#funderbeamLink {
+    font-size: 1.2em;
+    margin-right: 0.5em;
+    color: #ED1879;
+    margin-bottom: -1em;
+}
+
+.company-row:hover {
+    box-shadow: 0.1em 0.1em 0.7em #888888;
+}
+
+.company{
+    padding-left: 1em;
+}
+
+.funderbeam{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
 }

@@ -6,12 +6,16 @@ import HeaderBlock from './HeaderBlock/HeaderBlock';
 const App = () => {
   return (
     <div className="app">
-      <div className="app-header">
-        <h1>Funderbeam data</h1>
-      </div>
-
       <div className="container">
         <HeaderBlock data={mockData} tags={getTags(mockData)} stages={getStages(mockData)}/>
+      </div>
+      <div className="funderbeam">
+        <p id="funderbeamLink">Powered by</p>
+        <a href="https://markets.funderbeam.com" target="_blank">
+          <img id="funderbeamLogo"
+               src="https://raw.githubusercontent.com/germohn/tarkvaraprojekt/master/styles/img/funderbeam2.png"
+               alt="funderbeam"/>
+        </a>
       </div>
     </div>
   );

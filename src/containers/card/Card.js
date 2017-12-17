@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CompanyCard from '../../components/card/CompanyCard';
-import Buttons from '../../components/table/Buttons';
+import Buttons from '../../components/shared/Buttons';
 
 
 class CardView extends React.Component {

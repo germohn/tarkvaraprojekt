@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CompanyRow from '../../components/table/CompanyRow';
-import Buttons from '../../components/table/Buttons';
+import Buttons from '../../components/shared/Buttons';
 
 
 class TableView extends React.Component {
@@ -33,16 +33,16 @@ class TableView extends React.Component {
             <table className="table">
               <thead>
               <tr>
-                <th id='companyCol' onClick={(e) => this.props.handleNameClick(e)}>Company
-                  {this.props.renderArrow('name')}</th>
-                <th id='fundingCol' onClick={(e) => this.props.handleSortingClick(e, 'funding')}>Funding
-                  {this.props.renderArrow('funding')}</th>
-                <th id='employeesCol' onClick={(e) => this.props.handleSortingClick(e, 'employees')}>Employees
-                  {this.props.renderArrow('employees')}</th>
-                <th id='tagsCol'>Tags</th>
-                <th id='stageCol'>Stage</th>
-                <th id='foundedCol' onClick={(e) => this.props.handleSortingClick(e, 'foundedOn')}>Founded
-                  {this.props.renderArrow('foundedOn')}</th>
+                <th className="clickable" id='companyCol' onClick={(e) => this.props.handleNameClick(e)}>
+                  Company{this.props.renderArrow('name')}</th>
+                <th className="clickable" id='fundingCol' onClick={(e) => this.props.handleSortingClick(e, 'funding')}>
+                  Funding {this.props.renderArrow('funding')}</th>
+                <th className="clickable" id='employeesCol' onClick={(e) =>
+                  this.props.handleSortingClick(e, 'employees')}>Employees{this.props.renderArrow('employees')}</th>
+                <th className="clickable" id='tagsCol'>Tags</th>
+                <th className="clickable" id='stageCol'>Stage</th>
+                <th className="clickable" id='foundedCol' onClick={(e) =>
+                  this.props.handleSortingClick(e, 'foundedOn')}>Founded {this.props.renderArrow('foundedOn')}</th>
               </tr>
               </thead>
               <tbody>
