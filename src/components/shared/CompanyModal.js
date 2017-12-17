@@ -87,7 +87,7 @@ const CompanyModal = (props) => {
               return (
                 <div key={investor.name} className="col-lg-3 col-xs-3 col-sm-3 col-md-3 investor col-centered">
                   <div className="row">
-                    <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+                    <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 modalLogoContainer">
                       <Logo url={investor.logo100x100} view="cardView"/>
                     </div>
                   </div>
