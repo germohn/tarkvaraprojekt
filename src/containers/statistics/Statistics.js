@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TwoLevelPieChart from './TwoLevelPieChart';
-import TwoLevelRadarChart from './TwoLevelRadarChart';
+import {Chart} from 'react-google-charts';
 
 /* eslint-disable no-unused-vars */
 export const calculate = (data) => {
@@ -45,21 +44,19 @@ const yearByYear = (data) => {
   data.forEach((comp) => {
     const date = comp.foundedOn;
     if (date) {
-      obj[date.substring(0, 4)] = (obj[date.substring(0, 4)] || 0) + 1;
+      if (parseInt(date.substring(0, 4)) > 2007) {
+        obj[date.substring(0, 4)] = (obj[date.substring(0, 4)] || 0) + 1;
+      } else {
+        obj['Earlier'] = (obj['Earlier'] || 0) + 1;
+      }
     } else {
       obj['Unknown'] = (obj['Unknown'] || 0) + 1;
     }
   });
   const entries = Object.entries(obj);
-  const res = [];
-  let entriesCount = entries.length;
+  const res = [['year', 'value']];
   entries.forEach(([year, value]) => {
-    if (entriesCount > 10) {
-      if (value >= data.length * 0.03)
-        res.push({name: year, value: value});
-    } else {
-      res.push({name: year, value: value});
-    }
+    res.push([year, value]);
   });
   return res;
 };
@@ -77,13 +74,15 @@ const popularTags = (data) => {
   const sorted = entries.sort((a, b) => {
     return a[1] - b[1];
   });
-  const top10 = sorted.reverse().slice(0, 10);
+  sorted.reverse();
+  let total = 0;
+  sorted.forEach(([tag, count]) => total += count);
   let othersCount = 0;
-  const res = [];
-  sorted.forEach(([key, val], i) => {
-    i < 10 ? res.push({name: key, value: val}) : othersCount += val;
+  const res = [['tag', 'value']];
+  sorted.forEach(([key, val]) => {
+    val / total > 0.05 ? res.push([key, val]) : othersCount += val;
   });
-  res.push(({name: 'others', value: othersCount}));
+  res.push(['others', othersCount]);
   return res;
 };
 
@@ -94,13 +93,13 @@ const popularStages = (data) => {
       stages[comp.stageName] = (stages[comp.stageName] || 0) + 1;
     }
   });
-  const res = [];
+  const res = [['stage', 'value']];
   const entries = Object.entries(stages);
   const sorted = entries.sort((a, b) => {
     return a[1] - b[1];
   });
   sorted.forEach(([key, val]) => {
-    res.push({name: key, value: val});
+    res.push([key, val]);
   });
   return res;
 };
@@ -201,21 +200,51 @@ class Statistics extends React.Component {
         </table>
 
         {this.props.filteredData.length > 0 ?
-          <div>
-            <div className="col-sm-6 col-sm-offset-3 ">
-              <TwoLevelRadarChart data={getRadarChartData(allChartData, filteredChartData)}/>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 col-xs-6 col-sm-6 col-md-6">
+                <div>
+                  <Chart
+                    chartType="PieChart"
+                    data={(popularTags(this.props.filteredData))}
+                    options={{'title': 'Popular Tags', 'is3D': true}}
+                    graph_id="DonutChart1"
+                    width="100%"
+                    height="400px"
+                    legend_toggle
+                  />
+                </div>
+              </div>
+              <div className="col-lg-6 col-xs-6 col-sm-6 col-md-6">
+                <div>
+                  <Chart
+                    chartType="PieChart"
+                    data={(yearByYear(this.props.filteredData))}
+                    options={{'title': 'Popular Foundation Years', 'is3D': true}}
+                    graph_id="DonutChart2"
+                    width="100%"
+                    height="400px"
+                    legend_toggle
+                  />
+                </div>
+              </div>
             </div>
-            <div className="col-sm-6 col-sm-offset-2 marginTop">
-              <label>Popular tags</label>
-              <TwoLevelPieChart data={popularTags(this.props.filteredData)}/>
-            </div>
-            <div className="col-sm-6 col-sm-offset-2 marginTop">
-              <label>Popular founding years</label>
-              <TwoLevelPieChart data={yearByYear(this.props.filteredData)}/>
-            </div>
-            <div className="col-sm-6 col-sm-offset-2 marginTop">
-              <label>Startup stages </label>
-              <TwoLevelPieChart data={popularStages(this.props.filteredData)}/>
+            <div className="row">
+              <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3">
+              </div>
+              <div className="col-lg-6 col-xs-6 col-sm-6 col-md-6">
+                <div>
+                  <Chart
+                    chartType="PieChart"
+                    data={(popularStages(this.props.filteredData))}
+                    options={{'title': 'Popular Stages', 'is3D': true}}
+                    graph_id="DonutChart3"
+                    width="100%"
+                    height="400px"
+                    legend_toggle
+                  />
+                </div>
+              </div>
             </div>
           </div>
           :
