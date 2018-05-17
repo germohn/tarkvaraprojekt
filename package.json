@@ -3,13 +3,14 @@
   "version": "0.0.1",
   "description": "",
   "dependencies": {
-    "prop-types": "^15.6.0",
+    "clean": "^4.0.2",
+    "prop-types": "^15.6.1",
     "ramda": "^0.24.1",
     "react": "^15.4.2",
-    "react-bootstrap": "^0.31.3",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^15.4.2",
     "react-google-charts": "^1.5.5",
-    "react-onclickoutside": "^6.7.0",
+    "react-onclickoutside": "^6.7.1",
     "recharts": "1.0.0-beta.1"
   },
   "devDependencies": {
@@ -17,7 +18,7 @@
     "babel-eslint": "7.1.1",
     "babel-loader": "6.2.7",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.1.10",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "chai": "^3.5.0",
@@ -29,14 +30,14 @@
     "eslint-plugin-import": "2.0.1",
     "eslint-plugin-react": "6.4.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
-    "file-loader": "^1.1.5",
+    "file-loader": "^1.1.11",
     "jsdom": "11.5.1",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.0"
+    "webpack-dev-server": "^2.11.2"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js && cp index.html dist/index.html",

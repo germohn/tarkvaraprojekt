@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Panel} from 'react-bootstrap';
+import {Collapse} from 'react-bootstrap';
 import onClickOutside from 'react-onclickoutside';
 
 class DropDown extends Component {
@@ -10,18 +10,20 @@ class DropDown extends Component {
 
   render() {
     return (
-      <Panel className="dropdown" collapsible expanded={this.props.show}>
-        <div className="row">
-          <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 tagsContainer">
-            {this.props.renderTags()}
+      <Collapse className="dropdown" in={this.props.show}>
+        <div>
+          <div className="row">
+            <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 tagsContainer">
+              {this.props.renderTags()}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 stagesContainer">
+              {this.props.renderStages()}
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-lg-12 col-xs-12 col-sm-12 col-md-12 stagesContainer">
-            {this.props.renderStages()}
-          </div>
-        </div>
-      </Panel>
+      </Collapse>
     );
   }
 }

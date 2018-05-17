@@ -200,7 +200,7 @@ class HeaderBlock extends React.Component {
           <div className="col-lg-1 col-xs-1 col-sm-1 col-md-1 leftAligned">
             <h4>Tags:</h4>
           </div>
-          <div className="col-lg-11 col-xs-11 col-sm-11 col-md-11">
+          <div className="col-lg-11 col-xs-11 col-sm-11 col-md-11 ">
             {this.state.alltags.map((tag, i) => {
               let style = '';
               if (this.state.selectedTags.includes(tag)) style = 'selectedChip';
