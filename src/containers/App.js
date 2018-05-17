@@ -1,9 +1,9 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import {getStages, getTags} from './util/UniqueTagsAndStages';
 import HeaderBlock from './HeaderBlock/HeaderBlock';
 
 const App = () => {
-
   return (
     <div className="app">
       <div className="container">
