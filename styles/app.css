@@ -220,14 +220,12 @@ th > .fa-sort-asc, .fa-sort-desc {
     text-align: left;
 }
 
-#tableLogo {
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-    width: 6em;
-}
-
-#cardLogo {
-    margin-bottom: 0.5em;
+#tableLogo, #cardLogo {
+    object-fit: cover;
+    object-position: top center;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .panel-collapse {
@@ -282,6 +280,12 @@ th > .fa-sort-asc, .fa-sort-desc {
 
 .tableLogoContainer{
     width: 6em;
+}
+
+.img-div {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
 }
 
 .descriptionContainer {
