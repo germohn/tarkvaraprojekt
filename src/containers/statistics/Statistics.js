@@ -200,7 +200,7 @@ class Statistics extends React.Component {
         </table>
 
         {this.props.filteredData.length > 0 ?
-          <div className="container">
+          <div >
             <div className="row">
               <div className="col-lg-6 col-xs-6 col-sm-6 col-md-6">
                 <div>

@@ -6,10 +6,10 @@ import HeaderBlock from './HeaderBlock/HeaderBlock';
 const App = () => {
   return (
     <div className="app">
-      <div className="container">
+      <div >
         <HeaderBlock data={data} tags={getTags(data)} stages={getStages(data)}/>
       </div>
-      <div className="funderbeam">
+      <div className="fundebeamlogo">
         <p id="funderbeamLink">Powered by</p>
         <a href="https://markets.funderbeam.com" target="_blank">
           <img id="funderbeamLogo"

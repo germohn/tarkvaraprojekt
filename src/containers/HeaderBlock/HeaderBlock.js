@@ -242,7 +242,7 @@ class HeaderBlock extends React.Component {
   renderClearFilterButton() {
     if (this.state.selectedTags.length > 0 || this.state.selectedStages.length > 0) {
       return (
-        <Button className="clearFilterButton" type="button" onClick={(e) => this.onClearFiltering()}> Clear Filtering
+        <Button className="custom-btn"  onClick={(e) => this.onClearFiltering()}> Clear Filtering
         </Button>
       );
     }
@@ -256,15 +256,11 @@ class HeaderBlock extends React.Component {
             <input type="text" className="form-control"
                    placeholder="Search by name..." value={this.state.search}
                    onChange={(event) => this.updateSearch(event)}/>
-            <span className="input-group-btn">
-                <button className="btn btn-default" type="button">
-                  <i className="glyphicon glyphicon-search"></i>
-                </button>
-              </span>
+
           </div>
         </div>
         <div className="col-lg-9 col-xs-9 col-sm-9 col-md-9 leftAligned">
-          <Button className="filterButton" onClick={() => this.setState({filterOpen: !this.state.filterOpen})}>
+          <Button className="custom-btn" onClick={() => this.setState({filterOpen: !this.state.filterOpen})}>
             Filter by Tags and Stages
           </Button>
           {this.renderClearFilterButton()}
@@ -368,7 +364,7 @@ class HeaderBlock extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         {this.renderFilter()}
         {this.renderSelectedTagsandStages()}
         {this.renderNavBar()}
