@@ -1,4 +1,10 @@
-# tarkvaraprojekt
+# tarkvaraprojekt   
+   
+#    [TEST Page](https://germohn.github.io/tarkvaraprojekt/)   
+   
+## Poster: (https://drive.google.com/file/d/1KVv7oMYasywcfMI_rEtHZ934XYqlqwkk/view)   
+   
+   
 React.js component for displaying Funderbeam data   
 [Proposal](https://courses.cs.ut.ee/MTAT.03.138/2017_fall/uploads/Main/FunderbeamVisualization.pdf)
 
@@ -23,6 +29,3 @@ Application is running on [Github Pages](https://germohn.github.io/tarkvaraproje
 * commit new functionality to "feature/newFunctionality" branch and push that feature branch (git checkout -b feature/name)
 * create pull request on github page and link to issue.
 * If problems occur Contact Germo Hünerson
-
-## Peer-reviw for team DecisionRegister
-[Link to wiki-page](https://github.com/germohn/tarkvaraprojekt/wiki/Peer-review)
