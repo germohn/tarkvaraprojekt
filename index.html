@@ -15,7 +15,7 @@
   <div id="root"></div>
   <script>
     $.ajax({
-      url: '/mockData.js',
+      url: 'tarkvaraprojekt/mockData.js',
     }).done(function (data) {
       window.data = JSON.parse(data);
       var s = document.createElement('script');
@@ -23,9 +23,7 @@
       s.src = 'dist/bundle.js';
       $('head').append(s);
     });
-//  };
   </script>
- // <script src="dist/bundle.js"></script>
 </body>
 
 </html>
